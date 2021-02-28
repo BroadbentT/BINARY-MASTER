@@ -8,7 +8,7 @@
 
         BIN MASTER (BETA)
         -------------------------------------------------------
-        git clone https://github.com/BroadbentT/RAM-MASTER.git 
+        git clone https://github.com/BroadbentT/BIN-MASTER.git 
 <br>
 
 <p align="center">
