@@ -17,18 +17,18 @@
 import os
 import sys
 import time
-import getopt
-import base64
-import string
-import random
-import socket
-import hashlib
+#import getopt
+#import base64
+#import string
+#import random
+#import socket
+#import hashlib
 import os.path
 import sqlite3
-import binascii
+#import binascii
 import pyfiglet
 import datetime
-import requests
+#import requests
 import linecache
 
 from termcolor import colored
@@ -217,7 +217,14 @@ def dispMenu():
       print(colored(RBX[:COL1],colour7), end=' ')
    else:
       print(colored(RBX[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(ST,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551', end=' ')
+   
+   if "No canary found" in ST:
+      print(colored(ST,'blue'), end=' ')
+   else:
+      print(colored(ST ,colourx), end=' ')
+   
+   print('\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[1]:
       print(colored(ADDR[1],colour3), end=' ')
    else:
@@ -391,8 +398,8 @@ def options():
    print('\u2551' + "(02) BASE        (12) ARCHITECTURE (22) Read Objects (32) CreatePattern (42) GHIDRA     (52)            " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
    print('\u2551' + "(03) COUNTER     (13) INDIAN  TYPE (23) Read Section (33) Initiate File (43)            (53)            " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) DATA        (14) MAIN ADDRESS (24) Read Headers (34) Find SegFault (44)            (54)            " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) SOURCE      (15) Mode  Static (25) Read Execute (35) Disassem MAIN (45)            (55)            " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) DESTINATION (16) Mode Dynamic (26) Read DBugInf (36) Disassm  ADDR (46)            (56)            " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) SOURCE      (15) Static  Mode (25) Read Execute (35) Disassem MAIN (45)            (55)            " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) DESTINATION (16) Dynamic Mode (26) Read DBugInf (36) Disassm  ADDR (46)            (56)            " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) STACK POINT (17) Examine File (27) Read Intamix (37) Disassem FUNC (47)            (57)            " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) BASE  POINT (18) CheckSecFile (28) Read Symbols (38)               (48)            (58)            " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) BUFF OFFSET (19) ListFunction (29) Read StabDat (39)               (49)            (59) Reset      " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
@@ -444,11 +451,7 @@ Yellow  = '\e[1;93m'						# OP SYSTEM COLOUR
 Green   = '\e[0;32m'
 Reset   = '\e[0m'
 Red     = '\e[1;91m'
-dataDir = "ROGUEAGENT"						# LOCAL DIRECTORYS
-httpDir = "TRY HARDER"
-workDir = "BLACKBRIAR"
-explDir = "OUTCOME"
-powrDir = "TRY HARDER"
+localDir = "BINMASTER"						# LOCAL DIRECTORYS
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -470,21 +473,6 @@ else:
       
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
-# Details : Connect to local database
-# Modified: N/A                                                               
-# -------------------------------------------------------------------------------------
-
-if not os.path.exists(dataDir + "/RA.db"):
-   print(colored("[!] WARNING!!! - Unable to connect to database...", colour0))
-   exit(1)
-else:
-   connection = sqlite3.connect(dataDir + "/RA.db")
-   cursor = connection.cursor()
-
-# -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
 # Details : Display program banner and boot system.
@@ -492,8 +480,8 @@ else:
 # -------------------------------------------------------------------------------------
 
 command("xdotool key Alt+Shift+S; xdotool type 'TRY HARDER'; xdotool key Return")
-dispBanner("PROJECT TRY HARDER",1)
-print(colored("\t\tJ A S O N  B O U R N E  E D I T I O N",colour7,attrs=['bold']))
+dispBanner("BINARY MASTER",1)
+print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
 print("[+] Using localhost IP address " + localIP + "...")
 
@@ -505,40 +493,25 @@ print("[+] Using localhost IP address " + localIP + "...")
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-dirList = [dataDir, workDir, httpDir, explDir, powrDir]
-for x in range(0, len(dirList)):
-   if not os.path.exists(dirList[x]):
-      print("[-] Missing required files, you must run install.py first...")
+if not os.path.exists(localDir):
+   command("mkdir " + localDir)
+   if not os.path.exists("RA.db"):
+      print("[-] Missing required file, locate RA.db first...")
       exit(1)
    else:
-      print("[+] Directory " + dirList[x] + " already exists...")               
+      command("mv RA.db ./" + localDir + "/RA.db")
+else:
+   print("[+] Directory " + localDir + " already exists...")
+
+if not os.path.exists(localDir + "/RA.db"):
+   print(colored("[!] WARNING!!! - RA.db missing, unable to connect to database...", colour0))
+   exit(1)
+else:
+   connection = sqlite3.connect(localDir + "/RA.db")
+   cursor = connection.cursor()
+                  
 print("[+] Populating system variables...")
-if not os.path.exists(dataDir + "/usernames.txt"):			
-   command("touch " + dataDir + "/usernames.txt")
-   print("[+] File usernames.txt created...")
-else:
-   print("[+] File usernames.txt already exists...")       
-if not os.path.exists(dataDir + "/passwords.txt"):			
-   command("touch " + dataDir + "/passwords.txt")
-   print("[+] File passwords.txt created...")
-else:
-   print("[+] File passwords.txt already exists...")      
-if not os.path.exists(dataDir + "/hashes.txt"):			
-   command("touch " + dataDir + "/hashes.txt")
-   print("[+] File hashes.txt created...")
-else:
-   print("[+] File hashes.txt already exists...")        
-if not os.path.exists(dataDir + "/shares.txt"):
-   command("touch " + dataDir + "/shares.txt")
-   print("[+] File shares.txt created...")
-else:
-   print("[+] File shares.txt already exists...")        
-if not os.path.exists(dataDir + "/tokens.txt"):
-   command("touch " + dataDir + "/tokens.txt")
-   print("[+] File tokens.txt created...")
-else:
-   print("[+] File tokens.txt already exists...")   
-   
+
 SKEW = 0                                # TIME-SKEW SWITCH
 COL0 = 17+12				# MAX LEN COMPUTER NAME
 COL1 = 18                               # 0x0000000000000000
@@ -618,13 +591,7 @@ SRT = spacePadding(SRT, COL1)
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
 
-with open(dataDir + "/usernames.txt", "r") as read1, open(dataDir + "/hashes.txt", "r") as read2, open(dataDir + "/tokens.txt", "r") as read3, open(dataDir + "/shares.txt", "r") as read4:
-   for x in range(0, maxUser):
-      GADD[x] = read1.readline()
-      ADDR[x] = read4.readline()            
-      ADDR[x] = spacePadding(ADDR[x], COL2)         
-      GADD[x] = spacePadding(GADD[x], COL3)
-time.sleep(5)
+
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -818,11 +785,12 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '10':
-      print(colored("[*] Scanning files in directory " + powrDir + "...", colour3))
-      command("ls -la " + powrDir + " > dir.tmp")
+      print(colored("[*] Scanning files in directory " + localDir + "...", colour3))
+      command("ls -la " + localDir + " > dir.tmp")
       command("sed -i '1d' ./dir.tmp")
       command("sed -i '1d' ./dir.tmp")
       command("sed -i '1d' ./dir.tmp")
+      command("sed -i '/RA.db/d' ./dir.tmp")
       count = lineCount("dir.tmp")
         
       if count < 1:
@@ -917,8 +885,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Filename " + powrDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
-         command("chmod -x " + powrDir + "/" + FIL.rstrip(" "))
+         print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
+         command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
@@ -933,8 +901,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Filename " + powrDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
-         command("chmod +x " + powrDir + "/" + FIL.rstrip(" "))
+         print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
+         command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -949,8 +917,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining filename " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("file " + powrDir + "/" + FIL.rstrip(" ") + " > file.tmp")
+         print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
          catsFile("file.tmp")                  
          binary = linecache.getline("file.tmp", 1)
          if "ELF" in binary:
@@ -991,8 +959,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining filename " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("checksec " + powrDir + "/" + FIL.rstrip(" ") + " 2> checksec.tmp")
+         print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("checksec " + localDir + "/" + FIL.rstrip(" ") + " 2> checksec.tmp")
          parsFile("checksec.tmp")
          catsFile("checksec.tmp")
          
@@ -1039,8 +1007,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:         
-         print(colored("[*] Examining filename " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb -batch -ex 'file " + powrDir + "/" + FIL.rstrip(" ") + "' -ex 'info functions' > gadgets.tmp")
+         print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("gdb -batch -ex 'file " + localDir + "/" + FIL.rstrip(" ") + "' -ex 'info functions' > gadgets.tmp")
          parsFile("gadgets.tmp")
          catsFile("gadgets.tmp")
          command("sed -i '/0x/!d' ./gadgets.tmp")
@@ -1062,8 +1030,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:      
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("ROPgadget --binary " + powrDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
          catsFile("gadgets.tmp")         
          command("sed -i '1d' ./gadgets.tmp")
          command("sed -i '1d' ./gadgets.tmp")         
@@ -1084,8 +1052,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -f " + powrDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
          parsFile("headers.tmp")
          catsFile("headers.tmp")
          
@@ -1110,8 +1078,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -p " + powrDir + "/" + FIL.rstrip(" ") + " > objects.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -p " + localDir + "/" + FIL.rstrip(" ") + " > objects.tmp")
          catsFile("objects.tmp")
       prompt() 
    
@@ -1127,8 +1095,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -h " + powrDir + "/" + FIL.rstrip(" ") + " > sections.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -h " + localDir + "/" + FIL.rstrip(" ") + " > sections.tmp")
          catsFile("sections.tmp")
       prompt() 
    
@@ -1144,8 +1112,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -x " + powrDir + "/" + FIL.rstrip(" ") + "> all.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -x " + localDir + "/" + FIL.rstrip(" ") + "> all.tmp")
          catsFile("all.tmp")
       prompt() 
    
@@ -1161,8 +1129,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -d " + powrDir + "/" + FIL.rstrip(" ") + " > exec.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -d " + localDir + "/" + FIL.rstrip(" ") + " > exec.tmp")
          catsFile("exec.tmp")
       prompt() 
    
@@ -1178,8 +1146,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -g " + powrDir + "/" + FIL.rstrip(" ") + " > debug.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -g " + localDir + "/" + FIL.rstrip(" ") + " > debug.tmp")
          catsFile("debug.tmp")
       prompt() 
       
@@ -1195,8 +1163,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -D -S " + powrDir + "/" + FIL.rstrip(" ") + " > code.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -D -S " + localDir + "/" + FIL.rstrip(" ") + " > code.tmp")
          catsFile("code.tmp")
       prompt() 
       
@@ -1212,8 +1180,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -t " + powrDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -t " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
          catsFile("symbols.tmp")
       prompt() 
       
@@ -1229,8 +1197,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -G " + powrDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -G " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
          catsFile("symbols.tmp")
       prompt() 
       
@@ -1246,8 +1214,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining file " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -s " + powrDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
+         print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("objdump" + " -s " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
          catsFile("symbols.tmp")
       prompt() 
       
@@ -1263,8 +1231,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Editing filename " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb " + powrDir + "/" + FIL.rstrip(" "))
+         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("gdb " + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1296,8 +1264,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Running filename " + powrDir + "/" + FIL.rstrip(" ") + "...\n", colour3))
-         command("./" + powrDir + "/" + FIL.rstrip(" "))
+         print(colored("[*] Running filename " + localDir + "/" + FIL.rstrip(" ") + "...\n", colour3))
+         command("./" + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1314,10 +1282,11 @@ while True:
       else:
          print(colored("[*] Finding buffer offset...", colour3))
          offset = input("[?] Please enter segmentation fault value: ")
-         command("msf-pattern_offset -q " + offset + " > offset.tmp")
-         catsFile("offset.tmp")
-         OFF = linecache.getline("offset.tmp", 1).rstrip("\n").split(" ")[-1]
-         OFF = spacePadding(OFF, COL2)
+         if offset != "":
+            command("msf-pattern_offset -q " + offset + " > offset.tmp")
+            catsFile("offset.tmp")
+            OFF = linecache.getline("offset.tmp", 1).rstrip("\n").split(" ")[-1]
+            OFF = spacePadding(OFF, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1333,7 +1302,7 @@ while True:
       command("echo 'run' >> command.tmp")
       command("echo 'disassemble' >> command.tmp")
       command("echo 'quit' >> command.tmp")
-      command("gdb " + powrDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
+      command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1350,7 +1319,7 @@ while True:
       command("echo 'run' >> command.tmp")
       command("echo 'quit' >> command.tmp")
       command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
-      command("gdb " + powrDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
+      command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1367,7 +1336,7 @@ while True:
       command("echo 'run' >> command.tmp")
       command("echo 'disassemble /m " + function.rstrip(" ") + "' >> command.tmp")
       command("echo 'quit' >> command.tmp")
-      command("gdb " + powrDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
+      command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1382,8 +1351,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Editing filename " + powrDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("ghex " + powrDir + "/" + FIL.rstrip(" "))
+         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("ghex " + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1399,7 +1368,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Ghidra has been initiated...", colour3))          
-         command("/opt/ghidra_9.2.2_PUBLIC/ghidraRun ./analyzeHeadless ./" + powrDir + " -import " + powrDir + "/" + FIL.rstrip(" ") + " > boot.tmp 2>&1")
+         command("/opt/ghidra_9.2.2_PUBLIC/ghidraRun ./analyzeHeadless ./" + localDir + " -import " + localDir + "/" + FIL.rstrip(" ") + " > boot.tmp 2>&1")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1466,11 +1435,11 @@ while True:
       dispBanner("ROGUE AGENT",1)
       print(colored("C O P Y R I G H T  2 0 2 1  -  T E R E N C E  B R O A D B E N T",colour7,attrs=['bold']))
       print("\n------------------------------------------------------------------------------")
-      count = lineCount(dataDir + "/usernames.txt")
+      count = lineCount(localDir + "/usernames.txt")
       print("User Names :" + str(count))
-      count = lineCount(dataDir + "/passwords.txt")
+      count = lineCount(localDir + "/passwords.txt")
       print("Pass Words :" + str(count))
-      count = lineCount(dataDir + "/hashes.txt")
+      count = lineCount(localDir + "/hashes.txt")
       print("Hash Values:" + str(count))      
       prompt()      
 # Eof...
