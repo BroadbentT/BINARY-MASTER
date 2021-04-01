@@ -294,8 +294,15 @@ def dispMenu():
       print(colored(RSP,colour7), end=' ')
    else:
       print(colored(RSP,colour6), end=' ')
-#   print('\u2551', end=' ')  
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+   
+   print( '\u2551', end=' ')   
+   if OFF[:1] == "0":
+      print(colored("OFFSET  " + OFF[:5] + "     ",colour7), end=' ')
+      print('\u2551', end=' ')
+   else:
+      print(colored("OFFSET  " + OFF[:5] + "     ",colour6), end=' ')
+      print('\u2551', end=' ')
+            
    if SRT.rstrip(" ") in ADDR[6]:
       print(colored(ADDR[6],colour3), end=' ')
    else:
@@ -332,11 +339,11 @@ def dispMenu():
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
  
-   print('\u2551' + " FILE   FORMAT " + '\u2551', end=' ')
-   if COM[:5].upper() == "EMPTY":
-      print(colored(COM,colour7), end=' ')
+   print('\u2551' + " INSTR POINTER " + '\u2551', end=' ')
+   if INS[:18] == "0x0000000000000000":
+      print(colored(INS,colour7), end=' ')
    else:
-      print(colored(COM,colour6), end=' ')
+      print(colored(INS,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[9]:
       print(colored(ADDR[9],colour3), end=' ')
@@ -346,11 +353,11 @@ def dispMenu():
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')   
 
-   print('\u2551' + " ARCHITECTURES " + '\u2551', end=' ')
-   if ARC[:5] == "EMPTY":
-      print(colored(ARC,colour7), end=' ')
+   print('\u2551' + " FILE   FORMAT " + '\u2551', end=' ')
+   if COM[:5] == "EMPTY":
+      print(colored(COM,colour7), end=' ')
    else:
-      print(colored(ARC,colour6), end=' ')
+      print(colored(COM,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[10]:
       print(colored(ADDR[10],colour3), end=' ')
@@ -360,11 +367,11 @@ def dispMenu():
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')    
 
-   print('\u2551' + " INDIAN   TYPE " + '\u2551', end=' ')
-   if IND[:5] == "EMPTY":
-      print(colored(IND,colour7), end=' ')
+   print('\u2551' + " ARCHITECTURE  " + '\u2551', end=' ')
+   if ARC[:5] == "EMPTY":
+      print(colored(ARC,colour7), end=' ')
    else:
-      print(colored(IND,colour6), end=' ')
+      print(colored(ARC,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
@@ -374,12 +381,13 @@ def dispMenu():
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')    
    
-   print('\u2551' + " BUFFER OFFSET " + '\u2551', end=' ')     
-   if OFF[:1] == "0":
-      print(colored(OFF,colour7), end=' ')
+   print('\u2551' + " INDIAN   TYPE " + '\u2551', end=' ')     
+   if IND[:5] == "EMPTY":
+      print(colored(IND,colour7), end=' ')
    else:
-      print(colored(OFF,colour6), end=' ')
+      print(colored(IND,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
@@ -388,22 +396,23 @@ def dispMenu():
       else:
          print(colored(ADDR[12],colour6), end=' ')
    print('\u2551', end=' ')   
+ 
    print(colored(GADD[12],colour6), end=' ')
    print('\u2551')      
    print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u2563', end=' '); print(colored(GADD[13],colour6), end=' '); print('\u2551')
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set ARCHITECTURE (21) Read File Head (31) G.D.B.  Interface (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(02) Set BASE POINTER (12) Set INDIAN  TYPE (22) Read   Objects (32) CreatePattern 200 (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set BUFFEROFFSET (23) Read   Section (33) Initiate Filename (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) G.D.B.  Interface (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) CreatePattern 200 (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  TYPE (23) Read   Section (33) Initiate Filename (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) Set VARIABLEDATA (14) Select  Filename (24) Read   Headers (34) Find SegmentFault (44)              " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Dis-Assemble MAIN (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBug Inf (36) Dis-Assemble ADDR (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine Filename (27) Read   Intamix (37) Dis-Assemble FUNC (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(08) Set BASE POINTER (18) CheckSecFilename (28) Read   Symbols (38)                   (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Enter Buff OFFSET (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine Filename (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSecFilename (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set MAIN ADDRESS (19) DisplayFunctions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(10) Set FILE  FORMAT (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
+   print('\u2551' + "(10) Set INST POINTER (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
       print(colored(GADD[23],colour0), end=' '); print('\u2551')   
    else:
@@ -497,18 +506,18 @@ print("[+] Populating system variables...")
 SKEW = 0                                # TIME-SKEW SWITCH
 COL0 = 17+12				# MAX LEN COMPUTER NAME
 COL1 = 18                               # 0x0000000000000000
-COL2 = 45                               # MAX LEN ADDRE NAME
-COL3 = 23+33                           # MAX LEN GADD NAME
+COL2 = 45                               # MAX LEN ADDRE NAMEz
+COL3 = 23+33                            # MAX LEN GADD NAME
 
 ADDR = [" "*COL2]*maxUser		# ADDRESS VALUES
 GADD = [" "*COL3]*maxUser		# ADDRESS NAMES
 
-RE = "RELRO   Unknown   "
-ST = "STACK   Unknown   "
-FO = "FORTIFY Unknown   "
-NX = "NX      Unknown   "
-PI = "PIE     Unknown   "
-RW = "RWX     Unknown   "
+RE = spacePadding("RELRO   Unknown", COL1)
+ST = spacePadding("STACK   Unknown", COL1)
+FO = spacePadding("FORTIFY Unknown", COL1)
+NX = spacePadding("NX      Unknown", COL1)
+PI = spacePadding("PIE     Unknown", COL1)
+RW = spacePadding("RWX     Unknown", COL1)
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -549,6 +558,7 @@ IND = linecache.getline("ascii.tmp", 11).rstrip("\n")
 ARC = linecache.getline("ascii.tmp", 12).rstrip("\n")
 FIL = linecache.getline("ascii.tmp", 13).rstrip("\n")
 SRT = linecache.getline("ascii.tmp", 14).rstrip("\n")
+INS = "0x0000000000000000"
 
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
@@ -564,6 +574,7 @@ IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
 FIL = spacePadding(FIL, COL0)
 SRT = spacePadding(SRT, COL1)
+INS = spacePadding(INS, COL1)
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -745,7 +756,24 @@ while True:
          SRT = spacePadding(SRT,COL1)
       else:
             SRT = BAK
-      prompt()    
+      prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Instruction Pointer.
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='13':
+      BAK = INS
+      INS = input("[?] Please enter instruction pointer value: ")
+      if INS != "":
+         INS = spacePadding(INS,COL1)
+      else:
+            INS = BAK
+      prompt()   
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -755,7 +783,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='10':
+   if selection =='11':
       BAK = COM
       COM = input("[?] Please enter file format: ")
       if COM != "":
@@ -772,7 +800,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='11':
+   if selection =='12':
       BAK = ARC
       ARC = input("[?] Please enter file architecture: ")
       if ARC != "":
@@ -789,31 +817,14 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='12':
+   if selection =='13':
       BAK = IND
       IND = input("[?] Please enter indian value: ")
       if IND != "":
          IND = spacePadding(IND,COL1)
       else:
             IND = BAK
-      prompt() 
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - OFFSET 
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='13':
-      BAK = OFF
-      OFF = input("[?] Please enter offset value: ")
-      if OFF != "":
-         OFF = spacePadding(OFF,COL1)
-      else:
-            OFF = BAK
-      prompt()   
+      prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1267,12 +1278,31 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
+# Details : Menu option selected - OFFSET 
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='35':
+      BAK = OFF
+      OFF = input("[?] Please enter offset value: ")
+      if OFF != "":
+         OFF = spacePadding(OFF,COL1)
+      else:
+            OFF = BAK
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
 # Details : Menu option selected - Disassemble MAIN.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '35':
-      command("echo 'break main' > command.tmp")
+   if selection == '36':
+      command("echo 'set disassembly-flavor intel' > command.tmp")
+      command("echo 'set follow-fork-mode child' >> command.tmp")
+      command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
       command("echo 'disassemble' >> command.tmp")
       command("echo 'quit' >> command.tmp")
@@ -1287,10 +1317,12 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '36':
+   if selection == '37':
       address = input("[?] Please enter address value: ")
       if address != "":
-         command("echo 'break main' > command.tmp")
+         command("echo 'set disassembly-flavor intel' > command.tmp")
+         command("echo 'set follow-fork-mode child' >> command.tmp")      
+         command("echo 'break main' >> command.tmp")
          command("echo 'run' >> command.tmp")
          command("echo 'quit' >> command.tmp")
          command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
@@ -1305,9 +1337,11 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '37':
+   if selection == '38':
       function = input("[?] Please enter function name: ")
-      command("echo 'break main' > command.tmp")
+      command("echo 'set disassembly-flavor intel' > command.tmp")
+      command("echo 'set follow-fork-mode child' >> command.tmp")      
+      command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
       command("echo 'disassemble /m " + function.rstrip(" ") + "' >> command.tmp")
       command("echo 'quit' >> command.tmp")
@@ -1357,29 +1391,30 @@ while True:
    if selection == '59':       
       print(colored("[*] Resting program...", colour3)) 
       
-      RAX = spacePadding("0x0000000000000000",COL1)
-      COM = spacePadding("EMPTY",COL1)
-      RBX = spacePadding("0x0000000000000000",COL1)
-      RCX = spacePadding("0x0000000000000000",COL1)
-      RDX = spacePadding("0x0000000000000000",COL1)
-      RSI = spacePadding("0x0000000000000000",COL1)
-      RDI = spacePadding("0x0000000000000000",COL1)
-      RSP = spacePadding("0x0000000000000000",COL1)
-      RBP = spacePadding("0x0000000000000000",COL1)
-      OFF = spacePadding("0",COL1)
-      IND = spacePadding("EMPTY",COL1)
-      ARC = spacePadding("EMPTY",COL1)
-      FIL = spacePadding("UNKNOWN",COL0)
-      SRT = spacePadding("0x0000000000000000",COL1)      
+      RAX = spacePadding("0x0000000000000000", COL1)
+      COM = spacePadding("EMPTY", COL1)
+      RBX = spacePadding("0x0000000000000000", COL1)
+      RCX = spacePadding("0x0000000000000000", COL1)
+      RDX = spacePadding("0x0000000000000000", COL1)
+      RSI = spacePadding("0x0000000000000000", COL1)
+      RDI = spacePadding("0x0000000000000000", COL1)
+      RSP = spacePadding("0x0000000000000000", COL1)
+      RBP = spacePadding("0x0000000000000000", COL1)
+      OFF = spacePadding("0", COL1)
+      IND = spacePadding("EMPTY", COL1)
+      ARC = spacePadding("EMPTY", COL1)
+      FIL = spacePadding("UNKNOWN", COL0)
+      SRT = spacePadding("0x0000000000000000", COL1)
+      INS = spacePadding("0x0000000000000000", COL1)
       saveParams()
       ADDR = [" "*COL2]*maxUser
       GADD = [" "*COL3]*maxUser
-      RE = " RELRO Unknown    "
-      ST = " STACK Unknown    "
-      FO = " FORTIFY Unknown  "
-      NX = " NX Unknown       "
-      PI = " PIE Unknown      "
-      RW = " RWX Unknown      "
+      RE = spacePadding("RELRO   Unknown", COL1)
+      ST = spacePadding("STACK   Unknown", COL1)
+      FO = spacePadding("FORTIFY Unknown", COL1)
+      NX = spacePadding("NX      Unknown", COL1)
+      PI = spacePadding("PIE     Unknown", COL1)
+      RW = spacePadding("RWX     Unknown", COL1)
       colourx = "yellow"
       prompt()
       
