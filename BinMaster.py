@@ -187,23 +187,23 @@ def clearClutter():
    return
 
 def dispMenu():
-   print('\u2554' + ('\u2550')*16 + '\u2566' + ('\u2550')*41 + '\u2566' + ('\u2550')*45 + '\u2566' + ('\u2550')*58 + '\u2557')
+   print('\u2554' + ('\u2550')*15 + '\u2566' + ('\u2550')*41 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
    print('\u2551' + " TIME   ", end =' ')
-   print(colored(LTM[:6],colour6), end=' ')
+   print(colored(LTM[:5],colour6), end=' ')
    print('\u2551' + " " + colored("FILENAME",colour5), end=' ')   
    if COM[:7] == "UNKNOWN":
       print(colored(FIL.upper(),colour7), end=' ')
    else:
       print(colored(FIL.upper(),colour6), end=' ')      
-   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTION",colour5) + (" ")*16 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*15 + colored("GADGETS",colour5) + (" ")*29 + '\u2551') 
-   print('\u2560' + ('\u2550')*16 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*20 + '\u256C' + ('\u2550')*58 + '\u2563')   
+   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTION",colour5) + (" ")*18 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*13 + colored("GADGETS",colour5) + (" ")*31 + '\u2551') 
+   print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
    
-   print('\u2551' + " RAX/EAX/AX/AH  " + '\u2551', end=' ')
+   print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX[:COL1],colour7), end=' ')
    else:
       print(colored(RAX[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(RE,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + colored(RE,colourx) + " " +  '\u2551', end=' ')
    if SRT in ADDR[0]:
       print(colored(ADDR[0],colour3), end=' ')
    else:
@@ -212,14 +212,14 @@ def dispMenu():
    print(colored(GADD[0],colour6), end=' ')
    print('\u2551')      
    
-   print('\u2551' + " RBX/EBX/BX/BH  " + '\u2551', end=' ')
+   print('\u2551' + " RBX/EBX/BX/BH " + '\u2551', end=' ')
    if RBX[:18] == "0x0000000000000000":
       print(colored(RBX[:COL1],colour7), end=' ')
    else:
       print(colored(RBX[:COL1],colour6), end=' ')
    print('\u2551', end=' ')
    
-   if "No canary found" in ST:
+   if "No Canary" in ST:
       print(colored(ST,'blue'), end=' ')
    else:
       print(colored(ST ,colourx), end=' ')
@@ -233,12 +233,12 @@ def dispMenu():
    print(colored(GADD[1],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RCX/ECX/CX/CH  " + '\u2551', end=' ')
+   print('\u2551' + " RCX/ECX/CX/CH " + '\u2551', end=' ')
    if RCX[:18] == "0x0000000000000000":
       print(colored(RCX[:COL1],colour7), end=' ')
    else:
       print(colored(RCX[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(FO,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + colored(FO,colourx) + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[2]:
       print(colored(ADDR[2],colour3), end=' ')
    else:
@@ -247,12 +247,12 @@ def dispMenu():
    print(colored(GADD[2],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RDX/EDX/DX/DH  " + '\u2551', end=' ')
+   print('\u2551' + " RDX/EDX/DX/DH " + '\u2551', end=' ')
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
    else:
       print(colored(RDX,colour6), end=' ')
-   print('\u2551' + " " + colored(NX,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + colored(NX,colourx) + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[3]:
       print(colored(ADDR[3],colour3), end=' ')
    else:
@@ -261,12 +261,12 @@ def dispMenu():
    print(colored(GADD[3],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RSI/ESI/SI/SIL " + '\u2551', end=' ')
+   print('\u2551' + " RSI/ESI/SI/SL " + '\u2551', end=' ')
    if RSI[:18] == "0x0000000000000000":
       print(colored(RSI[:COL1],colour7), end=' ')
    else:
       print(colored(RSI[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(PI,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + colored(PI,colourx) + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[4]:
       print(colored(ADDR[4],colour3), end=' ')
    else:
@@ -275,12 +275,12 @@ def dispMenu():
    print(colored(GADD[4],colour6), end=' ')
    print('\u2551')   
    
-   print('\u2551' + " RDI/EDI/DI/DIL " + '\u2551', end=' ')
+   print('\u2551' + " RDI/EDI/DI/DL " + '\u2551', end=' ')
    if RDI[:18] == "0x0000000000000000":
       print(colored(RDI,colour7), end=' ')
    else:
       print(colored(RDI,colour6), end=' ')
-   print('\u2551' + " " + colored(RW,colourx) + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + colored(RW,colourx) + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[5]:
       print(colored(ADDR[5],colour3), end=' ')
    else:
@@ -289,13 +289,13 @@ def dispMenu():
    print(colored(GADD[5],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RSP/ESP/SP/SPL " + '\u2551', end=' ')
+   print('\u2551' + " RSP/ESP/SP/SL " + '\u2551', end=' ')
    if RSP[:18] == "0x0000000000000000":
       print(colored(RSP,colour7), end=' ')
    else:
       print(colored(RSP,colour6), end=' ')
 #   print('\u2551', end=' ')  
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[6]:
       print(colored(ADDR[6],colour3), end=' ')
    else:
@@ -304,12 +304,12 @@ def dispMenu():
    print(colored(GADD[6],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RBP/EBP/BP/BPL " + '\u2551', end=' ')
+   print('\u2551' + " RBP/EBP/BP/BL " + '\u2551', end=' ')
    if RBP[:18] == "0x0000000000000000":
       print(colored(RBP,colour7), end=' ')
    else:
       print(colored(RBP,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[7]:
       print(colored(ADDR[7],colour3), end=' ')
    else:
@@ -318,26 +318,26 @@ def dispMenu():
    print(colored(GADD[7],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " BUFF    OFFSET " + '\u2551', end=' ')
-   if OFF[:1] == "0":
-      print(colored(OFF,colour7), end=' ')
+   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
+   if SRT[:18] == "0x0000000000000000":
+      print(colored(SRT,colour7), end=' ')
    else:
-      print(colored(OFF,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+      print(colored(SRT,colour6), end=' ')
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[8]:
       print(colored(ADDR[8],colour3), end=' ')
    else:
-      print(colored(ADDR[8],colour6), end=' ')   
+      print(colored(ADDR[8],colour6), end=' ')      
    print('\u2551', end=' ')   
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
  
-   print('\u2551' + " FILE    FORMAT " + '\u2551', end=' ')
+   print('\u2551' + " FILE   FORMAT " + '\u2551', end=' ')
    if COM[:5].upper() == "EMPTY":
       print(colored(COM,colour7), end=' ')
    else:
       print(colored(COM,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[9]:
       print(colored(ADDR[9],colour3), end=' ')
    else:
@@ -346,12 +346,12 @@ def dispMenu():
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')   
 
-   print('\u2551' + " ARCHITECTURE   " + '\u2551', end=' ')
+   print('\u2551' + " ARCHITECTURES " + '\u2551', end=' ')
    if ARC[:5] == "EMPTY":
       print(colored(ARC,colour7), end=' ')
    else:
       print(colored(ARC,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[10]:
       print(colored(ADDR[10],colour3), end=' ')
    else:
@@ -360,55 +360,55 @@ def dispMenu():
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')    
 
-   print('\u2551' + " INDIAN    TYPE " + '\u2551', end=' ')
+   print('\u2551' + " INDIAN   TYPE " + '\u2551', end=' ')
    if IND[:5] == "EMPTY":
       print(colored(IND,colour7), end=' ')
    else:
       print(colored(IND,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
    else:
       print(colored(ADDR[11],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[11],colour6), end=' ')
-   print('\u2551') 
+   print('\u2551')    
    
-   print('\u2551' + " MAIN   ADDRESS " + '\u2551', end=' ')
-   if SRT[:18] == "0x0000000000000000":
-      print(colored(SRT,colour7), end=' ')
+   print('\u2551' + " BUFFER OFFSET " + '\u2551', end=' ')     
+   if OFF[:1] == "0":
+      print(colored(OFF,colour7), end=' ')
    else:
-      print(colored(SRT,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')		#   
+      print(colored(OFF,colour6), end=' ')
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
       if ADDR[13] != "":
-         print(colored(ADDR[12],colour0), end=' ')                  
+         print(colored(ADDR[12],colour0), end=' ')   
       else:
-         print(colored(ADDR[12],colour6), end=' ')            
+         print(colored(ADDR[12],colour6), end=' ')
    print('\u2551', end=' ')   
    print(colored(GADD[12],colour6), end=' ')
    print('\u2551')      
-   print('\u2560' + ('\u2550')*16 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*20 + '\u2563', end=' '); print(colored(GADD[13],colour6), end=' '); print('\u2551')
+   print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u2563', end=' '); print(colored(GADD[13],colour6), end=' '); print('\u2551')
    return
    
 def options():
-   print('\u2551' + "(01) Set ACCUMULATOR (11) Set FILE  FORMAT (21) Read FileHead (31) G.D.B.  Interface (41) HEX Editor    " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(02) Set BASE  VALUE (12) Set ARCHITECTURE (22) Read  Objects (32) CreatePattern 200 (42) GHIDRA        " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(03) Set COUNTER VAL (13) Set INDIAN  TYPE (23) Read  Section (33) Initiate Filename (43)               " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
-   print('\u2551' + "(04) Set DATA  VALUE (14) Set MAIN ADDRESS (24) Read  Headers (34) Find SegmentFault (44)               " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE  VAL (15) Use Static  Mode (25) Read  Execute (35) Dis-Assemble MAIN (45)               " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTINATION (16) Use Dynamic Mode (26) Read DeBugInf (36) Dis-Assemble ADDR (46)               " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(07) Set STACK POINT (17) Examine Filename (27) Read  Intamix (37) Dis-Assemble FUNC (47)               " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(08) Set BASE  POINT (18) CheckSecFilename (28) Read  Symbols (38)                   (48)               " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(09) Set BUFF OFFSET (19) DisplayFunctions (29) Read  StabDat (39)                   (59) Reset         " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(10) Set FILE   NAME (20) List All Gadgets (30) Read  HexForm (40)                   (60) Exit          " + '\u2551', end=' ')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set ARCHITECTURE (21) Read File Head (31) G.D.B.  Interface (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set INDIAN  TYPE (22) Read   Objects (32) CreatePattern 200 (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set BUFFEROFFSET (23) Read   Section (33) Initiate Filename (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
+   print('\u2551' + "(04) Set VARIABLEDATA (14) Select  Filename (24) Read   Headers (34) Find SegmentFault (44)              " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Dis-Assemble MAIN (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBug Inf (36) Dis-Assemble ADDR (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine Filename (27) Read   Intamix (37) Dis-Assemble FUNC (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSecFilename (28) Read   Symbols (38)                   (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(09) Set MAIN ADDRESS (19) DisplayFunctions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(10) Set FILE  FORMAT (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
       print(colored(GADD[23],colour0), end=' '); print('\u2551')   
    else:
       print(colored(GADD[23],colour6), end=' '); print('\u2551')
-   print('\u255A' + ('\u2550')*104 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
+   print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
 # -------------------------------------------------------------------------------------
@@ -452,24 +452,6 @@ Green   = '\e[0;32m'
 Reset   = '\e[0m'
 Red     = '\e[1;91m'
 localDir = "BINMASTER"						# LOCAL DIRECTORYS
-
-# -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
-# Details : Check the local interface specified above is up.
-# Modified: N/A                                                               
-# -------------------------------------------------------------------------------------
-
-os.system("ifconfig -a | grep -E -o '.{0,5}: flag.{0,5}' | grep -E -o '.{0,5}:' > up.tmp")
-with open("up.tmp","r") as localInterface:
-   up = localInterface.readlines()
-if netWork not in str(up):
-   print(colored("\n[!] WARNING!!! - You need to specify your local network interface on line 760 of the rogue-agent.py file...", colour0))
-   exit(1)
-else:
-   os.system("ip a s " + netWork + " | awk '/inet/ {print $2}' > localIP.tmp")
-   localIP, null = linecache.getline("localIP.tmp", 1).rstrip("\n").split("/")
       
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -483,7 +465,7 @@ command("xdotool key Alt+Shift+S; xdotool type 'TRY HARDER'; xdotool key Return"
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
-print("[+] Using localhost IP address " + localIP + "...")
+
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -515,18 +497,18 @@ print("[+] Populating system variables...")
 SKEW = 0                                # TIME-SKEW SWITCH
 COL0 = 17+12				# MAX LEN COMPUTER NAME
 COL1 = 18                               # 0x0000000000000000
-COL2 = 43                               # MAX LEN ADDRE NAME
+COL2 = 45                               # MAX LEN ADDRE NAME
 COL3 = 23+33                            # MAX LEN GADD NAME
 
 ADDR = [" "*COL2]*maxUser		# ADDRESS VALUES
 GADD = [" "*COL3]*maxUser		# ADDRESS NAMES
 
-RE = " RELRO Unknown    "
-ST = " STACK Unknown    "
-FO = " FORTIFY Unknown  "
-NX = " NX Unknown       "
-PI = " PIE Unknown      "
-RW = " RWX Unknown      "
+RE = "RELRO   Unknown   "
+ST = "STACK   Unknown   "
+FO = "FORTIFY Unknown   "
+NX = "NX      Unknown   "
+PI = "PIE     Unknown   "
+RW = "RWX     Unknown   "
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -582,16 +564,6 @@ IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
 FIL = spacePadding(FIL, COL0)
 SRT = spacePadding(SRT, COL1)
-
-# -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
-# Details : Check other files for stored variables.
-# Modified: N/A                                                               	
-# -------------------------------------------------------------------------------------
-
-
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -762,18 +734,86 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - OFFSET 
+# Details : Menu option selected - Start value
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='9':
+      BAK = SRT
+      SRT = input("[?] Please enter start value: ")
+      if SRT != "":
+         SRT = spacePadding(SRT,COL1)
+      else:
+            SRT = BAK
+      prompt()    
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - File format. 
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='10':
+      BAK = COM
+      COM = input("[?] Please enter file format: ")
+      if COM != "":
+         COM = spacePadding(COM,COL1)
+      else:
+            COM = BAK
+      prompt()        
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Architecture
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='11':
+      BAK = ARC
+      ARC = input("[?] Please enter file architecture: ")
+      if ARC != "":
+         ARC = spacePadding(ARC,COL1)
+      else:
+            ARC = BAK
+      prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Indian value.
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='12':
+      BAK = IND
+      IND = input("[?] Please enter indian value: ")
+      if IND != "":
+         IND = spacePadding(IND,COL1)
+      else:
+            IND = BAK
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - OFFSET 
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='13':
       BAK = OFF
       OFF = input("[?] Please enter offset value: ")
       if OFF != "":
          OFF = spacePadding(OFF,COL1)
       else:
             OFF = BAK
-      prompt() 
+      prompt()   
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -784,8 +824,8 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '10':
-      print(colored("[*] Scanning files in directory " + localDir + "...", colour3))
+   if selection == '14':
+      print(colored("[*] Scanning files in " + localDir + " directory...", colour3))
       command("ls -la " + localDir + " > dir.tmp")
       command("sed -i '1d' ./dir.tmp")
       command("sed -i '1d' ./dir.tmp")
@@ -803,74 +843,6 @@ while True:
             FIL = spacePadding(FIL,COL0)
          else:
             FIL = BAK
-      prompt()  
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - File format. 
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='11':
-      BAK = COM
-      COM = input("[?] Please enter file format: ")
-      if COM != "":
-         COM = spacePadding(COM,COL1)
-      else:
-            COM = BAK
-      prompt()        
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - Architecture
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='12':
-      BAK = ARC
-      ARC = input("[?] Please enter file architecture: ")
-      if ARC != "":
-         ARC = spacePadding(ARC,COL1)
-      else:
-            ARC = BAK
-      prompt()  
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - Indian value.
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='13':
-      BAK = IND
-      IND = input("[?] Please enter indian value: ")
-      if IND != "":
-         IND = spacePadding(IND,COL1)
-      else:
-            IND = BAK
-      prompt() 
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - Start value
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='14':
-      BAK = SRT
-      SRT = input("[?] Please enter start value: ")
-      if SRT != "":
-         SRT = spacePadding(SRT,COL1)
-      else:
-            SRT = BAK
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -976,23 +948,23 @@ while True:
          for x in range(0, count):
             binary = linecache.getline("checksec.tmp", x+1)
             if "No RELRO" in binary:
-               RE = " No RELRO         "               
+               RE = "RELRO   None      "               
             if "Full RELRO" in binary:
-               RE = " Full RELRO       "               
+               RE = "RELRO   Full      "               
             if "No canary found" in binary:
-               ST = " No canary found  "               
+               ST = "STACK   No Canary "               
             if "No Fortify" in binary:
-               FO = " Fortify Disabled "               
+               FO = "Fortify Disabled  "               
             if "NX disabled" in binary:
-               NX = " NX Disabled      "
+               NX = "NX Disabled       "
             if "NX enabled" in binary:
-               NX = " NX enabled       "               
+               NX = "NX      Enabled   "               
             if "No PIE" in binary:
-               PI = " No PIE           "               
+               PI = "No PIE            "               
             if "PIE enabled" in binary:
-               PI = " PIE enabled      "              
+               PI = "PIE     Enabled   "              
             if "No RWX segments" in binary:
-               RW = " No RWX segments  "
+               RW = "No RWX Segments   "
       prompt()
                   
 # ------------------------------------------------------------------------------------- 
@@ -1033,10 +1005,12 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
          catsFile("gadgets.tmp")         
-         command("sed -i '1d' ./gadgets.tmp")
-         command("sed -i '1d' ./gadgets.tmp")         
+         command("sed -i '1d' gadgets.tmp")
+         command("sed -i '1d' gadgets.tmp")     
+         command("sed -i 's/://g' gadgets.tmp")
+         command("cat gadgets.tmp | tail -n 27 > tail.tmp")
          for x in range (0, maxUser):
-            GADD[x] = linecache.getline("gadgets.tmp", x + 1).rstrip(" ")
+            GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
             GADD[x] = spacePadding(GADD[x], COL3)
       prompt()
       
@@ -1315,11 +1289,12 @@ while True:
 
    if selection == '36':
       address = input("[?] Please enter address value: ")
-      command("echo 'break main' > command.tmp")
-      command("echo 'run' >> command.tmp")
-      command("echo 'quit' >> command.tmp")
-      command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
-      command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
+      if address != "":
+         command("echo 'break main' > command.tmp")
+         command("echo 'run' >> command.tmp")
+         command("echo 'quit' >> command.tmp")
+         command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
+         command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1369,7 +1344,7 @@ while True:
       else:
          print(colored("[*] Ghidra has been initiated...", colour3))          
          command("/opt/ghidra_9.2.2_PUBLIC/ghidraRun ./analyzeHeadless ./" + localDir + " -import " + localDir + "/" + FIL.rstrip(" ") + " > boot.tmp 2>&1")
-      prompt() 
+      prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
