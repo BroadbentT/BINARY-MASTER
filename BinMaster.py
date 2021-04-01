@@ -498,7 +498,7 @@ SKEW = 0                                # TIME-SKEW SWITCH
 COL0 = 17+12				# MAX LEN COMPUTER NAME
 COL1 = 18                               # 0x0000000000000000
 COL2 = 45                               # MAX LEN ADDRE NAME
-COL3 = 23+33                            # MAX LEN GADD NAME
+COL3 = 23+33                           # MAX LEN GADD NAME
 
 ADDR = [" "*COL2]*maxUser		# ADDRESS VALUES
 GADD = [" "*COL3]*maxUser		# ADDRESS NAMES
@@ -1005,10 +1005,10 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
          catsFile("gadgets.tmp")         
-         command("sed -i '1d' gadgets.tmp")
-         command("sed -i '1d' gadgets.tmp")     
-         command("sed -i 's/://g' gadgets.tmp")
-         command("cat gadgets.tmp | tail -n 27 > tail.tmp")
+#         command("sed -i '1d' gadgets.tmp")
+#         command("sed -i '1d' gadgets.tmp")     
+#         command("sed -i 's/://g' gadgets.tmp")
+         command("cat gadgets.tmp | tail -n 26 > tail.tmp")
          for x in range (0, maxUser):
             GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
             GADD[x] = spacePadding(GADD[x], COL3)
