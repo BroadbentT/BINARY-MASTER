@@ -17,18 +17,10 @@
 import os
 import sys
 import time
-#import getopt
-#import base64
-#import string
-#import random
-#import socket
-#import hashlib
 import os.path
 import sqlite3
-#import binascii
 import pyfiglet
 import datetime
-#import requests
 import linecache
 
 from termcolor import colored
@@ -195,7 +187,7 @@ def dispMenu():
       print(colored(FIL.upper(),colour7), end=' ')
    else:
       print(colored(FIL.upper(),colour6), end=' ')      
-   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTION",colour5) + (" ")*18 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*13 + colored("GADGETS",colour5) + (" ")*31 + '\u2551') 
+   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS",colour5) + (" ")*17 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*13 + colored("GADGETS",colour5) + (" ")*31 + '\u2551') 
    print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
    
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
@@ -217,13 +209,11 @@ def dispMenu():
       print(colored(RBX[:COL1],colour7), end=' ')
    else:
       print(colored(RBX[:COL1],colour6), end=' ')
-   print('\u2551', end=' ')
-   
+   print('\u2551', end=' ')   
    if "No Canary" in ST:
       print(colored(ST,'blue'), end=' ')
    else:
-      print(colored(ST ,colourx), end=' ')
-   
+      print(colored(ST ,colourx), end=' ')   
    print('\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[1]:
       print(colored(ADDR[1],colour3), end=' ')
@@ -287,22 +277,20 @@ def dispMenu():
       print(colored(ADDR[5],colour6), end=' ')   
    print('\u2551', end=' ')
    print(colored(GADD[5],colour6), end=' ')
-   print('\u2551')   
-  
+   print('\u2551')     
+   
    print('\u2551' + " RSP/ESP/SP/SL " + '\u2551', end=' ')
    if RSP[:18] == "0x0000000000000000":
       print(colored(RSP,colour7), end=' ')
    else:
-      print(colored(RSP,colour6), end=' ')
-   
+      print(colored(RSP,colour6), end=' ')   
    print( '\u2551', end=' ')   
    if OFF[:1] == "0":
       print(colored("OFFSET  " + OFF[:5] + "     ",colour7), end=' ')
       print('\u2551', end=' ')
    else:
       print(colored("OFFSET  " + OFF[:5] + "     ",colour6), end=' ')
-      print('\u2551', end=' ')
-            
+      print('\u2551', end=' ')            
    if SRT.rstrip(" ") in ADDR[6]:
       print(colored(ADDR[6],colour3), end=' ')
    else:
@@ -325,11 +313,11 @@ def dispMenu():
    print(colored(GADD[7],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
-   if SRT[:18] == "0x0000000000000000":
-      print(colored(SRT,colour7), end=' ')
+   print('\u2551' + " RIP/EIP/IP  * " + '\u2551', end=' ')
+   if INS[:18] == "0x0000000000000000":
+      print(colored(INS,colour7), end=' ')
    else:
-      print(colored(SRT,colour6), end=' ')
+      print(colored(INS,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[8]:
       print(colored(ADDR[8],colour3), end=' ')
@@ -339,11 +327,11 @@ def dispMenu():
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
  
-   print('\u2551' + " INSTR POINTER " + '\u2551', end=' ')
-   if INS[:18] == "0x0000000000000000":
-      print(colored(INS,colour7), end=' ')
+   print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
+   if SRT[:18] == "0x0000000000000000":
+      print(colored(SRT,colour7), end=' ')
    else:
-      print(colored(INS,colour6), end=' ')
+      print(colored(SRT,colour6), end=' ')
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[9]:
       print(colored(ADDR[9],colour3), end=' ')
@@ -386,8 +374,7 @@ def dispMenu():
       print(colored(IND,colour7), end=' ')
    else:
       print(colored(IND,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
-   
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
@@ -411,8 +398,8 @@ def options():
    print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine Filename (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSecFilename (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(09) Set MAIN ADDRESS (19) DisplayFunctions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(10) Set INST POINTER (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
+   print('\u2551' + "(09) Set INST POINTER (19) DisplayFunctions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
       print(colored(GADD[23],colour0), end=' '); print('\u2551')   
    else:
@@ -745,34 +732,34 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - Start value
+# Details : Menu option selected - Instruction Pointer.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='9':
-      BAK = SRT
-      SRT = input("[?] Please enter start value: ")
-      if SRT != "":
-         SRT = spacePadding(SRT,COL1)
+      BAK = INS
+      INS = input("[?] Please enter extended instruction pointer value: ")
+      if INS != "":
+         INS = spacePadding(INS,COL1)
       else:
-            SRT = BAK
+            INS = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - Instruction Pointer.
+# Details : Menu option selected - Start value
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='13':
-      BAK = INS
-      INS = input("[?] Please enter instruction pointer value: ")
-      if INS != "":
-         INS = spacePadding(INS,COL1)
+   if selection =='10':
+      BAK = SRT
+      SRT = input("[?] Please enter start value: ")
+      if SRT != "":
+         SRT = spacePadding(SRT,COL1)
       else:
-            INS = BAK
+            SRT = BAK
       prompt()   
       
 # ------------------------------------------------------------------------------------- 
@@ -905,8 +892,9 @@ while True:
          catsFile("file.tmp")                  
          binary = linecache.getline("file.tmp", 1)
          if "ELF" in binary:
+            COM = spacePadding("ELF", COL1)
             print("Linux binary file...")
-         if "64-bit" in binary:
+         if "64-bit" in binary: #ELF 64-bit
             ARC = "64 Bit"
             print(ARC + " architecture...")  
             ARC = spacePadding(ARC, COL1)            
@@ -1042,13 +1030,15 @@ while True:
          parsFile("headers.tmp")
          catsFile("headers.tmp")
          
-         count = lineCount("headers.tmp")
-         SRT = linecache.getline("headers.tmp", count).rstrip("\n")	# START ADDRESS
-         SRT = SRT.split(" ")[-1]
-         SRT = spacePadding(SRT, COL1)   
-         COM = linecache.getline("headers.tmp", 1).rstrip("\n")      	# FILE FORMAT
-         COM = COM.split(" ")[-1]
-         COM = spacePadding(COM, COL1)
+         with open("headers.tmp","r") as read:
+            for line in read:
+               data = line
+               if "i386:x86-64" in data:
+                  ARC = spacePadding("64 Bit", COL1)
+               if "start address" in data:
+                  SRT = spacePadding(data.split(" ")[2], COL1)
+               if "elf" in data:
+                  COM = spacePadding("ELF", COL1)
       prompt()   
    
 # ------------------------------------------------------------------------------------- 
