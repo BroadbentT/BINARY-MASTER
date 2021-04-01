@@ -1005,9 +1005,9 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
          catsFile("gadgets.tmp")         
-#         command("sed -i '1d' gadgets.tmp")
-#         command("sed -i '1d' gadgets.tmp")     
-#         command("sed -i 's/://g' gadgets.tmp")
+         command("sed -i '1d' gadgets.tmp")
+         command("sed -i '1d' gadgets.tmp")     
+         command("sed -i 's/://g' gadgets.tmp")
          command("cat gadgets.tmp | tail -n 26 > tail.tmp")
          for x in range (0, maxUser):
             GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
