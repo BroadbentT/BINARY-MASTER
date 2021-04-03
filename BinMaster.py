@@ -16,7 +16,7 @@
 
 import os
 import sys
-import time
+#import time
 import os.path
 import sqlite3
 import pyfiglet
@@ -24,6 +24,17 @@ import datetime
 import linecache
 
 from termcolor import colored
+
+colour0 = "red"			# DISPLAY COLOURS
+colour1 = "grey"
+colour2 = "cyan"
+colour3 = "blue"
+colour4 = "black"
+colour5 = "white"
+colour6 = "green"
+colour7 = "yellow"
+colourx = colour7
+colour8 = "magenta"
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -187,7 +198,7 @@ def dispMenu():
       print(colored(FIL.upper(),colour7), end=' ')
    else:
       print(colored(FIL.upper(),colour6), end=' ')      
-   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS",colour5) + (" ")*17 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*13 + colored("GADGETS",colour5) + (" ")*31 + '\u2551') 
+   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
    print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
    
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
@@ -277,19 +288,22 @@ def dispMenu():
       print(colored(ADDR[5],colour6), end=' ')   
    print('\u2551', end=' ')
    print(colored(GADD[5],colour6), end=' ')
-   print('\u2551')     
+   print('\u2551')        
    
-   print('\u2551' + " RSP/ESP/SP/SL " + '\u2551', end=' ')
+   #----
+   print('\u2551', end= ' ')
+   print(colored("RSP/ESP/SP/SL",colour2),end=' ')
+   print('\u2551', end=' ')   
    if RSP[:18] == "0x0000000000000000":
       print(colored(RSP,colour7), end=' ')
    else:
       print(colored(RSP,colour6), end=' ')   
    print( '\u2551', end=' ')   
    if OFF[:1] == "0":
-      print(colored("OFFSET  " + OFF[:5] + "     ",colour7), end=' ')
+      print(colored("OFFSET  " + OFF[:10],colour7,attrs=['bold']), end=' ')
       print('\u2551', end=' ')
    else:
-      print(colored("OFFSET  " + OFF[:5] + "     ",colour6), end=' ')
+      print(colored("OFFSET  " + OFF[:10],colour7,attrs=['bold']), end=' ')
       print('\u2551', end=' ')            
    if SRT.rstrip(" ") in ADDR[6]:
       print(colored(ADDR[6],colour3), end=' ')
@@ -298,13 +312,26 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[6],colour6), end=' ')
    print('\u2551')   
-  
-   print('\u2551' + " RBP/EBP/BP/BL " + '\u2551', end=' ')
+   
+   # ----
+   print('\u2551', end=' ')
+   print(colored("RBP/EBP/BP/BL",colour2), end=' ')
+   print('\u2551', end=' ')   
    if RBP[:18] == "0x0000000000000000":
       print(colored(RBP,colour7), end=' ')
    else:
       print(colored(RBP,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+      
+   print('\u2551',end=' ')
+   if ARC[:6] == "64 Bit":
+      print(colored("        -8 Bytes  ",colour7,attrs=['bold']), end=' ')
+   if ARC[:6] == "32 Bit":
+      print(colored("        -4 Bytes  ",colour7,attrs=['bold']), end=' ')
+   if ARC[:1] == "E":
+      print(colored("                  ",colour7,attrs=['bold']), end=' ')   
+
+   print('\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[7]:
       print(colored(ADDR[7],colour3), end=' ')
    else:
@@ -313,12 +340,27 @@ def dispMenu():
    print(colored(GADD[7],colour6), end=' ')
    print('\u2551')   
   
-   print('\u2551' + " RIP/EIP/IP  * " + '\u2551', end=' ')
+   #----
+   print('\u2551', end=' ')
+   if ARC[:1] != "0" and OFF[:1] != "0":
+      print(colored("RIP/EIP     *", colour7,attrs=['bold']), end=' ')
+   else:
+      print(colored("RIP/EIP      ", colour7,attrs=['bold']), end=' ')   
+   print( '\u2551', end=' ')
    if INS[:18] == "0x0000000000000000":
       print(colored(INS,colour7), end=' ')
    else:
-      print(colored(INS,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+      print(colored(INS,colour6), end=' ')         
+   print('\u2551', end=' ')
+   
+   if ARC[:6] == "64 Bit":
+      print(colored("        +8 Bytes  ",colour7,attrs=['bold']), end=' ')
+   if ARC[:6] == "32 Bit":
+      print(colored("        +4 Bytes  ",colour7,attrs=['bold']), end=' ')
+   if ARC[:1] == "E":
+      print(colored("                  ",colour7,attrs=['bold']), end=' ')   
+   
+   print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[8]:
       print(colored(ADDR[8],colour3), end=' ')
    else:
@@ -390,15 +432,15 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) G.D.B.  Interface (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) CreatePattern 200 (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  TYPE (23) Read   Section (33) Initiate Filename (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
-   print('\u2551' + "(04) Set VARIABLEDATA (14) Select  Filename (24) Read   Headers (34) Find SegmentFault (44)              " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Enter Buff OFFSET (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
+   print('\u2551' + "(04) Set DATALOCATION (14) Set Program Name (24) Read   Headers (34) Find SegmentFault (44)              " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
    print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine Filename (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(08) Set BASE POINTER (18) CheckSecFilename (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) DisplayFunctions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
       print(colored(GADD[23],colour0), end=' '); print('\u2551')   
@@ -431,22 +473,14 @@ else:
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-netWork = "tun0"						# LOCAL INTERFACE
-maxUser = 5000							# UNLIMITED VALUE
-colourx = "yellow"
-colour0 = "red"							# DISPLAY COLOURS
-colour1 = "grey"
-colour2 = "cyan"
-colour3 = "blue"
-colour4 = "black"
-colour5 = "white"
-colour6 = "green"
-colour7 = "yellow"
-colour8 = "magenta"
+#netWork = "tun0"						# LOCAL INTERFACE
+maxDisp = 25							# UNLIMITED VALUE
+
 Yellow  = '\e[1;93m'						# OP SYSTEM COLOUR
 Green   = '\e[0;32m'
 Reset   = '\e[0m'
 Red     = '\e[1;91m'
+
 localDir = "BINMASTER"						# LOCAL DIRECTORYS
       
 # -------------------------------------------------------------------------------------
@@ -496,8 +530,8 @@ COL1 = 18                               # 0x0000000000000000
 COL2 = 45                               # MAX LEN ADDRE NAMEz
 COL3 = 23+33                            # MAX LEN GADD NAME
 
-ADDR = [" "*COL2]*maxUser		# ADDRESS VALUES
-GADD = [" "*COL3]*maxUser		# ADDRESS NAMES
+ADDR = [" "*COL2]*maxDisp		# ADDRESS VALUES
+GADD = [" "*COL3]*maxDisp		# ADDRESS NAMES
 
 RE = spacePadding("RELRO   Unknown", COL1)
 ST = spacePadding("STACK   Unknown", COL1)
@@ -505,6 +539,9 @@ FO = spacePadding("FORTIFY Unknown", COL1)
 NX = spacePadding("NX      Unknown", COL1)
 PI = spacePadding("PIE     Unknown", COL1)
 RW = spacePadding("RWX     Unknown", COL1)
+
+funcNum = spacePadding(" ",7)
+gadgNum = spacePadding(" ",7)
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -979,12 +1016,14 @@ while True:
          print("[-] Filename not specified...")
       else:         
          print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb -batch -ex 'file " + localDir + "/" + FIL.rstrip(" ") + "' -ex 'info functions' > gadgets.tmp")
-         parsFile("gadgets.tmp")
-         catsFile("gadgets.tmp")
-         command("sed -i '/0x/!d' ./gadgets.tmp")
-         with open("gadgets.tmp", "r") as shares:
-            for x in range(0, maxUser):
+         command("gdb -batch -ex 'file " + localDir + "/" + FIL.rstrip(" ") + "' -ex 'info functions' > functions.tmp")
+         parsFile("functions.tmp")
+         catsFile("functions.tmp")
+         command("sed -i '/0x/!d' functions.tmp")
+         funcNum = str(lineCount("functions.tmp"))
+         funcNum = spacePadding(funcNum,7)
+         with open("functions.tmp", "r") as shares:
+            for x in range(0, maxDisp):
                ADDR[x] = shares.readline().rstrip(" ")
                ADDR[x] = spacePadding(ADDR[x], COL2)
       prompt()
@@ -1003,12 +1042,16 @@ while True:
       else:      
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
+         parsFile("gadgets.tmp")
          catsFile("gadgets.tmp")         
          command("sed -i '1d' gadgets.tmp")
          command("sed -i '1d' gadgets.tmp")     
          command("sed -i 's/://g' gadgets.tmp")
-         command("cat gadgets.tmp | tail -n 26 > tail.tmp")
-         for x in range (0, maxUser):
+         command("sed -i '/Unique gadgets/d' gadgets.tmp")
+         gadgNum = str(lineCount("gadgets.tmp") - 3)
+         gadgNum = spacePadding(gadgNum,7)
+         command("cat gadgets.tmp | tail -n " + str(maxDisp+1) + " > tail.tmp")
+         for x in range (0, maxDisp):
             GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
             GADD[x] = spacePadding(GADD[x], COL3)
       prompt()
@@ -1198,7 +1241,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - gdb fileName
+# Details : Menu option selected - MSF pattern create.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1206,25 +1249,13 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb " + localDir + "/" + FIL.rstrip(" "))
-      prompt()
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - MSF pattern create.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '32':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         print(colored("[*] Creating unique pattern...", colour3))          
-         command("msf-pattern_create -l 250 > pattern.tmp")
-         catsFile("pattern.tmp")
+         length = input("[?] Please input length of pattern: ")
+         if length.isdigit():
+            print(colored("[*] Creating unique pattern...", colour3))          
+            command("msf-pattern_create -l " + length + " > pattern.tmp")
+            catsFile("pattern.tmp")
+         else:
+            print("[-] Invalid value...")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1235,12 +1266,28 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '33':
+   if selection == '32':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Running filename " + localDir + "/" + FIL.rstrip(" ") + "...\n", colour3))
          command("./" + localDir + "/" + FIL.rstrip(" "))
+      prompt()
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - gdb fileName
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '33':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("gdb " + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1258,7 +1305,7 @@ while True:
          print(colored("[*] Finding buffer offset...", colour3))
          offset = input("[?] Please enter segmentation fault value: ")
          if offset != "":
-            command("msf-pattern_offset -q " + offset + " > offset.tmp")
+            command("msf-pattern_offset -l " + length + " -q " + offset + " > offset.tmp")
             catsFile("offset.tmp")
             OFF = linecache.getline("offset.tmp", 1).rstrip("\n").split(" ")[-1]
             OFF = spacePadding(OFF, COL1)
@@ -1276,6 +1323,7 @@ while True:
       BAK = OFF
       OFF = input("[?] Please enter offset value: ")
       if OFF != "":
+         OFF = OFF + " Bytes"
          OFF = spacePadding(OFF,COL1)
       else:
             OFF = BAK
@@ -1397,8 +1445,8 @@ while True:
       SRT = spacePadding("0x0000000000000000", COL1)
       INS = spacePadding("0x0000000000000000", COL1)
       saveParams()
-      ADDR = [" "*COL2]*maxUser
-      GADD = [" "*COL3]*maxUser
+      ADDR = [" "*COL2]*maxDisp
+      GADD = [" "*COL3]*maxDisp
       RE = spacePadding("RELRO   Unknown", COL1)
       ST = spacePadding("STACK   Unknown", COL1)
       FO = spacePadding("FORTIFY Unknown", COL1)
