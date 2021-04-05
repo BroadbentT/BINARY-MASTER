@@ -1287,7 +1287,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb " + localDir + "/" + FIL.rstrip(" "))
+         command("gdb -q " + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
