@@ -54,13 +54,9 @@ def parsFile(variable):
    return      
       
 def lineCount(variable):
-   command("cat " + variable + " | wc -m > count1.tmp")
-   count = (linecache.getline("count1.tmp", 1).rstrip("\n"))
-   if count == 0:
-      return int(count)
-   else:
-      command("cat " + variable + " | wc -l > count2.tmp")
-      count = (linecache.getline("count2.tmp", 1).rstrip("\n"))
+   command("cat " + variable + " | wc -l > counter.tmp")
+   with open("counter.tmp","r") as counter:
+      count = counter.readline()
    return int(count)
 
 def spacePadding(variable,value):
@@ -139,8 +135,8 @@ def saveParams():
    return     
    
 def catsFile(variable):
-   count = lineCount(variable)
-   if count > 0:
+   counter = lineCount(variable)
+   if counter > 0:
       command("echo '" + Green + "'")
       command("cat " + variable)
       command("echo '" + Reset + "'")
@@ -223,8 +219,13 @@ def dispMenu():
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
    else:
-      print(colored(RDX,colour6), end=' ')
-   print('\u2551' + " " + colored(NX,colourx) + " " +  '\u2551', end=' ')
+      print(colored(RDX,colour6), end=' ')      
+   print('\u2551', end =' ')      
+   if "NX      Disabled" in NX:
+      print(colored(NX,'blue'), end=' ')
+   else:
+      print(colored(NX,colourx), end=' ')      
+   print('\u2551', end=' ')      
    if SRT.rstrip(" ") in ADDR[3]:
       print(colored(ADDR[3],colour3), end=' ')
    else:
@@ -251,8 +252,13 @@ def dispMenu():
    if RDI[:18] == "0x0000000000000000":
       print(colored(RDI,colour7), end=' ')
    else:
-      print(colored(RDI,colour6), end=' ')
-   print('\u2551' + " " + colored(RW,colourx) + " " +  '\u2551', end=' ')
+      print(colored(RDI,colour6), end=' ')   
+   print('\u2551', end =' ')      
+   if "RWX     Segments" in RW:
+      print(colored(RW,'blue'), end=' ')
+   else:
+      print(colored(RW,colourx), end=' ')      
+   print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[5]:
       print(colored(ADDR[5],colour3), end=' ')
    else:
@@ -408,7 +414,7 @@ def options():
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
    print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Exploit  Code" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
@@ -967,21 +973,30 @@ while True:
             if "No RELRO" in binary:
                RE = "RELRO   None      "               
             if "Full RELRO" in binary:
-               RE = "RELRO   Full      "               
+               RE = "RELRO   Full      " 
+            if "Partial RELRO" in binary:
+               RE = "RELRO   Partial   "
+               
             if "No canary found" in binary:
-               ST = "STACK   No Canary "               
+               ST = "STACK   No Canary "   
+                           
             if "No Fortify" in binary:
-               FO = "Fortify Disabled  "               
+               FO = "Fortify Disabled  " 
+                             
             if "NX disabled" in binary:
-               NX = "NX Disabled       "
+               NX = "NX      Disabled  "
             if "NX enabled" in binary:
-               NX = "NX      Enabled   "               
+               NX = "NX      Enabled   "   
+                           
             if "No PIE" in binary:
-               PI = "No PIE            "               
+               PI = "No      PIE       "               
             if "PIE enabled" in binary:
-               PI = "PIE     Enabled   "              
+               PI = "PIE     Enabled   "      
+                       
             if "No RWX segments" in binary:
-               RW = "No RWX Segments   "
+               RW = "RWX     NoSegments"
+            if "Has RWX segments" in binary:
+               RW = "RWX     Segments  "
       prompt()
                   
 # ------------------------------------------------------------------------------------- 
@@ -999,10 +1014,10 @@ while True:
          print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("gdb -batch -ex 'file " + localDir + "/" + FIL.rstrip(" ") + "' -ex 'info functions' > functions.tmp")
          parsFile("functions.tmp")
-         catsFile("functions.tmp")
-         command("sed -i '/0x/!d' functions.tmp")
-         funcNum = str(lineCount("functions.tmp"))
-         funcNum = spacePadding(funcNum,7)
+         catsFile("functions.tmp")        
+         command("sed -i '/0x/!d' functions.tmp")         
+         funcNum = lineCount("functions.tmp")
+         funcNum = spacePadding(str(funcNum),7)
          with open("functions.tmp", "r") as shares:
             for x in range(0, maxDisp):
                ADDR[x] = shares.readline().rstrip(" ")
@@ -1029,8 +1044,8 @@ while True:
          command("sed -i '1d' gadgets.tmp")     
          command("sed -i 's/://g' gadgets.tmp")
          command("sed -i '/Unique gadgets/d' gadgets.tmp")
-         gadgNum = str(lineCount("gadgets.tmp") - 3)
-         gadgNum = spacePadding(gadgNum,7)
+         gadgNum = lineCount("gadgets.tmp")
+         gadgNum = spacePadding(str(gadgNum),7)
          command("cat gadgets.tmp | tail -n " + str(maxDisp+1) + " > tail.tmp")
          for x in range (0, maxDisp):
             GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
@@ -1557,6 +1572,7 @@ while True:
       PI = spacePadding("PIE     Unknown", COL1)
       RW = spacePadding("RWX     Unknown", COL1)
       colourx = "yellow"
+      MODE = " "
       prompt()
       
 # ------------------------------------------------------------------------------------- 
