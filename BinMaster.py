@@ -414,10 +414,10 @@ def options():
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
    print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Exploit  Code" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset        " + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
       print(colored(GADD[23],colour0), end=' '); print('\u2551')   
@@ -1047,6 +1047,7 @@ while True:
          gadgNum = lineCount("gadgets.tmp")
          gadgNum = spacePadding(str(gadgNum),7)
          command("cat gadgets.tmp | tail -n " + str(maxDisp+1) + " > tail.tmp")
+         command("mv gadgets.tmp gadgets.txt")
          for x in range (0, maxDisp):
             GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
             GADD[x] = spacePadding(GADD[x], COL3)
@@ -1534,6 +1535,7 @@ while True:
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
+         print(colored("[*] Python exploit template sucessfully created...", colour3))
          prompt()         
       
 # ------------------------------------------------------------------------------------- 
