@@ -350,7 +350,9 @@ def dispMenu():
       print(colored(SRT,colour7), end=' ')
    else:
       print(colored(SRT,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+      
+   print('\u2551' + " " + "="*COL1 + " " +  '\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[9]:
       print(colored(ADDR[9],colour3), end=' ')
    else:
@@ -359,11 +361,11 @@ def dispMenu():
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')   
 
-   print('\u2551' + " FILE   FORMAT " + '\u2551', end=' ')
-   if COM[:5] == "EMPTY":
-      print(colored(COM,colour7), end=' ')
+   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
+   if MAIN[:18] == "0x0000000000000000":
+      print(colored(MAIN,colour7), end=' ')
    else:
-      print(colored(COM,colour6), end=' ')
+      print(colored(MAIN,colour6), end=' ')
    print('\u2551', end=' ')
    
    if MODE == "MODE    Unknown    ":
@@ -393,8 +395,18 @@ def dispMenu():
          print(colored(BIT[:8],colour6), end=' ')
       else:
          print(colored(BIT[:8],colour7), end=' ')
-      
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+   
+   print('\u2551', end=' ')
+   if COM[:1] != " ":
+      print(colored("FORMAT ",colour6), end=' ')
+      print(colored(COM[:3],colour6), end=' ')
+      print("      ", end=' ')
+   else:
+      print(colored("FORMAT ",colour7), end=' ')
+      print(colored(COM[:3],colour7), end=' ')   
+      print("      ", end=' ')
+   print('\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
    else:
@@ -408,7 +420,13 @@ def dispMenu():
       print(colored(IND,colour7), end=' ')
    else:
       print(colored(IND,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')   
+   
+   print('\u2551', end=' ')   
+   print(colored("FLAVOUR", colour6), end=' ')
+   print(colored(flavour[:5],colour6),end=' ' )
+   print("    ", end=' ')
+   print('\u2551', end=' ')   
+   
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
@@ -431,7 +449,7 @@ def options():
    print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
    print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
    if GADD[24] != "":
@@ -531,6 +549,8 @@ RW = spacePadding("RWX     Unknown", COL1)
 funcNum = spacePadding(" ",7)
 gadgNum = spacePadding(" ",7)
 
+flavour = "intel"
+
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
@@ -571,6 +591,7 @@ ARC = linecache.getline("ascii.tmp", 12).rstrip("\n")
 FIL = linecache.getline("ascii.tmp", 13).rstrip("\n")
 SRT = linecache.getline("ascii.tmp", 14).rstrip("\n")
 INS = "0x0000000000000000"
+MAIN = "0x0000000000000000"
 
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
@@ -958,8 +979,8 @@ while True:
             print("Debugging information built in...")
          else:
             print("Debugging information has been removed...")
-         if "Intel" in binary:
-            print("Consider switching the disassembly style to Intel - 'set disassembly-flavor intel'...")
+         if "intel" in binary:
+            print("Consider switching the disassembly style to intel - 'set disassembly-flavor intel'...")
       prompt()            
 
 # ------------------------------------------------------------------------------------- 
@@ -1202,6 +1223,11 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -d " + localDir + "/" + FIL.rstrip(" ") + " > exec.tmp")
          catsFile("exec.tmp")
+         command("cat exec.tmp | grep ' <main>' > main.tmp ")
+         with open("main.tmp","r") as main:
+            null = main.readline()
+            if null != "":
+               MAIN = spacePadding("0x" + main.readline().split(" ")[0], COL1)
       prompt() 
    
 # ------------------------------------------------------------------------------------- 
@@ -1339,7 +1365,10 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("gdb -q " + localDir + "/" + FIL.rstrip(" "))
+         command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
+         command("echo 'set follow-fork-mode child' >> command.tmp")
+         command("gdb -q " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")         
+#         command("gdb -q " + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1390,7 +1419,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '36':
-      command("echo 'set disassembly-flavor intel' > command.tmp")
+      command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")
       command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
@@ -1410,7 +1439,7 @@ while True:
    if selection == '37':
       address = input("[?] Please enter address value: ")
       if address != "":
-         command("echo 'set disassembly-flavor intel' > command.tmp")
+         command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
          command("echo 'set follow-fork-mode child' >> command.tmp")      
          command("echo 'break main' >> command.tmp")
          command("echo 'run' >> command.tmp")
@@ -1429,7 +1458,7 @@ while True:
 
    if selection == '38':
       function = input("[?] Please enter function name: ")
-      command("echo 'set disassembly-flavor intel' > command.tmp")
+      command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")      
       command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
@@ -1557,24 +1586,28 @@ while True:
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level=\"debug\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
+         command("echo 'contect.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
-            command("echo 'context.os=\"linux\"' >> " + localDir + "/exploit.py")
+            command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
          else:
-            command("echo 'context.os=\"windows\"' >> " + localDir + "/exploit.py")
-         command("echo 'context.arch=\"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-         command("echo 'context.bits=\"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
-         command("echo 'context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+            command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.arch = \"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
          command("echo '   s = remote(\"10.10.10.10\", 1010)' >> " + localDir + "/exploit.py")
          command("echo 'except:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'main = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
-         if ARC[:2] == "64":
+         if BIT[:2] == "64":
             command("echo 'pointer   = \"a\" * 8' >> "+ localDir + "/exploit.py")
          else:
             command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
@@ -1589,6 +1622,30 @@ while True:
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
          prompt()         
+         
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : TRY HARDER                                                             
+# Details : Menu option selected - set disassembly-flavor
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '48':
+      bak = flavour
+      flavour = input("[?] Please enter disassembly flavor (att or intel): ")
+      if flavour == "":
+         flavour = bak
+      else:
+         if (flavour.upper() != "ATT") or (flavour.upper() != "INTEL"):
+            flavour = bak
+      if flavour.upper() == "ATT":
+         flavour = "att"
+      if flavour.upper() == "INTEL":
+         flavour = "intel"
+      flavour = spacePadding(flavour, 5)
+      print(colored("[*] Disassenbly flavor updated...", colour3))
+      prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1627,6 +1684,7 @@ while True:
       RW = spacePadding("RWX     Unknown", COL1)
       colourx = "yellow"
       MODE = "MODE    Unknown    "
+      flavour = "intel"
       prompt()
       
 # ------------------------------------------------------------------------------------- 
