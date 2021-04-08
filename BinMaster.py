@@ -454,8 +454,6 @@ if os.geteuid() != 0:
    exit(1)
 else:
    bugHunt = 0  
-   proxyChains = 0
-   menuName = "ProxyChains"
     
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -465,7 +463,6 @@ else:
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-#netWork = "tun0"						# LOCAL INTERFACE
 maxDisp = 25							# UNLIMITED VALUE
 
 Yellow  = '\e[1;93m'						# OP SYSTEM COLOUR
@@ -483,7 +480,7 @@ localDir = "BINMASTER"						# LOCAL DIRECTORYS
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-command("xdotool key Alt+Shift+S; xdotool type 'CONTEXT'; xdotool key Return")
+command("xdotool key Alt+Shift+S; xdotool type 'TRY HARDER'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
@@ -932,17 +929,23 @@ while True:
          binary = linecache.getline("file.tmp", 1)
          if "ELF" in binary:
             COM = spacePadding("ELF", COL1)
-            print("Linux binary file...")
-         
-         if "64-bit" in binary: #ELF 64-bit
-            BIT = "64-Bit"
-            print(BIT + " architecture...")  
+            print("Linux binary file...")            
+         if "8-bit" in binary:
+            BIT = "08-Bit"
+            print(BIT + " architecture...")           
+            BIT = spacePadding(BIT, 8)            
+         if "16-bit" in binary:
+            BIT = "16-Bit"
+            print(BIT + " architecture...")           
             BIT = spacePadding(BIT, 8)            
          if "32-bit" in binary:
             BIT = "32-Bit"
             print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, 8)
-         
+            BIT = spacePadding(BIT, 8)         
+         if "64-bit" in binary:
+            BIT = "64-Bit"
+            print(BIT + " architecture...")  
+            BIT = spacePadding(BIT, 8)         
          if "LSB" in binary:
             IND = "Little"
             print(IND + " indian...")
@@ -1085,8 +1088,7 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
          parsFile("headers.tmp")
-         catsFile("headers.tmp")
-         
+         catsFile("headers.tmp")         
          with open("headers.tmp","r") as header:
             for line in header:
                data = line
