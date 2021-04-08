@@ -396,14 +396,14 @@ def dispMenu():
          print(colored(BIT[:8],colour7), end=' ')
    
    print('\u2551', end=' ')
-   if COM[:1] != " ":
+   if COM[:1] != "U":
       print(colored("FORMAT ",colour6), end=' ')
-      print(colored(COM[:3],colour6), end=' ')
-      print("      ", end=' ')
+      print(colored(COM[:7],colour6), end=' ')
+      print("  ", end=' ')
    else:
       print(colored("FORMAT ",colour7), end=' ')
-      print(colored(COM[:3],colour7), end=' ')   
-      print("      ", end=' ')
+      print(colored(COM[:7],colour7), end=' ')   
+      print("  ", end=' ')
    print('\u2551', end=' ')
    
    if SRT.rstrip(" ") in ADDR[11]:
@@ -441,13 +441,13 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set FILE  FORMAT (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
    print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
    print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
    print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) LibC  Address" + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) LibC Location" + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
@@ -814,17 +814,17 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : TRY HARDER                                                             
-# Details : Menu option selected - File format. 
+# Details : Menu option selected - Set MAIN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='11':
-      BAK = COM
-      COM = input("[?] Please enter file format: ")
-      if COM != "":
-         COM = spacePadding(COM,COL1)
+      BAK = MAIN
+      MAIN = input("[?] Please enter main address: ")
+      if MAIN != "":
+         MAIN = spacePadding(MAIN,COL1)
       else:
-            COM = BAK
+            MAIN = BAK
       prompt()        
       
 # ------------------------------------------------------------------------------------- 
@@ -1675,7 +1675,7 @@ while True:
       print(colored("[*] Re-Setting Program...", colour3)) 
       
       RAX = spacePadding("0x0000000000000000", COL1)
-      COM = spacePadding("EMPTY", COL1)
+      COM = spacePadding("Unknown", COL1)
       RBX = spacePadding("0x0000000000000000", COL1)
       RCX = spacePadding("0x0000000000000000", COL1)
       RDX = spacePadding("0x0000000000000000", COL1)
