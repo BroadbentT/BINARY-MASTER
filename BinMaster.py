@@ -2,7 +2,7 @@
 # coding:UTF-8
 
 # -------------------------------------------------------------------------------------
-#         PYTHON3 SCRIPT FILE FOR THE REMOTE ANALYSIS OF COMPUTER NETWORKS
+#           PYTHON3 SCRIPT FILE FOR THE LOCAL ANALYSIS OF BINARY FILES
 #         BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS
 # -------------------------------------------------------------------------------------
 
@@ -16,8 +16,7 @@
 
 import os
 import sys
-#import time
-import os.path
+#import os.path
 import sqlite3
 import pyfiglet
 import datetime
@@ -35,7 +34,7 @@ colour6 = "green"
 colour7 = "yellow"
 colour8 = "magenta"
 
-colourx = colour7
+colourx = colour7		# DEFUALT
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -141,7 +140,12 @@ def catsFile(variable):
       command("cat " + variable)
       command("echo '" + Reset + "'")
    return   
-        
+   
+def clearClutter():
+   command("rm *.tmp")
+   linecache.clearcache()
+   return
+   
 def dispBanner(variable,flash):
    ascii_banner = pyfiglet.figlet_format(variable).upper()
    ascii_banner = ascii_banner.rstrip("\n")
@@ -149,11 +153,6 @@ def dispBanner(variable,flash):
       command("clear")
       print(colored(ascii_banner,colour0, attrs=['bold']))
    command("pyfiglet " + variable + " > banner.tmp")
-   return
-   
-def clearClutter():
-   command("rm *.tmp")
-   linecache.clearcache()
    return
 
 def dispMenu():
@@ -165,7 +164,7 @@ def dispMenu():
       print(colored(FIL.upper(),colour7), end=' ')
    else:
       print(colored(FIL.upper(),colour6), end=' ')      
-   print(colored(MODE,colour3) + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+   print(" " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
    print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
    
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
@@ -277,7 +276,7 @@ def dispMenu():
       print(colored(RSP,colour6), end=' ')   
    print( '\u2551', end=' ')   
    if OFF[:1] == "0":
-      print(colored("OFFSET  " + OFF[:10],colour7,attrs=['bold']), end=' ')
+      print(colored("OFFSET  " + OFF[:10],colour7), end=' ')
       print('\u2551', end=' ')
    else:
       print(colored("OFFSET  " + OFF[:10],colour7,attrs=['bold']), end=' ')
@@ -300,11 +299,11 @@ def dispMenu():
       print(colored(RBP,colour6), end=' ')
       
    print('\u2551',end=' ')
-   if ARC[:6] == "64 Bit":
+   if BIT[:6] == "64-Bit":
       print(colored("        -8 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if ARC[:6] == "32 Bit":
+   if BIT[:6] == "32-Bit":
       print(colored("        -4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if ARC[:1] == "E":
+   if BIT[:6] == "      ":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')   
 
    print('\u2551', end=' ')
@@ -330,11 +329,11 @@ def dispMenu():
       print(colored(INS,colour6), end=' ')         
    print('\u2551', end=' ')
    
-   if ARC[:6] == "64 Bit":
+   if BIT[:6] == "64-Bit":
       print(colored("        +8 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if ARC[:6] == "32 Bit":
+   if BIT[:6] == "32-Bit":
       print(colored("        +4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if ARC[:1] == "E":
+   if BIT[:6] == "      ":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')   
    
    print('\u2551', end=' ')   
@@ -365,7 +364,13 @@ def dispMenu():
       print(colored(COM,colour7), end=' ')
    else:
       print(colored(COM,colour6), end=' ')
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
+   print('\u2551', end=' ')
+   
+   if MODE == "MODE    Unknown    ":
+      print(colored(MODE,colour7) + '\u2551', end=' ')
+   else:
+      print(colored(MODE,colour6) + '\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[10]:
       print(colored(ADDR[10],colour3), end=' ')
    else:
@@ -375,10 +380,20 @@ def dispMenu():
    print('\u2551')    
 
    print('\u2551' + " ARCHITECTURE  " + '\u2551', end=' ')
+   
    if ARC[:5] == "EMPTY":
-      print(colored(ARC,colour7), end=' ')
+      print(colored(ARC[:9],colour7), end=' ')
+      if BIT[:1] != " ":
+         print(colored(BIT[:8],colour6), end=' ')
+      else:
+         print(colored(BIT[:8],colour7), end=' ')      
    else:
-      print(colored(ARC,colour6), end=' ')
+      print(colored(ARC[:9],colour6), end=' ')
+      if BIT[:1] != " ":
+         print(colored(BIT[:8],colour6), end=' ')
+      else:
+         print(colored(BIT[:8],colour7), end=' ')
+      
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
@@ -413,8 +428,8 @@ def options():
    print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Use Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Use Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
    print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48)              " + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
@@ -468,11 +483,10 @@ localDir = "BINMASTER"						# LOCAL DIRECTORYS
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-command("xdotool key Alt+Shift+S; xdotool type 'TRY HARDER'; xdotool key Return")
+command("xdotool key Alt+Shift+S; xdotool type 'CONTEXT'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
-
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -519,8 +533,6 @@ RW = spacePadding("RWX     Unknown", COL1)
 
 funcNum = spacePadding(" ",7)
 gadgNum = spacePadding(" ",7)
-
-MODE = " "
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -574,10 +586,13 @@ RSP = spacePadding(RSP, COL1)
 RBP = spacePadding(RBP, COL1)
 OFF = spacePadding(OFF, COL1)
 IND = spacePadding(IND, COL1)
-ARC = spacePadding(ARC, COL1)
+ARC = spacePadding(ARC, 9)	# MAX ARCH NAME 'powerpc64'
 FIL = spacePadding(FIL, COL0)
 SRT = spacePadding(SRT, COL1)
 INS = spacePadding(INS, COL1)
+
+BIT = spacePadding(" ", 8)	# MAX BIT NAME '64 bit'
+MODE = "MODE    Unknown    "
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -857,7 +872,7 @@ while True:
             FIL = spacePadding(FIL,COL0)
             if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
                command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-               MODE = "S"
+               MODE = "MODE    Static     "
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
                FIL = BAK
@@ -879,7 +894,7 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
          command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "S"
+         MODE = "MODE    Static     "
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
@@ -896,7 +911,7 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
          command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "D"
+         MODE = "MODE    Dynamic    "
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -918,14 +933,16 @@ while True:
          if "ELF" in binary:
             COM = spacePadding("ELF", COL1)
             print("Linux binary file...")
+         
          if "64-bit" in binary: #ELF 64-bit
-            ARC = "64 Bit"
-            print(ARC + " architecture...")  
-            ARC = spacePadding(ARC, COL1)            
+            BIT = "64-Bit"
+            print(BIT + " architecture...")  
+            BIT = spacePadding(BIT, 8)            
          if "32-bit" in binary:
-            ARC = "32 Bit"
-            print(ARC + " architecture...")           
-            ARC = spacePadding(ARC, COL1)
+            BIT = "32-Bit"
+            print(BIT + " architecture...")           
+            BIT = spacePadding(BIT, 8)
+         
          if "LSB" in binary:
             IND = "Little"
             print(IND + " indian...")
@@ -1070,11 +1087,47 @@ while True:
          parsFile("headers.tmp")
          catsFile("headers.tmp")
          
-         with open("headers.tmp","r") as read:
-            for line in read:
+         with open("headers.tmp","r") as header:
+            for line in header:
                data = line
-               if "i386:x86-64" in data:
-                  ARC = spacePadding("64 Bit", COL1)
+               if "aarch64" in data:
+                  ARC = spacePadding("aarch64", 9)
+               if "alpha" in data:
+                  ARC = spacePadding("alpha", 9)
+               if "amd64" in data:
+                  ARC = spacePadding("amd64", 9)
+               if "arm" in data:
+                  ARC = spacePadding("arm", 9)
+               if "avr" in data:
+                  ARC = spacePadding("avr", 9)
+               if "cris" in data:
+                  ARC = spacePadding("cris", 9)
+               if "i386" in data:
+                  ARC = spacePadding("i386", 9)
+               if "ia64" in data:
+                  ARC = spacePadding("ia64", 9)
+               if "m68k" in data:
+                  ARC = spacePadding("m68k", 9)
+               if "mips" in data:
+                  ARC = spacePadding("mips", 9)
+               if "mips64" in data:
+                  ARC = spacePadding("mips64", 9)
+               if "mips430" in data:
+                  ARC = spacePadding("mips430", 9)
+               if "powerpc" in data:
+                  ARC = spacePadding("powerpc", 9)
+               if "powerpc64" in data:
+                  ARC = spacePadding("powerpc64", 9)
+               if "s390" in data:
+                  ARC = spacePadding("s390", 9)
+               if "sparc" in data:
+                  ARC = spacePadding("sparc", 9)
+               if "sparc64" in data:
+                  ARC = spacePadding("sparc64", 9)
+               if "thumb" in data:
+                  ARC = spacePadding("thumb", 9)
+               if "vax" in data:
+                  ARC = spacePadding("vax", 9)                  
                if "start address" in data:
                   SRT = spacePadding(data.split(" ")[2], COL1)
                if "elf" in data:
@@ -1501,19 +1554,16 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.clear()' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level=\"debug\"' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
-            command("echo 'context(os=\"linux\")' >> " + localDir + "/exploit.py")
+            command("echo 'context.os=\"linux\"' >> " + localDir + "/exploit.py")
          else:
-            command("echo 'context(os=\"windows\")' >> " + localDir + "/exploit.py")
-         if ARC[:2] == "64":
-            command("echo 'context(arch=\"amd64\")' >> " + localDir + "/exploit.py")
-         else:
-            command("echo 'context(arch=\"amd32\")' >> " + localDir + "/exploit.py")                     
-         if IND[:3] == "Big":
-            command("echo 'context.endian = \"big\"' >> " + localDir + "/exploit.py")
-         else:
-            command("echo 'context.endian = \"little\"' >> " + localDir + "/exploit.py")
+            command("echo 'context.os=\"windows\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.arch=\"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.bits=\"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
          command("echo '   s = remote(\"10.10.10.10\", 1010)' >> " + localDir + "/exploit.py")
@@ -1574,7 +1624,7 @@ while True:
       PI = spacePadding("PIE     Unknown", COL1)
       RW = spacePadding("RWX     Unknown", COL1)
       colourx = "yellow"
-      MODE = " "
+      MODE = "MODE    Unknown    "
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1603,12 +1653,6 @@ while True:
    if selection == '100':
       dispBanner("ROGUE AGENT",1)
       print(colored("C O P Y R I G H T  2 0 2 1  -  T E R E N C E  B R O A D B E N T",colour7,attrs=['bold']))
-      print("\n------------------------------------------------------------------------------")
-      count = lineCount(localDir + "/usernames.txt")
-      print("User Names :" + str(count))
-      count = lineCount(localDir + "/passwords.txt")
-      print("Pass Words :" + str(count))
-      count = lineCount(localDir + "/hashes.txt")
-      print("Hash Values:" + str(count))      
+      print("\n------------------------------------------------------------------------------")     
       prompt()      
 # Eof...
