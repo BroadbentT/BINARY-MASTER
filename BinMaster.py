@@ -147,12 +147,12 @@ def dispBanner(variable,flash):
 def dispMenu():
    print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
 # --  
-   print('\u2551' + " FILENAME", end =' ')
-   if COM[:7] == "UNKNOWN":
-      print(colored(FIL.upper()[:25],colour7), end=' ')
+   print('\u2551' + " REGISTERS FOR FILENAME", end =' ')
+   if FIL[:7] == "unknown":
+      print(colored(FIL.upper()[:11],colour7), end=' ')
    else:
-      print(colored(FIL.upper()[:25],colour6), end=' ')
-   print('\u2551' + " CHECKSEC           " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+      print(colored(FIL.upper()[:11],colour6), end=' ')
+   print('\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
 # --   
    print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
 # --   
@@ -264,10 +264,10 @@ def dispMenu():
       print(colored(RSP,colour6), end=' ')   
    print( '\u2551', end=' ')   
    if OFF[:1] == "0":
-      print(colored("OFFSET  " + OFF[:10],colour7), end=' ')
+      print(colored("OFFSET   " + OFF[:9],colour7), end=' ')
       print('\u2551', end=' ')
    else:
-      print(colored("OFFSET  " + OFF[:10],colour7,attrs=['bold']), end=' ')
+      print(colored("OFFSET   " + OFF[:9],colour7,attrs=['bold']), end=' ')
       print('\u2551', end=' ')            
    if SRT.rstrip(" ") in ADDR[6]:
       print(colored(ADDR[6],colour3), end=' ')
@@ -289,7 +289,7 @@ def dispMenu():
       print(colored("        -8 Bytes  ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
       print(colored("        -4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if BIT[:7] == "Unknown":
+   if BIT[:7] == "unknown":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')
    print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[7]:
@@ -315,7 +315,7 @@ def dispMenu():
       print(colored("        +8 Bytes  ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
       print(colored("        +4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if BIT[:7] == "Unknown":
+   if BIT[:7] == "unknown":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')      
    print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[8]:
@@ -384,51 +384,51 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE DIAGNOSTICS MODE", end=' ')
-   if MODE == "Unknown":
-      print(colored(MODE,colour7), end=' ')
-   else:
-      print(colored(MODE,colour6), end=' ') 
-   print("USING FLAVOUR", end=' ') 
-   print(colored(flavour[:5],colour6),end=' ' )
-   print((" ")*7 + '\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
 # --      
    print('\u2551' + "(02) Set BASE POINTER (12) Set      ADDRESS (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set      ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
-   if COM[:1] != "U":
+   if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
-      print(colored(COM,colour7), end=' ')   
-   print((" ")*25 + '\u2551')  
+      print(colored(COM,colour7), end=' ')  
+   print("MODE   ", end=' ') 
+   if MODE[:7] == "unknown":
+      print(colored(MODE[:7],colour7), end=' ')
+   else:
+      print(colored(MODE[:7],colour6), end=' ') 
+   print((" ")*9+ '\u2551')
    # --
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551' + " ARCHITECTURE", end= ' ')
-   if ARC[:5] == "EMPTY":
+   if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
       print(colored(ARC,colour6), end=' ')
-   print((" ")*25 + '\u2551')
+   print("FLAVOUR", end=' ')
+   print(colored(flavour,colour6),end=' ' )
+   print((" ")*11 + '\u2551')   
    print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551' + " BITS        ", end=' ')
-   if BIT[:1] != "U":
+   if BIT[:1] != "u":
       print(colored(BIT,colour6), end=' ')
    else:
       print(colored(BIT,colour7), end=' ')      
    print((" ")*25 + '\u2551')
 # --
    print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551' + " INDIAN      ", end=' ')
-   if IND[:5] == "EMPTY":
+   if IND[:7] == "unknown":
       print(colored(IND,colour7), end=' ')
    else:
       print(colored(IND,colour6), end=' ')
    print((" ")*25 + '\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) LibC  Version" + '\u2551' + " LIBC VERSION", end=' ')
-   if LIBC[:1] == "U":
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551' + " LIBC VERSION", end=' ')
+   if LIBC[:1] == "u":
       print(colored(LIBC[:COL2-2],colour7), end=' ')
    else:
       print(colored(LIBC[:COL2-2],colour6), end=' ')
    print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
    print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (60) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
@@ -454,7 +454,7 @@ else:
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-maxDisp = 25							# UNLIMITED VALUE
+maxDisp = 14							# UNLIMITED VALUE
 
 Yellow  = '\e[1;93m'						# OP SYSTEM COLOUR
 Green   = '\e[0;32m'
@@ -512,12 +512,12 @@ COL3 = 23+33                            # MAX LEN GADD NAME
 ADDR = [" "*COL2]*maxDisp		# ADDRESS VALUES
 GADD = [" "*COL3]*maxDisp		# ADDRESS NAMES
 
-RE = spacePadding("RELRO   Unknown", COL1)
-ST = spacePadding("STACK   Unknown", COL1)
-FO = spacePadding("FORTIFY Unknown", COL1)
-NX = spacePadding("NX      Unknown", COL1)
-PI = spacePadding("PIE     Unknown", COL1)
-RW = spacePadding("RWX     Unknown", COL1)
+RE = spacePadding("RELRO    unknown", COL1)
+ST = spacePadding("STACK    unknown", COL1)
+FO = spacePadding("FORTIFY  unknown", COL1)
+NX = spacePadding("NX       unknown", COL1)
+PI = spacePadding("PIE      unknown", COL1)
+RW = spacePadding("RWX      unknown", COL1)
 
 funcNum = spacePadding(" ",7)
 gadgNum = spacePadding(" ",7)
@@ -582,9 +582,9 @@ FIL = spacePadding(FIL, COL0)
 SRT = spacePadding(SRT, COL1)
 INS = spacePadding(INS, COL1)
 
-BIT = spacePadding("Unknown", COL1)
-LIBC = spacePadding("Unknown", COL2)
-MODE = "Unknown"
+BIT = spacePadding("unknown", COL1)
+LIBC = spacePadding("unknown", COL2)
+MODE = "unknown"
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -973,32 +973,32 @@ while True:
          for x in range(0, count):
             binary = linecache.getline("checksec.tmp", x+1)
             if "No RELRO" in binary:
-               RE = "RELRO   None      "               
+               RE = "RELRO    None     "               
             if "Full RELRO" in binary:
-               RE = "RELRO   Full      " 
+               RE = "RELRO    Full     " 
             if "Partial RELRO" in binary:
-               RE = "RELRO   Partial   "
+               RE = "RELRO    Partial  "
                
             if "No canary found" in binary:
-               ST = "STACK   No Canary "   
+               ST = "STACK    No Canary"   
                            
             if "No Fortify" in binary:
-               FO = "Fortify Disabled  " 
+               FO = "Fortify  Disabled " 
                              
             if "NX disabled" in binary:
-               NX = "NX      Disabled  "
+               NX = "NX       Disabled "
             if "NX enabled" in binary:
-               NX = "NX      Enabled   "   
+               NX = "NX       Enabled  "   
                            
             if "No PIE" in binary:
-               PI = "No      PIE       "               
+               PI = "No       PIE      "               
             if "PIE enabled" in binary:
-               PI = "PIE     Enabled   "      
+               PI = "PIE      Enabled  "      
                        
             if "No RWX segments" in binary:
                RW = "RWX     NoSegments"
             if "Has RWX segments" in binary:
-               RW = "RWX     Segments  "
+               RW = "RWX      Segments "
       prompt()
                   
 # ------------------------------------------------------------------------------------- 
@@ -1432,12 +1432,21 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - 
+# Details : Menu option selected - Find libc version.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '40':
-      prompt()
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Libc.so file location...", colour3))
+         command("ldd " + localDir + "/" + FIL + " > libc.tmp")
+         command("cat libc.tmp | grep '=>' > address.tmp")
+         with open("address.tmp","r") as address:
+            LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
+            print(colored("\n" + LIBC, colour6)) 
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1582,27 +1591,7 @@ while True:
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
-         prompt()    
-         
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - get libc
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '47':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         print(colored("[*] Libc.so file location...", colour3))
-         command("ldd " + localDir + "/" + FIL + " > libc.tmp")
-         command("cat libc.tmp | grep '=>' > address.tmp")
-         with open("address.tmp","r") as address:
-            LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
-            print(colored("\n" + LIBC, colour6)) 
-      prompt()           
+         prompt()              
          
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1643,7 +1632,7 @@ while True:
       print(colored("[*] Re-Setting Program...", colour3)) 
       
       RAX = spacePadding("0x0000000000000000", COL1)
-      COM = spacePadding("Unknown", COL1)
+      COM = spacePadding("unknown", COL1)
       RBX = spacePadding("0x0000000000000000", COL1)
       RCX = spacePadding("0x0000000000000000", COL1)
       RDX = spacePadding("0x0000000000000000", COL1)
@@ -1652,22 +1641,23 @@ while True:
       RSP = spacePadding("0x0000000000000000", COL1)
       RBP = spacePadding("0x0000000000000000", COL1)
       OFF = spacePadding("0", COL1)
-      IND = spacePadding("EMPTY", COL1)
-      ARC = spacePadding("EMPTY", COL1)
-      FIL = spacePadding("UNKNOWN", COL0)
+      IND = spacePadding("unknown", COL1)
+      ARC = spacePadding("unknown", COL1)
+      FIL = spacePadding("unknown", COL0)
       SRT = spacePadding("0x0000000000000000", COL1)
       INS = spacePadding("0x0000000000000000", COL1)
       saveParams()
+      MODE=spacePadding("unknown", COL1)
       ADDR = [" "*COL2]*maxDisp
       GADD = [" "*COL3]*maxDisp
-      RE = spacePadding("RELRO   Unknown", COL1)
-      ST = spacePadding("STACK   Unknown", COL1)
-      FO = spacePadding("FORTIFY Unknown", COL1)
-      NX = spacePadding("NX      Unknown", COL1)
-      PI = spacePadding("PIE     Unknown", COL1)
-      RW = spacePadding("RWX     Unknown", COL1)
+      RE = spacePadding("RELRO    unknown", COL1)
+      ST = spacePadding("STACK    unknown", COL1)
+      FO = spacePadding("FORTIFY  unknown", COL1)
+      NX = spacePadding("NX       unknown", COL1)
+      PI = spacePadding("PIE      unknown", COL1)
+      RW = spacePadding("RWX      unknown", COL1)
+
       colourx = "yellow"
-      MODE = "Unknown"
       flavour = "intel"
       prompt()
       
