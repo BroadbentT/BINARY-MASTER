@@ -2,7 +2,7 @@
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture1.png">
 </p>
 
-## TRY HARDER EDITION
+## FULL STACK EDITION
 
 **INSTALLATION INSTRUCTIONS**
 
