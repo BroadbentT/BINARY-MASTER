@@ -15,13 +15,13 @@
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture2.png"> 
 </p>
 
-## COMMAND CENTRE TO FORENSICALLY INVESTIGATE AND ANALYSE BINARY FILES FOR BUFFER OVERFLOW.
+## COMMAND CENTRE TO STATICALLY AND DYNAMICALLY INVESTIGATE AND ANALYSE BINARY FILES FOR BUFFER OVERFLOW.
 
 Usage: python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | 2b58ba81d5315afa1660f594ccfdf916 | Command Centre | Full Stack |
+| python3   | BinMaster.py | 5c2b7386b14aa687a8a2af351526a3be | Command Centre | Full Stack |
 
 
 A python script file to forensically examine binary files for buffer-overflows.

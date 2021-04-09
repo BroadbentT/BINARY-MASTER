@@ -16,6 +16,7 @@
 
 import os
 import sys
+import r2pipe
 import sqlite3
 import pyfiglet
 import linecache
@@ -430,7 +431,7 @@ def options():
       print(colored(LIBC[:COL2-2],colour6), end=' ')
    print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39) Radare2 Enumerate (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
@@ -914,7 +915,7 @@ while True:
          binary = linecache.getline("file.tmp", 1)
          if "ELF" in binary:
             COM = spacePadding("ELF", COL1)
-            print("Linux binary file...")            
+            print("Linux binary file...")         
          if "8-bit" in binary:
             BIT = "08-Bit"
             print(BIT + " architecture...")           
@@ -939,10 +940,12 @@ while True:
             IND = "Big"
             print(IND + " indian...")
             IND = spacePadding(IND, COL1)
+         if "dynamically linked" in binary:
+            print("Dynamic link to libc...")   
          if "not stripped" in binary:
             print("Debugging information built in...")
          else:
-            print("Debugging information has been removed...")
+            print("Debugging information removed...")
          if "intel" in binary:
             print("Consider switching the disassembly style to intel - 'set disassembly-flavor intel'...")
       prompt()            
@@ -968,7 +971,7 @@ while True:
          print("If CANARY is found, then the program checks to see if the stack has been smashed...")
          print("If FORTIFY is enabled, then the program checks for buffer overflow...")
          print("If NX is enabled, then the stack is read-only and you will need to use return-oriented programming.")
-         print("If PIE is enabled, then the programs memory locations will not stay the same...")
+         print("If PIE is enabled, then the programs memory locations will not stay the same hence you need to leak addresses to find offsets...")
          print("If RWX has segments, then these are writeable and executable at the same time...")
          
          colourx = "green"
@@ -1023,10 +1026,11 @@ while True:
          command("sed -i '/0x/!d' functions.tmp")         
          funcNum = lineCount("functions.tmp")
          funcNum = spacePadding(str(funcNum),7)
-         with open("functions.tmp", "r") as shares:
+         with open("functions.tmp", "r") as functions:
             for x in range(0, maxDisp):
-               ADDR[x] = shares.readline().rstrip(" ")
+               ADDR[x] = functions.readline().rstrip(" ")
                ADDR[x] = spacePadding(ADDR[x], COL2)
+         command("mv functions.tmp functions.txt")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1051,11 +1055,11 @@ while True:
          command("sed -i '/Unique gadgets/d' gadgets.tmp")
          gadgNum = lineCount("gadgets.tmp")
          gadgNum = spacePadding(str(gadgNum),7)
-         command("cat gadgets.tmp | tail -n " + str(maxDisp+1) + " > tail.tmp")
+         with open("gadgets.tmp","r") as gadgets:
+            for x in range (0, maxDisp):
+               GADD[x] = gadgets.readline().rstrip(" ")
+               GADD[x] = spacePadding(GADD[x], COL3)
          command("mv gadgets.tmp gadgets.txt")
-         for x in range (0, maxDisp):
-            GADD[x] = linecache.getline("tail.tmp", x + 1).rstrip(" ")
-            GADD[x] = spacePadding(GADD[x], COL3)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1431,6 +1435,30 @@ while True:
       command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
       
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - radare script
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '39':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         r = r2pipe.open(localDir + "/" + FIL.rstrip(" "))
+         print(r.cmd('aa'),file=open('output.tmp', 'a'))
+         print( r.cmd('afl'),file=open('output.tmp', 'a'))
+         print( r.cmd('pdf'),file=open('output.tmp', 'a'))
+         parsFile("output.tmp")
+         catsFile("output.tmp")
+         command("cat output.tmp | grep main > main.tmp")
+         with open("main.tmp","r") as address:
+            MAIN = address.readline().split(" ")[0]
+            MAIN = spacePadding(MAIN, COL1)
+      prompt()
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
