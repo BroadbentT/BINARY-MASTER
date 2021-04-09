@@ -286,9 +286,9 @@ def dispMenu():
       print(colored(RBP,colour6), end=' ')      
    print('\u2551',end=' ')
    if BIT[:6] == "64-Bit":
-      print(colored("        -8 Bytes  ",colour7,attrs=['bold']), end=' ')
+      print(colored("         -8 Bytes ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
-      print(colored("        -4 Bytes  ",colour7,attrs=['bold']), end=' ')
+      print(colored("         -4 Bytes ",colour7,attrs=['bold']), end=' ')
    if BIT[:7] == "unknown":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')
    print('\u2551', end=' ')   
@@ -312,9 +312,9 @@ def dispMenu():
       print(colored(INS,colour6), end=' ')         
    print('\u2551', end=' ')   
    if BIT[:6] == "64-Bit":
-      print(colored("        +8 Bytes  ",colour7,attrs=['bold']), end=' ')
+      print(colored("         +8 Bytes ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
-      print(colored("        +4 Bytes  ",colour7,attrs=['bold']), end=' ')
+      print(colored("         +4 Bytes ",colour7,attrs=['bold']), end=' ')
    if BIT[:7] == "unknown":
       print(colored("                  ",colour7,attrs=['bold']), end=' ')      
    print('\u2551', end=' ')   
@@ -377,7 +377,10 @@ def dispMenu():
       else:
          print(colored(ADDR[12],colour6), end=' ')
    print('\u2551', end=' ')
-   print(colored(GADD[12],colour6), end=' ')
+   if GADD[13] != "":
+      print(colored(GADD[12],colour0), end=' ')
+   else:
+      print(colored(GADD[12],colour6), end=' ')
    print('\u2551')
 # --         
    print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')
@@ -427,8 +430,8 @@ def options():
       print(colored(LIBC[:COL2-2],colour6), end=' ')
    print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (60) Exit         " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
@@ -471,7 +474,7 @@ localDir = "BINMASTER"						# LOCAL DIRECTORYS
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-command("xdotool key Alt+Shift+S; xdotool type 'FULL STACK'; xdotool key Return")
+command("xdotool key Alt+Shift+S; xdotool type 'BINARY MASTER'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
@@ -1628,7 +1631,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '59':       
+   if selection == '49':       
       print(colored("[*] Re-Setting Program...", colour3)) 
       
       RAX = spacePadding("0x0000000000000000", COL1)
@@ -1669,7 +1672,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '60':        
+   if selection == '50':        
       saveParams()
       command("rm *.tmp")      
       connection.close()
@@ -1685,7 +1688,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '100':
-      dispBanner("ROGUE AGENT",1)
+      dispBanner("BINARY MASTER",1)
       print(colored("C O P Y R I G H T  2 0 2 1  -  T E R E N C E  B R O A D B E N T",colour7,attrs=['bold']))
       print("\n------------------------------------------------------------------------------")     
       prompt()      
