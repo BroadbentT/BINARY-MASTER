@@ -471,7 +471,7 @@ localDir = "BINMASTER"						# LOCAL DIRECTORYS
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-command("xdotool key Alt+Shift+S; xdotool type 'FULL STACK; xdotool key Return")
+command("xdotool key Alt+Shift+S; xdotool type 'FULL STACK'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
