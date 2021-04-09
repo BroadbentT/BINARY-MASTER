@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Load required imports.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -18,7 +18,6 @@ import os
 import sys
 import sqlite3
 import pyfiglet
-import datetime
 import linecache
 
 from termcolor import colored
@@ -33,12 +32,12 @@ colour6 = "green"
 colour7 = "yellow"
 colour8 = "magenta"
 
-colourx = colour7		# DEFUALT
+colourx = colour7		# DEFUALT COLOUR
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Create functional subroutines called from main.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -62,16 +61,7 @@ def spacePadding(variable,value):
    variable = variable[:value]
    while len(variable) < value:
       variable += " "
-   return variable
-
-def getTime():
-   variable = str(datetime.datetime.now().time())
-   variable = variable.split(".")
-   variable = variable[0]
-   variable = variable.split(":")
-   variable = variable[0] + ":" + variable[1]
-   variable = spacePadding(variable, COL1)
-   return variable   
+   return variable  
      
 def command(variable):
    if bugHunt == 1:
@@ -155,17 +145,17 @@ def dispBanner(variable,flash):
    return
 
 def dispMenu():
-   print('\u2554' + ('\u2550')*15 + '\u2566' + ('\u2550')*41 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
-   print('\u2551' + " TIME   ", end =' ')
-   print(colored(LTM[:5],colour6), end=' ')
-   print('\u2551' + " " + colored("FILENAME",colour5), end=' ')   
+   print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
+# --  
+   print('\u2551' + " FILENAME", end =' ')
    if COM[:7] == "UNKNOWN":
-      print(colored(FIL.upper(),colour7), end=' ')
+      print(colored(FIL.upper()[:25],colour7), end=' ')
    else:
-      print(colored(FIL.upper(),colour6), end=' ')      
-   print(" " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
-   print('\u2560' + ('\u2550')*15 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
-   
+      print(colored(FIL.upper()[:25],colour6), end=' ')
+   print('\u2551' + " CHECKSEC           " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+# --   
+   print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
+# --   
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX[:COL1],colour7), end=' ')
@@ -179,7 +169,7 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[0],colour6), end=' ')
    print('\u2551')      
-   
+# --   
    print('\u2551' + " RBX/EBX/BX/BH " + '\u2551', end=' ')
    if RBX[:18] == "0x0000000000000000":
       print(colored(RBX[:COL1],colour7), end=' ')
@@ -198,7 +188,7 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[1],colour6), end=' ')
    print('\u2551')   
-  
+# --  
    print('\u2551' + " RCX/ECX/CX/CH " + '\u2551', end=' ')
    if RCX[:18] == "0x0000000000000000":
       print(colored(RCX[:COL1],colour7), end=' ')
@@ -212,7 +202,7 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[2],colour6), end=' ')
    print('\u2551')   
-  
+# --  
    print('\u2551' + " RDX/EDX/DX/DH " + '\u2551', end=' ')
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
@@ -231,7 +221,7 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[3],colour6), end=' ')
    print('\u2551')   
-  
+# --  
    print('\u2551' + " RSI/ESI/SI/SL " + '\u2551', end=' ')
    if RSI[:18] == "0x0000000000000000":
       print(colored(RSI[:COL1],colour7), end=' ')
@@ -245,7 +235,7 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[4],colour6), end=' ')
    print('\u2551')   
-   
+# --   
    print('\u2551' + " RDI/EDI/DI/DL " + '\u2551', end=' ')
    if RDI[:18] == "0x0000000000000000":
       print(colored(RDI,colour7), end=' ')
@@ -263,9 +253,8 @@ def dispMenu():
       print(colored(ADDR[5],colour6), end=' ')   
    print('\u2551', end=' ')
    print(colored(GADD[5],colour6), end=' ')
-   print('\u2551')        
-   
-   #----
+   print('\u2551')           
+# --
    print('\u2551', end= ' ')
    print(colored("RSP/ESP/SP/SL",colour2),end=' ')
    print('\u2551', end=' ')   
@@ -287,35 +276,30 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[6],colour6), end=' ')
    print('\u2551')   
-   
-   # ----
+# --
    print('\u2551', end=' ')
    print(colored("RBP/EBP/BP/BL",colour2), end=' ')
    print('\u2551', end=' ')   
    if RBP[:18] == "0x0000000000000000":
       print(colored(RBP,colour7), end=' ')
    else:
-      print(colored(RBP,colour6), end=' ')
-      
+      print(colored(RBP,colour6), end=' ')      
    print('\u2551',end=' ')
    if BIT[:6] == "64-Bit":
       print(colored("        -8 Bytes  ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
       print(colored("        -4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if BIT[:6] == "      ":
-      print(colored("                  ",colour7,attrs=['bold']), end=' ')   
-
-   print('\u2551', end=' ')
-   
+   if BIT[:7] == "Unknown":
+      print(colored("                  ",colour7,attrs=['bold']), end=' ')
+   print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[7]:
       print(colored(ADDR[7],colour3), end=' ')
    else:
       print(colored(ADDR[7],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[7],colour6), end=' ')
-   print('\u2551')   
-  
-   #----
+   print('\u2551')
+# --
    print('\u2551', end=' ')
    if ARC[:1] != "0" and OFF[:1] != "0":
       print(colored("RIP/EIP     *", colour7,attrs=['bold']), end=' ')
@@ -326,15 +310,13 @@ def dispMenu():
       print(colored(INS,colour7), end=' ')
    else:
       print(colored(INS,colour6), end=' ')         
-   print('\u2551', end=' ')
-   
+   print('\u2551', end=' ')   
    if BIT[:6] == "64-Bit":
       print(colored("        +8 Bytes  ",colour7,attrs=['bold']), end=' ')
    if BIT[:6] == "32-Bit":
       print(colored("        +4 Bytes  ",colour7,attrs=['bold']), end=' ')
-   if BIT[:6] == "      ":
-      print(colored("                  ",colour7,attrs=['bold']), end=' ')   
-   
+   if BIT[:7] == "Unknown":
+      print(colored("                  ",colour7,attrs=['bold']), end=' ')      
    print('\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[8]:
       print(colored(ADDR[8],colour3), end=' ')
@@ -343,89 +325,50 @@ def dispMenu():
    print('\u2551', end=' ')   
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
- 
+# -- 
    print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
    if SRT[:18] == "0x0000000000000000":
       print(colored(SRT,colour7), end=' ')
    else:
-      print(colored(SRT,colour6), end=' ')
-      
-   print('\u2551' + " " + "="*COL1 + " " +  '\u2551', end=' ')
-   
+      print(colored(SRT,colour6), end=' ')      
+   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')   
    if SRT.rstrip(" ") in ADDR[9]:
       print(colored(ADDR[9],colour3), end=' ')
    else:
       print(colored(ADDR[9],colour6), end=' ')      
    print('\u2551', end=' ')   
    print(colored(GADD[9],colour6), end=' ')
-   print('\u2551')   
-
+   print('\u2551')
+# --
    print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
    if MAIN[:18] == "0x0000000000000000":
       print(colored(MAIN,colour7), end=' ')
    else:
       print(colored(MAIN,colour6), end=' ')
-   print('\u2551', end=' ')
-   
-   if MODE == "MODE    Unknown    ":
-      print(colored(MODE,colour7) + '\u2551', end=' ')
-   else:
-      print(colored(MODE,colour6) + '\u2551', end=' ')
-   
+   print('\u2551', end=' ') 
+   print("                   " + '\u2551', end= ' ')
    if SRT.rstrip(" ") in ADDR[10]:
       print(colored(ADDR[10],colour3), end=' ')
    else:
       print(colored(ADDR[10],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[10],colour6), end=' ')
-   print('\u2551')    
-
-   print('\u2551' + " ARCHITECTURE  " + '\u2551', end=' ')
-   
-   if ARC[:5] == "EMPTY":
-      print(colored(ARC[:9],colour7), end=' ')
-      if BIT[:1] != " ":
-         print(colored(BIT[:8],colour6), end=' ')
-      else:
-         print(colored(BIT[:8],colour7), end=' ')      
-   else:
-      print(colored(ARC[:9],colour6), end=' ')
-      if BIT[:1] != " ":
-         print(colored(BIT[:8],colour6), end=' ')
-      else:
-         print(colored(BIT[:8],colour7), end=' ')
-   
-   print('\u2551', end=' ')
-   if COM[:1] != "U":
-      print(colored("FORMAT ",colour6), end=' ')
-      print(colored(COM[:7],colour6), end=' ')
-      print("  ", end=' ')
-   else:
-      print(colored("FORMAT ",colour7), end=' ')
-      print(colored(COM[:7],colour7), end=' ')   
-      print("  ", end=' ')
-   print('\u2551', end=' ')
-   
+   print('\u2551')
+# --
+   print('\u2551' + "       ADDRESS " + '\u2551', end=' ')   
+   print("                   " + '\u2551', end= ' ')
+   print("                   " + '\u2551', end= ' ')   
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
    else:
       print(colored(ADDR[11],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[11],colour6), end=' ')
-   print('\u2551')    
-   
-   print('\u2551' + " INDIAN   TYPE " + '\u2551', end=' ')     
-   if IND[:5] == "EMPTY":
-      print(colored(IND,colour7), end=' ')
-   else:
-      print(colored(IND,colour6), end=' ')
-   
-   print('\u2551', end=' ')   
-   print(colored("FLAVOUR", colour6), end=' ')
-   print(colored(flavour[:5],colour6),end=' ' )
-   print("    ", end=' ')
-   print('\u2551', end=' ')   
-   
+   print('\u2551')
+# --   
+   print('\u2551' + "       ADDRESS " + '\u2551', end=' ')     
+   print("                   " + '\u2551', end= ' ')
+   print("                   " + '\u2551', end= ' ')   
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
@@ -433,35 +376,66 @@ def dispMenu():
          print(colored(ADDR[12],colour0), end=' ')   
       else:
          print(colored(ADDR[12],colour6), end=' ')
-   print('\u2551', end=' ')   
- 
+   print('\u2551', end=' ')
    print(colored(GADD[12],colour6), end=' ')
-   print('\u2551')      
-   print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u2563', end=' '); print(colored(GADD[13],colour6), end=' '); print('\u2551')
+   print('\u2551')
+# --         
+   print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551', end=' '); print(colored(GADD[14],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(02) Set BASE POINTER (12) Set ARCHITECTURE (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2551', end=' '); print(colored(GADD[15],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set INDIAN  Type (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551', end=' '); print(colored(GADD[16],colour6), end=' '); print('\u2551')  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551', end=' '); print(colored(GADD[17],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551', end=' '); print(colored(GADD[18],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551', end=' '); print(colored(GADD[19],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) LibC Location" + '\u2551', end=' '); print(colored(GADD[20],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551', end=' '); print(colored(GADD[21],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551', end=' '); print(colored(GADD[22],colour6), end=' '); print('\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551', end=' ')
-   if GADD[24] != "":
-      print(colored(GADD[23],colour0), end=' '); print('\u2551')   
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE DIAGNOSTICS MODE", end=' ')
+   if MODE == "Unknown":
+      print(colored(MODE,colour7), end=' ')
    else:
-      print(colored(GADD[23],colour6), end=' '); print('\u2551')
+      print(colored(MODE,colour6), end=' ') 
+   print("USING FLAVOUR", end=' ') 
+   print(colored(flavour[:5],colour6),end=' ' )
+   print((" ")*7 + '\u2551')
+# --      
+   print('\u2551' + "(02) Set BASE POINTER (12) Set      ADDRESS (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set      ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
+   if COM[:1] != "U":
+      print(colored(COM,colour6), end=' ')
+   else:
+      print(colored(COM,colour7), end=' ')   
+   print((" ")*25 + '\u2551')  
+   # --
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551' + " ARCHITECTURE", end= ' ')
+   if ARC[:5] == "EMPTY":
+      print(colored(ARC,colour7), end=' ')
+   else:
+      print(colored(ARC,colour6), end=' ')
+   print((" ")*25 + '\u2551')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551' + " BITS        ", end=' ')
+   if BIT[:1] != "U":
+      print(colored(BIT,colour6), end=' ')
+   else:
+      print(colored(BIT,colour7), end=' ')      
+   print((" ")*25 + '\u2551')
+# --
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551' + " INDIAN      ", end=' ')
+   if IND[:5] == "EMPTY":
+      print(colored(IND,colour7), end=' ')
+   else:
+      print(colored(IND,colour6), end=' ')
+   print((" ")*25 + '\u2551')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) LibC  Version" + '\u2551' + " LIBC VERSION", end=' ')
+   if LIBC[:1] == "U":
+      print(colored(LIBC[:COL2-2],colour7), end=' ')
+   else:
+      print(colored(LIBC[:COL2-2],colour6), end=' ')
+   print('\u2551')
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39)                   (59) Reset Program" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40)                   (60) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : START OF MAIN - Check running as root.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -475,7 +449,7 @@ else:
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Create local user-friendly variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -492,12 +466,12 @@ localDir = "BINMASTER"						# LOCAL DIRECTORYS
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Display program banner and boot system.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-command("xdotool key Alt+Shift+S; xdotool type 'TRY HARDER'; xdotool key Return")
+command("xdotool key Alt+Shift+S; xdotool type 'FULL STACK; xdotool key Return")
 dispBanner("BINARY MASTER",1)
 print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
@@ -505,7 +479,7 @@ print(colored("\n\n[*] Booting, please wait...", colour3))
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Initialise program files and variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -553,7 +527,7 @@ flavour = "intel"
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Check the database for stored variables.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -603,18 +577,19 @@ RSP = spacePadding(RSP, COL1)
 RBP = spacePadding(RBP, COL1)
 OFF = spacePadding(OFF, COL1)
 IND = spacePadding(IND, COL1)
-ARC = spacePadding(ARC, 9)	# MAX ARCH NAME 'powerpc64'
+ARC = spacePadding(ARC, COL1)
 FIL = spacePadding(FIL, COL0)
 SRT = spacePadding(SRT, COL1)
 INS = spacePadding(INS, COL1)
 
-BIT = spacePadding(" ", 8)	# MAX BIT NAME '64 bit'
-MODE = "MODE    Unknown    "
+BIT = spacePadding("Unknown", COL1)
+LIBC = spacePadding("Unknown", COL2)
+MODE = "Unknown"
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Start the main menu controller.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -623,7 +598,6 @@ while True:
    saveParams()
    clearClutter()
    checkParams = 0							# RESET'S VALUE
-   LTM = getTime()							# GET CLOCKTIME
    command("clear")							# CLEARS SCREEN
    dispMenu()								# DISPLAY UPPER
    options()								# DISPLAY LOWER
@@ -632,7 +606,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Secret option that ...
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -643,7 +617,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RAX VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -660,7 +634,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RBX VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -677,7 +651,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RCX VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -694,7 +668,7 @@ while True:
  # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RDX VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -711,7 +685,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RSI VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -728,7 +702,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RDI VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -745,7 +719,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RSP VALUE
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -762,7 +736,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RBP VALUE 
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -779,7 +753,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Instruction Pointer.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -796,7 +770,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Start value
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -813,7 +787,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Set MAIN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -830,41 +804,29 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - Architecture
+# Version : FULL STACK
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='12':
-      BAK = ARC
-      ARC = input("[?] Please enter file architecture: ")
-      if ARC != "":
-         ARC = spacePadding(ARC,COL1)
-      else:
-            ARC = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
-# Details : Menu option selected - Indian value.
+# Version : FULL STACK
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
-      BAK = IND
-      IND = input("[?] Please enter indian value: ")
-      if IND != "":
-         IND = spacePadding(IND,COL1)
-      else:
-            IND = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - 
 # Details : Menu option selected - Name fileName.
 # Modified: N/A
@@ -889,7 +851,7 @@ while True:
             FIL = spacePadding(FIL,COL0)
             if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
                command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-               MODE = "MODE    Static     "
+               MODE = "Static "
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
                FIL = BAK
@@ -900,7 +862,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - chmod +x fileMame.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -911,13 +873,13 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
          command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "MODE    Static     "
+         MODE = "Static "
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - chmod +x fileMame.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -928,13 +890,13 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
          command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "MODE    Dynamic    "
+         MODE = "Dynamic"
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Change remote IP address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -953,19 +915,19 @@ while True:
          if "8-bit" in binary:
             BIT = "08-Bit"
             print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, 8)            
+            BIT = spacePadding(BIT, COL1)            
          if "16-bit" in binary:
             BIT = "16-Bit"
             print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, 8)            
+            BIT = spacePadding(BIT, COL1)            
          if "32-bit" in binary:
             BIT = "32-Bit"
             print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, 8)         
+            BIT = spacePadding(BIT, COL1)         
          if "64-bit" in binary:
             BIT = "64-Bit"
             print(BIT + " architecture...")  
-            BIT = spacePadding(BIT, 8)         
+            BIT = spacePadding(BIT, COL1)         
          if "LSB" in binary:
             IND = "Little"
             print(IND + " indian...")
@@ -985,7 +947,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Checksec fileName.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1042,7 +1004,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - ObjDUmp
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1067,7 +1029,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Gadgets
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1096,7 +1058,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - File headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1113,43 +1075,43 @@ while True:
             for line in header:
                data = line
                if "aarch64" in data:
-                  ARC = spacePadding("aarch64", 9)
+                  ARC = spacePadding("aarch64", COL1)
                if "alpha" in data:
-                  ARC = spacePadding("alpha", 9)
+                  ARC = spacePadding("alpha", COL1)
                if "amd64" in data:
-                  ARC = spacePadding("amd64", 9)
+                  ARC = spacePadding("amd64", COL1)
                if "arm" in data:
-                  ARC = spacePadding("arm", 9)
+                  ARC = spacePadding("arm", COL1)
                if "avr" in data:
-                  ARC = spacePadding("avr", 9)
+                  ARC = spacePadding("avr", COL1)
                if "cris" in data:
-                  ARC = spacePadding("cris", 9)
+                  ARC = spacePadding("cris", COL1)
                if "i386" in data:
-                  ARC = spacePadding("i386", 9)
+                  ARC = spacePadding("i386", COL1)
                if "ia64" in data:
-                  ARC = spacePadding("ia64", 9)
+                  ARC = spacePadding("ia64", COL1)
                if "m68k" in data:
-                  ARC = spacePadding("m68k", 9)
+                  ARC = spacePadding("m68k", COL1)
                if "mips" in data:
-                  ARC = spacePadding("mips", 9)
+                  ARC = spacePadding("mips", COL1)
                if "mips64" in data:
-                  ARC = spacePadding("mips64", 9)
+                  ARC = spacePadding("mips64", COL1)
                if "mips430" in data:
-                  ARC = spacePadding("mips430", 9)
+                  ARC = spacePadding("mips430", COL1)
                if "powerpc" in data:
-                  ARC = spacePadding("powerpc", 9)
+                  ARC = spacePadding("powerpc", COL1)
                if "powerpc64" in data:
-                  ARC = spacePadding("powerpc64", 9)
+                  ARC = spacePadding("powerpc64", COL1)
                if "s390" in data:
-                  ARC = spacePadding("s390", 9)
+                  ARC = spacePadding("s390", COL1)
                if "sparc" in data:
-                  ARC = spacePadding("sparc", 9)
+                  ARC = spacePadding("sparc", COL1)
                if "sparc64" in data:
-                  ARC = spacePadding("sparc64", 9)
+                  ARC = spacePadding("sparc64", COL1)
                if "thumb" in data:
-                  ARC = spacePadding("thumb", 9)
+                  ARC = spacePadding("thumb", COL1)
                if "vax" in data:
-                  ARC = spacePadding("vax", 9)                  
+                  ARC = spacePadding("vax", COL1)                  
                if "start address" in data:
                   SRT = spacePadding(data.split(" ")[2], COL1)
                if "elf" in data:
@@ -1159,7 +1121,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Object headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1176,7 +1138,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Section headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1193,7 +1155,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - All Headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1210,7 +1172,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Executable section
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1232,7 +1194,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Debug information.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1249,7 +1211,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Debug + code intermix
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1266,7 +1228,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Symbols
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1283,7 +1245,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Stabs
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1300,7 +1262,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Hexform
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1317,7 +1279,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - MSF pattern create.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1338,7 +1300,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Run fileName.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1354,7 +1316,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - gdb fileName
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1373,7 +1335,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - MSF patter finder
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1394,7 +1356,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - OFFSET 
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -1412,7 +1374,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Disassemble MAIN.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1430,7 +1392,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Disassemble main address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1450,7 +1412,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Disassemble a function.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1469,7 +1431,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1480,7 +1442,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Hex Editor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1496,7 +1458,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Start ghidra.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1512,7 +1474,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Start Immunity Debugger.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1528,7 +1490,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Start nasm_shell.rb.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1544,7 +1506,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Generate shell code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1565,7 +1527,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Generate exploit code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1625,24 +1587,27 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - get libc
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '47':
-      print(colored("[*] Libc.so file location...", colour3))
-      command("ldd " + localDir + "/" + FIL + " > libc.tmp")
-      command("cat libc.tmp | grep '=>' > address.tmp")
-      with open("address.tmp","r") as address:
-         LIBC = address.readline().split(" ")[2]
-      print(colored("\n" + LIBC, colour6))  
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Libc.so file location...", colour3))
+         command("ldd " + localDir + "/" + FIL + " > libc.tmp")
+         command("cat libc.tmp | grep '=>' > address.tmp")
+         with open("address.tmp","r") as address:
+            LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
+            print(colored("\n" + LIBC, colour6)) 
       prompt()           
          
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - set disassembly-flavor
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1653,12 +1618,15 @@ while True:
       if flavour == "":
          flavour = bak
       else:
-         if (flavour.upper() != "ATT") or (flavour.upper() != "INTEL"):
+         if (flavour.rstrip(" ").upper() != "ATT") and (flavour.rstrip(" ").upper() != "INTEL"):
+            print("[-] Resetting...")
             flavour = bak
-      if flavour.upper() == "ATT":
-         flavour = "att"
-      if flavour.upper() == "INTEL":
-         flavour = "intel"
+         if flavour.upper() == "ATT":
+            flavour = "att"
+            print("[+] Swithing to att...")
+         if flavour.upper() == "INTEL":
+            flavour = "intel"
+            print("[+] Switching to intel")
       flavour = spacePadding(flavour, 5)
       print(colored("[*] Disassenbly flavor updated...", colour3))
       prompt()
@@ -1666,7 +1634,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - RESET
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1699,14 +1667,14 @@ while True:
       PI = spacePadding("PIE     Unknown", COL1)
       RW = spacePadding("RWX     Unknown", COL1)
       colourx = "yellow"
-      MODE = "MODE    Unknown    "
+      MODE = "Unknown"
       flavour = "intel"
       prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Save running config to config.txt and exit program
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1721,7 +1689,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : TRY HARDER                                                             
+# Version : FULL STACK
 # Details : Menu option selected - Secret option
 # Modified: N/A
 # -------------------------------------------------------------------------------------
