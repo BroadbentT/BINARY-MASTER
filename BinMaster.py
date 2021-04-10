@@ -228,7 +228,16 @@ def dispMenu():
       print(colored(RSI[:COL1],colour7), end=' ')
    else:
       print(colored(RSI[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(PI,colourx) + " " +  '\u2551', end=' ')
+      
+   print('\u2551', end=' ')
+   if "No PIE" in PI:
+      print(colored(PI,'blue'), end=' ')
+   else:
+      print(colored(PI ,colourx), end=' ')   
+   print('\u2551', end=' ')
+       
+#   print('\u2551' + " " + colored(PI,colourx) + " " +  '\u2551', end=' ')
+   
    if SRT.rstrip(" ") in ADDR[4]:
       print(colored(ADDR[4],colour3), end=' ')
    else:
@@ -997,7 +1006,7 @@ while True:
                NX = "NX       Enabled  "   
                            
             if "No PIE" in binary:
-               PI = "No       PIE      "               
+               PI = "PIE      No PIE   "               
             if "PIE enabled" in binary:
                PI = "PIE      Enabled  "      
                        
