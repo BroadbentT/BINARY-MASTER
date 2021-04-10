@@ -1193,9 +1193,7 @@ while True:
          catsFile("exec.tmp")
          command("cat exec.tmp | grep ' <main>' > main.tmp ")
          with open("main.tmp","r") as main:
-            null = main.readline()
-            if null != "":
-               MAIN = spacePadding("0x" + main.readline().split(" ")[0], COL1)
+            MAIN = spacePadding("0x" + main.readline().split(" ")[0], COL1)
       prompt() 
    
 # ------------------------------------------------------------------------------------- 
@@ -1588,7 +1586,7 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
          command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
-         command("echo 'contect.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
+         command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
             command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
@@ -1687,7 +1685,8 @@ while True:
       NX = spacePadding("NX       unknown", COL1)
       PI = spacePadding("PIE      unknown", COL1)
       RW = spacePadding("RWX      unknown", COL1)
-
+      MAIN = spacePadding("0x0000000000000000", COL1)
+      BIT = spacePadding("unknown", COL1)
       colourx = "yellow"
       flavour = "intel"
       prompt()
