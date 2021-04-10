@@ -365,9 +365,13 @@ def dispMenu():
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')
 # --
-   print('\u2551' + "       ADDRESS " + '\u2551', end=' ')   
-   print("                   " + '\u2551', end= ' ')
-   print("                   " + '\u2551', end= ' ')   
+   print('\u2551' + " CUS1  ADDRESS " + '\u2551', end=' ')   
+   if CUS1[:18] == "0x0000000000000000":
+      print(colored(CUS1,colour7), end=' ')
+   else:
+      print(colored(CUS1,colour6), end=' ')
+   print('\u2551', end=' ') 
+   print("                   " + '\u2551', end= ' ') 
    if SRT.rstrip(" ") in ADDR[11]:
       print(colored(ADDR[11],colour3), end=' ')
    else:
@@ -376,9 +380,13 @@ def dispMenu():
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')
 # --   
-   print('\u2551' + "       ADDRESS " + '\u2551', end=' ')     
-   print("                   " + '\u2551', end= ' ')
-   print("                   " + '\u2551', end= ' ')   
+   print('\u2551' + " CUS2  ADDRESS " + '\u2551', end=' ')     
+   if CUS2[:18] == "0x0000000000000000":
+      print(colored(CUS2,colour7), end=' ')
+   else:
+      print(colored(CUS2,colour6), end=' ')
+   print('\u2551', end=' ')  
+   print("                   " + '\u2551', end= ' ') 
    if SRT.rstrip(" ") in ADDR[12]:
       print(colored(ADDR[12],colour3), end=' ')
    else:
@@ -399,8 +407,8 @@ def dispMenu():
 def options():
    print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
 # --      
-   print('\u2551' + "(02) Set BASE POINTER (12) Set      ADDRESS (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set      ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 ADDRESS (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -433,7 +441,7 @@ def options():
    else:
       print(colored(IND,colour6), end=' ')
    print((" ")*25 + '\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47)              " + '\u2551' + " LIBC VERSION", end=' ')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) RESERVED     " + '\u2551' + " LIBC VERSION", end=' ')
    if LIBC[:1] == "u":
       print(colored(LIBC[:COL2-2],colour7), end=' ')
    else:
@@ -576,8 +584,11 @@ IND = linecache.getline("ascii.tmp", 11).rstrip("\n")
 ARC = linecache.getline("ascii.tmp", 12).rstrip("\n")
 FIL = linecache.getline("ascii.tmp", 13).rstrip("\n")
 SRT = linecache.getline("ascii.tmp", 14).rstrip("\n")
+
 INS = "0x0000000000000000"
 MAIN = "0x0000000000000000"
+CUS1 = "0x0000000000000000"
+CUS2 = "0x0000000000000000"
 
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
@@ -818,22 +829,34 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - 
+# Details : Menu option selected - Custom address two.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='12':
-      prompt()  
+      BAK = CUS1
+      CUS1 = input("[?] Please enter custom address 1: ")
+      if CUS1 != "":
+         CUS1 = spacePadding(CUS1,COL1)
+      else:
+            CUS1 = BAK
+      prompt()   
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - 
+# Details : Menu option selected - Custom address one.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
+      BAK = CUS2
+      CUS2 = input("[?] Please enter custom address 2: ")
+      if CUS2 != "":
+         CUS2 = spacePadding(CUS2,COL1)
+      else:
+            CUS2 = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -1039,7 +1062,7 @@ while True:
             for x in range(0, maxDisp):
                ADDR[x] = functions.readline().rstrip(" ")
                ADDR[x] = spacePadding(ADDR[x], COL2)
-         command("mv functions.tmp functions.txt")
+         command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1068,7 +1091,7 @@ while True:
             for x in range (0, maxDisp):
                GADD[x] = gadgets.readline().rstrip(" ")
                GADD[x] = spacePadding(GADD[x], COL3)
-         command("mv gadgets.tmp gadgets.txt")
+         command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1611,20 +1634,27 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'main = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cus1 = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cus2 = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
          if BIT[:2] == "64":
             command("echo 'pointer   = \"a\" * 8' >> "+ localDir + "/exploit.py")
          else:
             command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
          command("echo 'padding   = \"a\" * 4' >> "+ localDir + "/exploit.py")  
-         command("echo 'overwrite = p64(" + SRT.rstrip(" ") + ")' >> "+ localDir + "/exploit.py")  
-         command("echo 'term      = \"\ n\" #amend' >> "+ localDir + "/exploit.py")
+         command("echo 'overwrite = p64(cus1)' >> "+ localDir + "/exploit.py")  
+         command("echo 'term      = \"\ n\" #AMEND' >> "+ localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'payload = flat(buffers,integer,pointer,padding,overwrite,term)' >> "+ localDir + "/exploit.py")
+         command("echo 'payload = flat(buffers,overwrite,term)' >> " + localDir + "/exploit.py")
+         command("echo 'print(payload)' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 's.recvuntil(\"Enter your name :\")' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
+         command("echo 's.recvuntil(\"Congratulations!\ n\") #AMEND' >> " + localDir + "/exploit.py")
+         command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
+         command("echo 'success(flag)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
@@ -1666,8 +1696,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '49':       
-      print(colored("[*] Re-Setting Program...", colour3)) 
-      
+      print(colored("[*] Re-Setting Program...", colour3))       
       RAX = spacePadding("0x0000000000000000", COL1)
       COM = spacePadding("unknown", COL1)
       RBX = spacePadding("0x0000000000000000", COL1)
@@ -1694,6 +1723,8 @@ while True:
       PI = spacePadding("PIE      unknown", COL1)
       RW = spacePadding("RWX      unknown", COL1)
       MAIN = spacePadding("0x0000000000000000", COL1)
+      CUS1 = spacePadding("0x0000000000000000", COL1)
+      CUS2 = spacePadding("0x0000000000000000", COL1)      
       BIT = spacePadding("unknown", COL1)
       colourx = "yellow"
       flavour = "intel"
