@@ -1342,8 +1342,7 @@ while True:
          print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
          command("echo 'set follow-fork-mode child' >> command.tmp")
-         command("gdb -q " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")         
-#         command("gdb -q " + localDir + "/" + FIL.rstrip(" "))
+         command("gdb -q " + localDir + "/" + FIL.rstrip(" ") + " -x command.tmp")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
