@@ -21,7 +21,7 @@ Usage: python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | a0691780372f0d90cd5aa88ac08c2f8c | Command Centre | Full Stack |
+| python3   | BinMaster.py | 95dc5aef699b2931aa08e32f35b8943d | Command Centre | Full Stack |
 
 
 A python script file to forensically examine binary files for buffer-overflows.

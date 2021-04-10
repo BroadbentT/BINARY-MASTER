@@ -1315,7 +1315,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Running filename " + localDir + "/" + FIL.rstrip(" ") + "...\n", colour3))
-         command("./" + localDir + "/" + FIL.rstrip(" "))
+         command("ltrace ./" + localDir + "/" + FIL.rstrip(" "))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
