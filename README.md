@@ -26,7 +26,7 @@ Usage: python3 BinMaster.py
 
 A python script file to forensically examine binary files for buffer-overflows.
 
-	[x] TODO Working!! but need to create a new database.
+	[x] Working!! but I need to create a new database.
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/wnB720HnnC0 "Binary Master")
