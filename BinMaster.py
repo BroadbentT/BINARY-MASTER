@@ -232,10 +232,10 @@ def dispMenu():
    if "No PIE" in PI:
       print(colored(PI,'blue'), end=' ')
    else:
-      if "PIE      unknown" in RW:
+      if "PIE      unknown" in PI:
          print(colored(PI ,colour7), end=' ')   
       else:
-         print(colored(PI ,colour7), end=' ')         
+         print(colored(PI ,colour6), end=' ')         
    print('\u2551', end=' ')
    if SRT.rstrip(" ") in FUNC[4]:
       print(colored(FUNC[4],colour3), end=' ')
@@ -1024,7 +1024,9 @@ while True:
             if "Partial RELRO" in binary:
                RE = "RELRO    Partial  "               
             if "No canary found" in binary:
-               ST = "STACK    No Canary"                           
+               ST = "STACK    No Canary"  
+            if "Canary found" in binary:
+               ST = "STACK    Canary   "
             if "No Fortify" in binary:
                FO = "Fortify  Disabled "                              
             if "NX disabled" in binary:
@@ -1228,7 +1230,7 @@ while True:
          command("objdump" + " -d " + localDir + "/" + FIL.rstrip(" ") + " > exec.tmp")
          parsFile("exec.tmp")
          catsFile("exec.tmp")
-         command("cat exec.tmp | grep ' <main>' > main.tmp ")
+         command("cat exec.tmp | grep ' <main>:' > main.tmp ")
          with open("main.tmp","r") as main:
             MAIN = spacePadding("0x" + main.readline().split(" ")[0], COL1)
             print("[+] Adding MAIN address to registers...")
