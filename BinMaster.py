@@ -884,8 +884,8 @@ while True:
       print(colored("[*] Scanning files in " + localDir + " directory...", colour3))
       command("ls -la " + localDir + " > dir.tmp")
       for loop in range(3):
-         command("sed -i '1d' ./dir.tmp")
-      command("sed -i '/RA.db/d' ./dir.tmp")
+         command("sed -i '1d' dir.tmp")
+      command("sed -i '/RA.db/d' dir.tmp")
       count = lineCount("dir.tmp")        
       if count < 1:
          print("[-] The directory is empty...")
@@ -894,9 +894,9 @@ while True:
          BAK = FIL
          FIL = input("[?] Please enter filename: ")
          if FIL != "":
-            FIL = spacePadding(FIL,COL1)
             if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
                command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
+               FIL = spacePadding(FIL,COL3)
                MODE = spacePadding("Static", COL1)
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
