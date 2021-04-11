@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Load required imports.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ from termcolor import colored
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Create functional subroutines called from main.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -313,7 +313,7 @@ def dispMenu():
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end=' ')
-   if ARC[:1] != "0" and OFF[:1] != "0":
+   if BITS[:7] != "unknown" and OFF[:1] != "0":
       print(colored("RIP/EIP    ", colour2), end=' ')
       print(colored("*", colour2,attrs=['blink']), end=' ')
    else:
@@ -459,7 +459,7 @@ def options():
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : START OF MAIN - Check running as root.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -473,7 +473,7 @@ else:
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Create local user-friendly variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -499,7 +499,7 @@ Reset   = '\e[0m'
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Display program banner and boot system.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ print(colored("\n\n[*] Booting, please wait...", colour3))
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Initialise program files and variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -568,7 +568,7 @@ CUS2 = "0x0000000000000000"
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Check the database for stored variables.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -626,7 +626,7 @@ command("sleep 5s")
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Start the main menu controller.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -643,7 +643,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Secret option that will run all commands.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -654,7 +654,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RAX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -671,7 +671,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RBX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -688,7 +688,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RCX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -705,7 +705,7 @@ while True:
  # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RDX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -722,7 +722,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RSI value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -739,7 +739,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RDI value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -756,7 +756,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RSP value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -773,7 +773,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RBP value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -790,7 +790,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set RIP Value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -807,7 +807,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set START address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -824,7 +824,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set MAIN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -841,7 +841,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set custom address one.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -858,7 +858,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set custom address two.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -875,7 +875,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -908,7 +908,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Chmod -x file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -925,7 +925,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Chmod +x file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -942,7 +942,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Gather data from file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -995,7 +995,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Checksec file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1044,7 +1044,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Create functions file.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1070,7 +1070,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Create gadgets file.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1099,7 +1099,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display file header.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1162,7 +1162,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display object headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1179,7 +1179,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display section headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1197,7 +1197,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display all Headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1215,7 +1215,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display executable section
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1237,7 +1237,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display debug information.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1255,7 +1255,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display debug + code intermix.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1273,7 +1273,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display symbols
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1291,7 +1291,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display stabs.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1309,7 +1309,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Display in hex form.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1327,7 +1327,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - MSF pattern create.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1348,7 +1348,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Run file name using ltrace.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1364,7 +1364,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - gdb file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1382,7 +1382,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - MSF patter finder.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1403,7 +1403,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set OFFSET value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -1421,7 +1421,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Disassemble MAIN.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1439,7 +1439,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Disassemble address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1459,7 +1459,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Disassemble function.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1478,7 +1478,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Use radare script.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1503,7 +1503,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Find libc version.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1523,7 +1523,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Hex Editor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1539,7 +1539,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Start ghidra.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1555,7 +1555,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Start Immunity Debugger.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1571,7 +1571,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Start nasm_shell.rb.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1587,7 +1587,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Generate shell code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1608,7 +1608,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Generate exploit code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1678,7 +1678,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Set disassembly-flavor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1704,7 +1704,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Reset all values.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1751,7 +1751,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Terminate program.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1766,7 +1766,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : ELF MASTER
+# Version : GOLDEN ELF
 # Details : Menu option selected - Secret option
 # Modified: N/A
 # -------------------------------------------------------------------------------------
