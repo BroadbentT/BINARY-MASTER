@@ -2,7 +2,7 @@
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture1.png">
 </p>
 
-## FULL STACK EDITION
+## GOLDEN ELF EDITION
 
 **INSTALLATION INSTRUCTIONS**
 
@@ -25,8 +25,6 @@ Usage: python3 BinMaster.py
 
 
 A python script file to forensically examine binary files for buffer-overflows.
-
-	[x] Working version, however - the database needs to be updated, not all the new variables are not saved (partial patch!! - use 49 before you begin).
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/wnB720HnnC0 "Binary Master")
