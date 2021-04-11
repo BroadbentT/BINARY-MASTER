@@ -136,12 +136,7 @@ def saveParams():
 def dispMenu():
    print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " REGISTERS FOR FILENAME", end =' ')
-   if FIL[:7] == "unknown":
-      print(colored(FIL.upper()[:11],colour7), end=' ')
-   else:
-      print(colored(FIL.upper()[:11],colour6), end=' ')
-   print('\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+   print('\u2551' + " REGISTERS " + (" ")*25 + '\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
@@ -411,7 +406,15 @@ def options():
    print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN FUNCESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 FUNCESS (22) Read   Objects (32) Ltrace    Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 FUNCESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 FUNCESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME   ", end=' ')
+   if FIL[:7] == "unknown":
+      print(colored(FIL[:COL3-13],colour7), end=' ')   
+   else:
+      print(colored(FIL[:COL3-13],colour6), end=' ')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551' + " FORMAT      ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -423,34 +426,36 @@ def options():
       print(colored(MODE[:7],colour6), end=' ') 
    print((" ")*9+ '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551' + " ARCHITECTURE", end= ' ')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551' + " ARCHITECTURE", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
       print(colored(ARC,colour6), end=' ')
    print("FLAVOUR", end=' ')
    print(colored(flavour[:5],colour6),end=' ' )
-   print((" ")*11 + '\u2551')   
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551' + " BITS        ", end=' ')
+   print((" ")*11 + '\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551' + " BITS        ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
       print(colored(BITS,colour7), end=' ')      
-   print((" ")*25 + '\u2551')
+   print((" ")*25 + '\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551' + " INDIAN      ", end=' ')
+   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) RESERVED     " + '\u2551' + " INDIAN      ", end=' ')
    if IND[:7] == "unknown":
       print(colored(IND,colour7), end=' ')
    else:
       print(colored(IND,colour6), end=' ')
    print((" ")*25 + '\u2551')
-   print('\u2551' + "(07) Set STACKPOINTER (17) Examine  Program (27) Read   Intamix (37) Dis-Assemble ADDR (47) RESERVED     " + '\u2551' + " LIBC VERSION", end=' ')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) Set   Flavour" + '\u2551' + " LIBC VERSION", end=' ')
    if LIBC[:1] == "u":
       print(colored(LIBC[:COL2-2],colour7), end=' ')
    else:
       print(colored(LIBC[:COL2-2],colour6), end=' ')
-   print('\u2551')
-   print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551') 
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(09) Set INSP POINTER (19) List   Functions (29) Read Stab Data (39) Radare2 Enumerate (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
    print('\u2551' + "(10) Set STARTFUNCESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
@@ -617,7 +622,7 @@ RBP = spacePadding(RBP, COL1)
 OFF = spacePadding(OFF, COL1)
 IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
-FIL = spacePadding(FIL, COL1)
+FIL = spacePadding(FIL, COL3)
 SRT = spacePadding(SRT, COL1)
 INSP = spacePadding(INSP, COL1)
 
@@ -1515,7 +1520,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Libc.so file location...", colour3))
-         command("ldd " + localDir + "/" + FIL + " > libc.tmp")
+         command("ldd " + localDir + "/" + FIL.rstrip(" ") + " > libc.tmp")
          command("cat libc.tmp | grep '=>' > address.tmp")
          with open("address.tmp","r") as address:
             LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
@@ -1725,7 +1730,7 @@ while True:
       OFF = spacePadding("0", COL1)
       IND = spacePadding("unknown", COL1)
       ARC = spacePadding("unknown", COL1)
-      FIL = spacePadding("unknown", COL1)
+      FIL = spacePadding("unknown", COL3)
       SRT = spacePadding("0x0000000000000000", COL1)
       INSP = spacePadding("0x0000000000000000", COL1)
      

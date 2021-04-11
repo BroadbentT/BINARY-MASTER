@@ -21,7 +21,7 @@ Usage: python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | cd12e5849701986b339c4e8201c8248b | Command Centre | Golden Elf |
+| python3   | BinMaster.py | fb9410f0e1df83c04f50f64ba59e0a46 | Command Centre | Golden Elf |
 
 
 A python script file to forensically examine binary files for buffer-overflows.
