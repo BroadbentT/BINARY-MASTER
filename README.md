@@ -27,7 +27,7 @@ USAGE : python3 BinMaster.py
 | python3   | BinMaster.py | f94ab11aaa810038d8ffea2a6eb5d1c4 | Command Centre | Golden Elf |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
-[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/wnB720HnnC0 "Binary Master")
+[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/lUbo5QZdEN8 "Binary Master")
 
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
