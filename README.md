@@ -21,14 +21,12 @@ Usage: python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | fb9410f0e1df83c04f50f64ba59e0a46 | Command Centre | Golden Elf |
+| python3   | BinMaster.py | f94ab11aaa810038d8ffea2a6eb5d1c4 | Command Centre | Golden Elf |
 
 
 A python script file to forensically examine binary files for buffer-overflows.
 
-	[x] Working version.
-	[x] Database needs to be updated, not all the new variables are saved (partial patch - use 49 before you begin).
-	[x] Program has only been tested with elf files.
+	[x] Working version, however - the database needs to be updated, not all the new variables are not saved (partial patch!! - use 49 before you begin).
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/wnB720HnnC0 "Binary Master")

@@ -1747,6 +1747,7 @@ while True:
       FUNC = [" "*COL2]*maxDispl
       GADD = [" "*COL3]*maxDispl
 
+      LIBC = spacePadding("unknown", COL3)
       MAIN = spacePadding("0x0000000000000000", COL1)
       CUS1 = spacePadding("0x0000000000000000", COL1)
       CUS2 = spacePadding("0x0000000000000000", COL1)      
