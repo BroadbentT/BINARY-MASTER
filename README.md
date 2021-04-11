@@ -19,7 +19,7 @@
 
 A python script file to statically and dynamically investigate and analyse binary files for buffer overflow exploits.
 
-TESTED: Kali Linux 2019
+TESTED: Kali Linux 2019<br>
 USAGE : python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
