@@ -1747,7 +1747,7 @@ while True:
          print("[-] Filename not specified...")
       else:  
          os.chdir(localDir)
-         command("echo 'https://youtu.be/me_yl82pDqE' > flag.txt")  
+         command("echo 'YOU HAVE FOUND THE GOLDEN ELF' > flag.txt")  
          os.system("python3 exploit.py")
          os.chdir("..")
       prompt()
