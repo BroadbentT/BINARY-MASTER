@@ -334,7 +334,7 @@ def dispMenu():
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " START FUNCESS " + '\u2551', end=' ')
+   print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
    if SRT[:18] == "0x0000000000000000":
       print(colored(SRT,colour7), end=' ')
    else:
@@ -348,7 +348,7 @@ def dispMenu():
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " MAIN  FUNCESS " + '\u2551', end=' ')
+   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
    if MAIN[:18] == "0x0000000000000000":
       print(colored(MAIN,colour7), end=' ')
    else:
@@ -363,7 +363,7 @@ def dispMenu():
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " CUS1  FUNCESS " + '\u2551', end=' ')   
+   print('\u2551' + " CUS1  ADDRESS " + '\u2551', end=' ')   
    if CUS1[:18] == "0x0000000000000000":
       print(colored(CUS1,colour7), end=' ')
    else:
@@ -378,7 +378,7 @@ def dispMenu():
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " CUS2  FUNCESS " + '\u2551', end=' ')     
+   print('\u2551' + " CUS2  ADDRESS " + '\u2551', end=' ')     
    if CUS2[:18] == "0x0000000000000000":
       print(colored(CUS2,colour7), end=' ')
    else:
@@ -403,11 +403,11 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN FUNCESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 FUNCESS (22) Read   Objects (32) Ltrace    Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 ADDRESS (22) Read   Objects (32) Ltrace    Program (42) GHIDRA       " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 FUNCESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME   ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) G.D.B.  Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME   ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-13],colour7), end=' ')   
    else:
@@ -457,7 +457,7 @@ def options():
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(09) Set INSP POINTER (19) List   Functions (29) Read Stab Data (39) Radare2 Enumerate (49) Reset Program" + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(10) Set STARTFUNCESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) List All Gadgets (30) Read HexFormat (40) Find LIBC Version (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
