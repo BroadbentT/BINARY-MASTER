@@ -1217,6 +1217,7 @@ while True:
             with open("start.tmp","r") as address:
                SRT = address.readline().split(" ")[2]
                SRT = spacePadding(SRT, COL1)
+               print("[+] Adding START address to registers...")               
       prompt()   
    
 # ------------------------------------------------------------------------------------- 
@@ -1392,7 +1393,7 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         LEN1 = input("[?] Please input LEN1 of pattern: ")
+         LEN1 = input("[?] Please input lenght of pattern: ")
          if LEN1.isdigit():
             print(colored("[*] Creating unique pattern...", colour3))          
             command("msf-pattern_create -l " + LEN1 + " > pattern.tmp")
