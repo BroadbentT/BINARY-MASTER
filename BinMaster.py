@@ -542,6 +542,7 @@ else:
   
 if os.path.exists("RA.db"):
    command("cp RA.db ./" + localDir + "/RA.db")
+   command("cp Golden ./" + localDir + "/Golden")
    print("[+] Copying RA.db to " + localDir + "...")
 
 if os.path.exists(localDir + "/RA.db"):
