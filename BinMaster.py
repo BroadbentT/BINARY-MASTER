@@ -378,7 +378,7 @@ def dispMenu():
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " CUS2  ADDRESS " + '\u2551', end=' ')     
+   print('\u2551' + " CUST  ADDRESS " + '\u2551', end=' ')     
    if CUS2[:18] == "0x0000000000000000":
       print(colored(CUS2,colour7), end=' ')
    else:
@@ -407,7 +407,7 @@ def options():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) Ghidra       " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUST ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
@@ -884,7 +884,7 @@ while True:
       
    if selection =='13':
       BAK = CUS2
-      CUS2 = input("[?] Please enter custom address 2: ")
+      CUS2 = input("[?] Please enter custom address: ")
       if CUS2 != "":
          CUS2 = spacePadding(CUS2,COL1)
       else:
@@ -1719,7 +1719,7 @@ while True:
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'main  = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'jump  = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'cus2  = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cust  = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'buffers = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer = \"a\" * 4' >> " + localDir + "/exploit.py")
