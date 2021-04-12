@@ -20,7 +20,6 @@ import r2pipe
 import sqlite3
 import pyfiglet
 import linecache
-import subprocess
 
 from termcolor import colored
 
