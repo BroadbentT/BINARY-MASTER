@@ -28,7 +28,7 @@ USAGE : python3 BinMaster.py
 | binary    | Golden       | 60383b9557612da5f69824354cb2561b | Target File    | Golden Elf |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
-[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/lUbo5QZdEN8 "Binary Master")
+[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/5TXTurQgHXk "Binary Master")
 
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
