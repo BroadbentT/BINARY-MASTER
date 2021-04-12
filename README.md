@@ -24,7 +24,7 @@ USAGE : python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | 5f1465bb41f09f284b921a714ed99519 | Command Centre | Golden Elf |
+| python3   | BinMaster.py | 80fe6c2ee00f56b70aff81311a586120 | Command Centre | Golden Elf |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/lUbo5QZdEN8 "Binary Master")
