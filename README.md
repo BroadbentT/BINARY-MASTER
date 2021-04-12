@@ -24,7 +24,7 @@ USAGE : python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | d2526897687d85c03a67bd48aeec8b11 | Command Centre | Golden Elf |
+| python3   | BinMaster.py | 78f31935961d5521e56d07c1f17b002d | Command Centre | Golden Elf |
 | binary    | Golden       | 60383b9557612da5f69824354cb2561b | Target File    | Golden Elf |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
