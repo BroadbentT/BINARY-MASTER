@@ -24,16 +24,13 @@ USAGE : python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | f03029f540f792d3a6ab38e704d9ebc4 | Command Centre | Golden Elf |
-| binary    | Golden       | 60383b9557612da5f69824354cb2561b | Target File    | Golden Elf |
+| python3   | BinMaster.py | 7f955733cd3d8e54757b4f2399f96f4b | Command Centre | Full Stack |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/5TXTurQgHXk "Binary Master")
-
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
 
 Found this project useful, or would like to buy the developer a coffee - make a donation.
 https://paypal.me/TerenceBroadbent
-

@@ -554,10 +554,6 @@ else:
 if os.path.exists("RA.db"):
    command("mv RA.db ./" + localDir + "/RA.db")
    print("[+] Moving database...")
- 
-if os.path.exists("Golden"):
-   command("mv Golden ./" + localDir + "/Golden")  
-   print("[+] Moving binary...") 
 
 if os.path.exists(localDir + "/RA.db"):
    connection = sqlite3.connect(localDir + "/RA.db")
