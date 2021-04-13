@@ -85,7 +85,8 @@ def dispBanner(variable,flash):
    return
    
 def saveParams():
-   command("echo '" + RAX + "' | base64 --wrap=0 >  base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + FIL + "' | base64 --wrap=0 >  base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + RAX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + COM + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RBX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RCX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
@@ -94,43 +95,54 @@ def saveParams():
    command("echo '" + RDI + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RSP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RBP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + RIP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
    command("echo '" + OFF + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
    command("echo '" + IND + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + ARC + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
-   command("echo '" + FIL + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
    command("echo '" + SRT + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")  
+   command("echo '" + MAN + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
+   command("echo '" + JMP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + CUS + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    
    parsFile("base64.tmp")
    
-   RAX2 = linecache.getline("base64.tmp", 1).rstrip("\n")  
-   COM2 = linecache.getline("base64.tmp", 2).rstrip("\n")
-   RBX2 = linecache.getline("base64.tmp", 3).rstrip("\n")
-   RCX2 = linecache.getline("base64.tmp", 4).rstrip("\n")
-   RDX2 = linecache.getline("base64.tmp", 5).rstrip("\n")
-   RSI2 = linecache.getline("base64.tmp", 6).rstrip("\n")
-   RDI2 = linecache.getline("base64.tmp", 7).rstrip("\n")
-   RSP2 = linecache.getline("base64.tmp", 8).rstrip("\n")
-   RBP2 = linecache.getline("base64.tmp", 9).rstrip("\n")
-   OFF2 = linecache.getline("base64.tmp", 10).rstrip("\n")
-   IND2 = linecache.getline("base64.tmp", 11).rstrip("\n")
-   ARC2 = linecache.getline("base64.tmp", 12).rstrip("\n")
-   FIL2 = linecache.getline("base64.tmp", 13).rstrip("\n")
-   SRT2 = linecache.getline("base64.tmp", 14).rstrip("\n")    
-     
-   cursor.execute("UPDATE REMOTETARGET SET OSF = \"" + RAX2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET COM = \"" + COM2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET DNS = \"" + RBX2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET TIP = \"" + RCX2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET PTS = \"" + RDX2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET WEB = \"" + RSI2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET USR = \"" + RDI2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET PAS = \"" + RSP2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET NTM = \"" + RBP2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET TGT = \"" + OFF2 + "\" WHERE IDS = 2"); connection.commit()	
-   cursor.execute("UPDATE REMOTETARGET SET DOM = \"" + IND2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET SID = \"" + ARC2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET FIL = \"" + FIL2 + "\" WHERE IDS = 2"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET TSH = \"" + SRT2 + "\" WHERE IDS = 2"); connection.commit()
+   FIL2 = linecache.getline("base64.tmp", 1).rstrip("\n")     
+   RAX2 = linecache.getline("base64.tmp", 2).rstrip("\n")  
+   COM2 = linecache.getline("base64.tmp", 3).rstrip("\n")
+   RBX2 = linecache.getline("base64.tmp", 4).rstrip("\n")
+   RCX2 = linecache.getline("base64.tmp", 5).rstrip("\n")
+   RDX2 = linecache.getline("base64.tmp", 6).rstrip("\n")
+   RSI2 = linecache.getline("base64.tmp", 7).rstrip("\n")
+   RDI2 = linecache.getline("base64.tmp", 8).rstrip("\n")
+   RSP2 = linecache.getline("base64.tmp", 9).rstrip("\n")
+   RBP2 = linecache.getline("base64.tmp", 10).rstrip("\n")
+   RIP2 = linecache.getline("base64.tmp", 11).rstrip("\n")
+   OFF2 = linecache.getline("base64.tmp", 12).rstrip("\n")
+   IND2 = linecache.getline("base64.tmp", 13).rstrip("\n")
+   ARC2 = linecache.getline("base64.tmp", 14).rstrip("\n")
+   SRT2 = linecache.getline("base64.tmp", 15).rstrip("\n")    
+   MAN2 = linecache.getline("base64.tmp", 16).rstrip("\n")    
+   JMP2 = linecache.getline("base64.tmp", 17).rstrip("\n")
+   CUS2 = linecache.getline("base64.tmp", 18).rstrip("\n")
+        
+   cursor.execute("UPDATE REMOTETARGET SET FIL = \"" + FIL2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RAX = \"" + RAX2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET COM = \"" + COM2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RBX = \"" + RBX2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RCX = \"" + RCX2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RDX = \"" + RDX2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RSI = \"" + RSI2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RDI = \"" + RDI2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RSP = \"" + RSP2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RBP = \"" + RBP2 + "\" WHERE IDS = 1"); connection.commit()   
+   cursor.execute("UPDATE REMOTETARGET SET RIP = \"" + RIP2 + "\" WHERE IDS = 1"); connection.commit()	
+   cursor.execute("UPDATE REMOTETARGET SET OFF = \"" + OFF2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET IND = \"" + IND2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET ARC = \"" + ARC2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET SRT = \"" + SRT2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET MAN = \"" + MAN2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET JMP = \"" + JMP2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET CUS = \"" + CUS2 + "\" WHERE IDS = 1"); connection.commit()
    return     
 
 def dispMenu():
@@ -349,10 +361,10 @@ def dispMenu():
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
-   if MAIN[:18] == "0x0000000000000000":
-      print(colored(MAIN,colour7), end=' ')
+   if MAN[:18] == "0x0000000000000000":
+      print(colored(MAN,colour7), end=' ')
    else:
-      print(colored(MAIN,colour6), end=' ')
+      print(colored(MAN,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ')
    if SRT.rstrip(" ") in FUNC[10]:
@@ -364,10 +376,10 @@ def dispMenu():
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " JUMP  ADDRESS " + '\u2551', end=' ')   
-   if CUS1[:18] == "0x0000000000000000":
-      print(colored(CUS1,colour7), end=' ')
+   if JMP[:18] == "0x0000000000000000":
+      print(colored(JMP,colour7), end=' ')
    else:
-      print(colored(CUS1,colour6), end=' ')
+      print(colored(JMP,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ') 
    if SRT.rstrip(" ") in FUNC[11]:
@@ -379,10 +391,10 @@ def dispMenu():
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " CUST  ADDRESS " + '\u2551', end=' ')     
-   if CUS2[:18] == "0x0000000000000000":
-      print(colored(CUS2,colour7), end=' ')
+   if CUS[:18] == "0x0000000000000000":
+      print(colored(CUS,colour7), end=' ')
    else:
-      print(colored(CUS2,colour6), end=' ')
+      print(colored(CUS,colour6), end=' ')
    print('\u2551', end=' ')  
    print("                   " + '\u2551', end= ' ') 
    if SRT.rstrip(" ") in FUNC[12]:
@@ -475,7 +487,7 @@ def options():
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
 # Version : GOLDEN ELF
-# Details : START OF MAIN - Check running as root.
+# Details : START OF MAN - Check running as root.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
@@ -540,9 +552,12 @@ else:
    print("[+] Creating directory " + localDir + "...")
   
 if os.path.exists("RA.db"):
-   command("cp RA.db ./" + localDir + "/RA.db")
-   command("cp Golden ./" + localDir + "/Golden")
-   print("[+] Copying RA.db to " + localDir + "...")
+   command("mv RA.db ./" + localDir + "/RA.db")
+   print("[+] Moving database...")
+ 
+if os.path.exists("Golden"):
+   command("mv Golden ./" + localDir + "/Golden")  
+   print("[+] Moving binary...") 
 
 if os.path.exists(localDir + "/RA.db"):
    connection = sqlite3.connect(localDir + "/RA.db")
@@ -561,8 +576,7 @@ LEN1 = 0
 FUNC = [" "*COL2]*maxDispl
 GADD = [" "*COL3]*maxDispl
 
-funcNum = spacePadding(" ", COL1)
-gadgNum = spacePadding(" ", COL1)
+# NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABASE
 
 RE = spacePadding("RELRO    unknown", COL1)
 ST = spacePadding("STACK    unknown", COL1)
@@ -571,18 +585,14 @@ NX = spacePadding("NX       unknown", COL1)
 PI = spacePadding("PIE      unknown", COL1)
 RW = spacePadding("RWX      unknown", COL1)
 
-# NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABASE
-
-remAddr = spacePadding("unknown", COL1)
-remPort = spacePadding("unknown", COL1)
 BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
 LIBC = spacePadding("unknown", COL2)
 
-RIP = "0x0000000000000000"
-MAIN = "0x0000000000000000"
-CUS1 = "0x0000000000000000"
-CUS2 = "0x0000000000000000"
+remAddr = spacePadding("unknown", COL1)
+remPort = spacePadding("unknown", COL1)
+funcNum = spacePadding(" ", COL1)
+gadgNum = spacePadding(" ", COL1)
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -593,7 +603,7 @@ CUS2 = "0x0000000000000000"
 # -------------------------------------------------------------------------------------
 
 print("[+] Configuration database found - restoring saved data....")
-col = cursor.execute("SELECT * FROM REMOTETARGET WHERE IDS = 2").fetchone()
+col = cursor.execute("SELECT * FROM REMOTETARGET WHERE IDS = 1").fetchone()
 command("echo " + col[1]  + " | base64 -d >  ascii.tmp")
 command("echo " + col[2]  + " | base64 -d >> ascii.tmp")
 command("echo " + col[3]  + " | base64 -d >> ascii.tmp")
@@ -608,22 +618,31 @@ command("echo " + col[11] + " | base64 -d >> ascii.tmp")
 command("echo " + col[12] + " | base64 -d >> ascii.tmp")
 command("echo " + col[13] + " | base64 -d >> ascii.tmp")
 command("echo " + col[14] + " | base64 -d >> ascii.tmp")
+command("echo " + col[15] + " | base64 -d >> ascii.tmp")
+command("echo " + col[16] + " | base64 -d >> ascii.tmp")
+command("echo " + col[17] + " | base64 -d >> ascii.tmp")
+command("echo " + col[18] + " | base64 -d >> ascii.tmp")
 
-RAX = linecache.getline("ascii.tmp", 1).rstrip("\n")
-COM = linecache.getline("ascii.tmp", 2).rstrip("\n")
-RBX = linecache.getline("ascii.tmp", 3).rstrip("\n")
-RCX = linecache.getline("ascii.tmp", 4).rstrip("\n")
-RDX = linecache.getline("ascii.tmp", 5).rstrip("\n")
-RSI = linecache.getline("ascii.tmp", 6).rstrip("\n")
-RDI = linecache.getline("ascii.tmp", 7).rstrip("\n")
-RSP = linecache.getline("ascii.tmp", 8).rstrip("\n")
-RBP = linecache.getline("ascii.tmp", 9).rstrip("\n")
-OFF = linecache.getline("ascii.tmp", 10).rstrip("\n")
-IND = linecache.getline("ascii.tmp", 11).rstrip("\n")
-ARC = linecache.getline("ascii.tmp", 12).rstrip("\n")
-FIL = linecache.getline("ascii.tmp", 13).rstrip("\n")
-SRT = linecache.getline("ascii.tmp", 14).rstrip("\n")
+FIL = linecache.getline("ascii.tmp", 1).rstrip("\n")
+RAX = linecache.getline("ascii.tmp", 2).rstrip("\n")
+COM = linecache.getline("ascii.tmp", 3).rstrip("\n")
+RBX = linecache.getline("ascii.tmp", 4).rstrip("\n")
+RCX = linecache.getline("ascii.tmp", 5).rstrip("\n")
+RDX = linecache.getline("ascii.tmp", 6).rstrip("\n")
+RSI = linecache.getline("ascii.tmp", 7).rstrip("\n")
+RDI = linecache.getline("ascii.tmp", 8).rstrip("\n")
+RSP = linecache.getline("ascii.tmp", 9).rstrip("\n")
+RBP = linecache.getline("ascii.tmp", 10).rstrip("\n")
+RIP = linecache.getline("ascii.tmp", 11).rstrip("\n")
+OFF = linecache.getline("ascii.tmp", 12).rstrip("\n")
+IND = linecache.getline("ascii.tmp", 13).rstrip("\n")
+ARC = linecache.getline("ascii.tmp", 14).rstrip("\n")
+SRT = linecache.getline("ascii.tmp", 15).rstrip("\n")
+MAN = linecache.getline("ascii.tmp", 16).rstrip("\n")
+JMP = linecache.getline("ascii.tmp", 17).rstrip("\n")
+CUS = linecache.getline("ascii.tmp", 18).rstrip("\n")
 
+FIL = spacePadding(FIL, COL3)
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
 RBX = spacePadding(RBX, COL1)
@@ -633,12 +652,14 @@ RSI = spacePadding(RSI, COL1)
 RDI = spacePadding(RDI, COL1)
 RSP = spacePadding(RSP, COL1)
 RBP = spacePadding(RBP, COL1)
+RIP = spacePadding(RIP, COL1)
 OFF = spacePadding(OFF, COL1)
 IND = spacePadding(IND, COL1)
 ARC = spacePadding(ARC, COL1)
-FIL = spacePadding(FIL, COL3)
 SRT = spacePadding(SRT, COL1)
-RIP = spacePadding(RIP, COL1)
+MAN = spacePadding(MAN, COL1)
+JMP = spacePadding(JMP, COL1)
+CUS = spacePadding(CUS, COL1)
 
 command("sleep 5s")
    
@@ -844,17 +865,17 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : GOLDEN ELF
-# Details : Menu option selected - Set MAIN address.
+# Details : Menu option selected - Set MAN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='11':
-      BAK = MAIN
-      MAIN = input("[?] Please enter main address: ")
-      if MAIN != "":
-         MAIN = spacePadding(MAIN,COL1)
+      BAK = MAN
+      MAN = input("[?] Please enter main address: ")
+      if MAN != "":
+         MAN = spacePadding(MAN,COL1)
       else:
-            MAIN = BAK
+            MAN = BAK
       prompt()        
       
 # ------------------------------------------------------------------------------------- 
@@ -866,12 +887,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='12':
-      BAK = CUS1
-      CUS1 = input("[?] Please enter address to jump to: ")
-      if CUS1 != "":
-         CUS1 = spacePadding(CUS1,COL1)
+      BAK = JMP
+      JMP = input("[?] Please enter address to jump to: ")
+      if JMP != "":
+         JMP = spacePadding(JMP,COL1)
       else:
-            CUS1 = BAK
+            JMP = BAK
       prompt()   
       
 # ------------------------------------------------------------------------------------- 
@@ -883,12 +904,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
-      BAK = CUS2
-      CUS2 = input("[?] Please enter custom address: ")
-      if CUS2 != "":
-         CUS2 = spacePadding(CUS2,COL1)
+      BAK = CUS
+      CUS = input("[?] Please enter custom address: ")
+      if CUS != "":
+         CUS = spacePadding(CUS,COL1)
       else:
-            CUS2 = BAK
+            CUS = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -1081,11 +1102,11 @@ while True:
             command("cat functions.tmp | grep 'start' > start.tmp ")
             with open("start.tmp","r") as start:
                SRT = spacePadding(start.readline().split(" ")[0], COL1)
-         if MAIN[:18] == "0x0000000000000000":
-            print("[+] Adding MAIN address to registers...")
+         if MAN[:18] == "0x0000000000000000":
+            print("[+] Adding MAN address to registers...")
             command("cat functions.tmp | grep 'main' > main.tmp ")
             with open("main.tmp","r") as main:
-               MAIN = spacePadding(main.readline().split(" ")[0], COL1)
+               MAN = spacePadding(main.readline().split(" ")[0], COL1)
          command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
       
@@ -1115,11 +1136,11 @@ while True:
             command("cat output.tmp | grep entry0 > entry.tmp")
             with open("entry.tmp","r") as address:
                SRT = spacePadding(address.readline().split(" ")[0], COL1)
-         if MAIN[:18] == "0x0000000000000000":
-            print("[+] Adding MAIN  address to registers...")         
+         if MAN[:18] == "0x0000000000000000":
+            print("[+] Adding MAN  address to registers...")         
             command("cat output.tmp | grep main > main.tmp")
             with open("main.tmp","r") as address:
-               MAIN = spacePadding(address.readline().split(" ")[0], COL1)
+               MAN = spacePadding(address.readline().split(" ")[0], COL1)
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1493,7 +1514,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : GOLDEN ELF
-# Details : Menu option selected - Disassemble MAIN.
+# Details : Menu option selected - Disassemble MAN.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1717,9 +1738,9 @@ while True:
 
          command("echo '' >> " + localDir + "/exploit.py")        
          command("echo 'start = " + SRT.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'main  = " + MAIN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'jump  = " + CUS1.rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo 'cust  = " + CUS2.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'main  = " + MAN.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'jump  = " + JMP.rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         command("echo 'cust  = " + CUS.rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'buffers = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          command("echo 'integer = \"a\" * 4' >> " + localDir + "/exploit.py")
