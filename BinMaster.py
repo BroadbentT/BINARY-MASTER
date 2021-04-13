@@ -1685,7 +1685,7 @@ while True:
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level = \"info\" # debug' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level = \"debug\" # debug' >> " + localDir + "/exploit.py")
          command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
@@ -1763,7 +1763,7 @@ while True:
          print("[-] Filename not specified...")
       else:  
          os.chdir(localDir)
-         command("echo 'THE GOLDEN ELF GRANTS YOU ACCESS' > flag.txt")  
+         command("echo 'YOU HAVE FOUND A GOLDEN ELF' > flag.txt")  
          os.system("python3 exploit.py")
          os.chdir("..")
       prompt()
