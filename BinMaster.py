@@ -534,7 +534,7 @@ Reset   = '\e[0m'
 
 command("xdotool key Alt+Shift+S; xdotool type 'BINARY MASTER'; xdotool key Return")
 dispBanner("BINARY MASTER",1)
-print(colored("\t\t     G O L D E N  E L F  E D I T I O N",colour7,attrs=['bold']))
+print(colored("\t\t    F U L L  S T A C K  E D I T I O N",colour7,attrs=['bold']))
 print(colored("\n\n[*] Booting, please wait...", colour3))
 
 # -------------------------------------------------------------------------------------
