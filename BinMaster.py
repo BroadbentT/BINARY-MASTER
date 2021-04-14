@@ -574,7 +574,9 @@ else:
    command("mkdir " + localDir)
    print("[+] Creating directory " + localDir + "...")
   
-if os.path.exists("RA.db"):
+if os.path.exists(localDir + "/RA.db"):
+   pass
+else:
    command("cp RA.db ./" + localDir + "/RA.db")
    print("[+] Copying database...")
 
