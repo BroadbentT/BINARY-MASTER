@@ -571,16 +571,21 @@ print(colored("\n\n[*] Booting, please wait...", colour3))
 if os.path.exists(localDir):
    print("[+] Directory " + localDir + " already exists...")
 else:
-   command("mkdir " + localDir)
    print("[+] Creating directory " + localDir + "...")
+   command("mkdir " + localDir)
   
 if os.path.exists(localDir + "/RA.db"):
    pass
 else:
-   command("cp RA.db ./" + localDir + "/RA.db")
-   print("[+] Copying database...")
+   print("[+] Creatng new database...")
+   try:
+      command("cp RA.db ./" + localDir + "/RA.db")
+      print("[+] Copying database...")
+   except:
+      print(colored("[!] WARNING!!! - RA.db missing, unable to create new database...", colour0))
 
 if os.path.exists(localDir + "/RA.db"):
+   print("[+] Connecting to database...")
    connection = sqlite3.connect(localDir + "/RA.db")
    cursor = connection.cursor()
 else:
@@ -1120,17 +1125,23 @@ while True:
          with open("functions.tmp", "r") as functions:
             for x in range(0, maxDispl):
                FUNC[x] = functions.readline().rstrip(" ")
-               FUNC[x] = spacePadding(FUNC[x], COL2)               
-         if SRT[:18] == "0x0000000000000000": 
-            print("[+] Adding START address to registers...")               
-            command("cat functions.tmp | grep 'start' > start.tmp ")
-            with open("start.tmp","r") as start:
-               SRT = spacePadding(start.readline().split(" ")[0], COL1)
+               FUNC[x] = spacePadding(FUNC[x], COL2)                         
+         if SRT[:18] == "0x0000000000000000":          
+            command("cat functions.tmp | grep '_start' > start.tmp ")
+            with open("start.tmp","r") as start :
+               for line in start:
+                  address, checksum = line.split("  ")
+                  if checksum[:6] == "_start":
+                     SRT = spacePadding(address, COL1)                     
+                     print("[+] Adding START address to registers...")               
          if MAN[:18] == "0x0000000000000000":
-            print("[+] Adding MAN address to registers...")
             command("cat functions.tmp | grep 'main' > main.tmp ")
             with open("main.tmp","r") as main:
-               MAN = spacePadding(main.readline().split(" ")[0], COL1)
+               for line in main:
+                  address, checksum = line.split("  ")
+                  if checksum[:4] == "main":
+                     MAN = spacePadding(address, COL1)                     
+                     print("[+] Adding MAIN address to registers...")
          command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
       
@@ -1154,17 +1165,7 @@ while True:
          print(r.cmd('s main'),file=open('output.tmp', 'a'))
          print( r.cmd('pdf'),file=open('output.tmp', 'a'))
          parsFile("output.tmp")
-         catsFile("output.tmp")
-         if SRT[:18] == "0x0000000000000000":
-            print("[+] Adding START address to registers...")         
-            command("cat output.tmp | grep entry0 > entry.tmp")
-            with open("entry.tmp","r") as address:
-               SRT = spacePadding(address.readline().split(" ")[0], COL1)
-         if MAN[:18] == "0x0000000000000000":
-            print("[+] Adding MAN  address to registers...")         
-            command("cat output.tmp | grep main > main.tmp")
-            with open("main.tmp","r") as address:
-               MAN = spacePadding(address.readline().split(" ")[0], COL1)
+         catsFile("output.tmp")                     
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1254,13 +1255,15 @@ while True:
                if "vax" in data:
                   ARC = spacePadding("vax", COL1)
                if "elf" in data:
-                  COM = spacePadding("ELF", COL1)                  
-         if SRT[:18] == "0x0000000000000000":
-            command("cat headers.tmp | grep start > start.tmp")
-            with open("start.tmp","r") as address:
-               SRT = address.readline().split(" ")[2]
-               SRT = spacePadding(SRT, COL1)
-               print("[+] Adding START address to registers...")               
+                  COM = spacePadding("ELF", COL1)
+         if SRT[:18] == "0x0000000000000000":          
+            command("cat headers.tmp | grep 'start' > start.tmp ")
+            with open("start.tmp","r") as start :
+               for line in start:
+                  checksum, null, address = line.split(" ")
+                  if checksum[:5] == "start":
+                     SRT = spacePadding(address, COL1)
+                     print("[+] Adding START address to registers...")               
       prompt()   
    
 # ------------------------------------------------------------------------------------- 
