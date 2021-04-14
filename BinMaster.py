@@ -332,9 +332,9 @@ def dispMenu():
       print(colored(RIP,colour6), end=' ')         
    print('\u2551', end=' ')   
    if BITS[:6] == "64-Bit":
-      print(colored("         +8 Bytes ",colour2), end=' ')
+      print(colored("         -8 Bytes ",colour2), end=' ')
    if BITS[:6] == "32-Bit":
-      print(colored("         +4 Bytes ",colour2), end=' ')
+      print(colored("         -4 Bytes ",colour2), end=' ')
    if BITS[:7] == "unknown":
       print(colored("                  ",colour2), end=' ')      
    print('\u2551', end=' ')   
@@ -351,7 +351,7 @@ def dispMenu():
       print(colored(SRT,colour7), end=' ')
    else:
       print(colored(SRT,colour6), end=' ')      
-   print('\u2551' + " " + " "*COL1 + " " +  '\u2551', end=' ')   
+   print('\u2551' + " " + "-"*COL1 + " " +  '\u2551', end=' ')   
    if SRT.rstrip(" ") in FUNC[9]:
       print(colored(FUNC[9],colour3), end=' ')
    else:
@@ -415,18 +415,18 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read   Headers (31) Pattern   Creater (41) HEX Editor   " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read   Headers (31) Pattern   Creater (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) Ghidra       " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUST ADDRESS (23) Read   Section (33) L-Trace Interface (43) ImmunityDeBug" + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUST ADDRESS (23) Read   Section (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
       print(colored(FIL[:COL3-16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) G.D.B.  Interface (44) NASM    Shell" + '\u2551' + " FORMAT         ", end=' ')
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -438,7 +438,7 @@ def options():
       print(colored(MODE[:COL1-5],colour6), end=' ') 
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read   Execute (35) Find SegmentFault (45) Gen ShellCode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read   Execute (35) Find SegmentFault (45) MSFVShellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
@@ -447,7 +447,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) Attack Method" + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) Set    Method" + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -481,7 +481,7 @@ def options():
    print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED       ", end=' ')
    print(colored("unknown", colour7), end=' ')
    print("                                 " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + " ATTACK METHOD  ", end=' ')
+   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) HEX Code   Editor (50) Exit         " + '\u2551' + " ATTACK METHOD  ", end=' ')
    print(colored(method, colour6), end=' ')
    print("STAGE  ", end=' ')
    
@@ -1593,17 +1593,6 @@ while True:
          command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
          command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
       prompt()
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Blank.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '40':
-      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1613,7 +1602,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '41':
+   if selection == '40':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1625,7 +1614,18 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Start ghidra.
+# Details : Menu option selected - Blank.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '41':
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Blank.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1633,15 +1633,14 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Ghidra has been initiated...", colour3))          
-         command("/opt/ghidra_9.2.2_PUBLIC/ghidraRun ./analyzeHeadless ./" + localDir + " -import " + localDir + "/" + FIL.rstrip(" ") + " > boot.tmp 2>&1")
+         pass
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Start Immunity Debugger.
+# Details : Menu option selected - Blank.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1649,8 +1648,7 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Immunity debugger has been initiated...", colour3))          
-         command("env WINEPREFIX='/root/.wine' wine C:/\windows/\command/\start.exe /Unix /root/.wine/dosdevices/c:/users/Public/Desktop/Immunity\ Debugger.lnk > boot.tmp 2>&1")
+         pass
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -1778,7 +1776,8 @@ while True:
          command("echo 'jump  = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'cust  = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'buffers = \"a\" * " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
+         command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
+         command("echo 'buffers = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'integer = \"b\" * 4' >> " + localDir + "/exploit.py")
          if BITS[:2] == "64":
             command("echo 'pointer = \"c\" * 8' >> "+ localDir + "/exploit.py")
@@ -1795,13 +1794,9 @@ while True:
          command("echo '   print(\"No exploit was found...\")' >> "  + localDir + "/exploit.py")
          command("echo '   exit(1)'  >> "  + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 's.recvuntil(\"Enter your name :\")' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
-         command("echo 's.recvuntil(\"Congratulations!\\\\n\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
-         command("echo 'success(flag)' >> " + localDir + "/exploit.py")
-         command("echo '# s.interactive()' >> " + localDir + "/exploit.py")
+         command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
       prompt()                       
