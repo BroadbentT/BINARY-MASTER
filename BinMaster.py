@@ -447,7 +447,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) Attack Method" + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -478,8 +478,29 @@ def options():
       print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + "                                                          " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + "                                                          " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED        unknown                                  " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + " ATTACK METHOD  ", end=' ')
+   print(colored(method, colour6), end=' ')
+   print("STAGE  ", end=' ')
+   
+# UNDER CONSTRUCTION   
+   
+   if method[:5] == "stack":
+      if ((OFF.rstrip(" ") != "0") and (MAN.rstrip(" ") != "0x0000000000000000") and (SRT.rstrip(" ") != "0x0000000000000000") and (JMP.rstrip(" ") != "0x0000000000000000")):
+         print(colored("complete     ",colour6), end=' ')
+      else:
+         print(colored("incomplete   ",colour7), end=' ')
+         
+   if method[:4] == "heap":
+      print(colored("unknown      ",colour7), end=' ')
+      
+   if method[:9] == "arithmetic":
+      print(colored("unknown      ",colour7), end=' ')
+      
+   if method[:6] == "format":
+      print(colored("unknown      ",colour7), end=' ')   
+   
+   print('\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
@@ -584,6 +605,9 @@ RW = spacePadding("RWX      unknown", COL1)
 BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
 LIBC = spacePadding("unknown", COL2)
+
+method = spacePadding("stack attack", COL1)
+stages = spacePadding("incomplete", COL1)
 
 remAddr = spacePadding("unknown", COL1)
 remPort = spacePadding("unknown", COL1)
@@ -998,11 +1022,11 @@ while True:
             print(BITS + " architecture...")  
             BITS = spacePadding(BITS, COL1)         
          if "LSB" in binary:
-            IND = "Little"
+            IND = "little"
             print(IND + " indian format...")
             IND = spacePadding(IND, COL1)
          if "MSB" in binary:
-            IND = "Big"
+            IND = "big"
             print(IND + " indian...")
             IND = spacePadding(IND, COL1)            
          if "dynamically linked" in binary:
@@ -1662,6 +1686,15 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '46':
+      bak = method
+      method = input("[?] Please enter method (stack attack, heap attack, arithmetic attack, format attack): ")
+      if method == "":
+         method = bak
+      else:
+         if ((method.lower() != "stack attack") and (method.lower() != "heap attack") and (method.lower() != "arithmetic attack") and (method.lower() != "format attack")):
+            method = bak
+         else:
+            method = spacePadding(method, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
