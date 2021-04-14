@@ -478,7 +478,9 @@ def options():
       print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED        unknown                                  " + '\u2551')
+   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED       ", end=' ')
+   print(colored("unknown", colour7), end=' ')
+   print("                                 " + '\u2551')
    print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) RESERVED          (50) Exit         " + '\u2551' + " ATTACK METHOD  ", end=' ')
    print(colored(method, colour6), end=' ')
    print("STAGE  ", end=' ')
@@ -494,7 +496,7 @@ def options():
    if method[:4] == "heap":
       print(colored("unknown      ",colour7), end=' ')
       
-   if method[:9] == "arithmetic":
+   if method[:10] == "arithmetic":
       print(colored("unknown      ",colour7), end=' ')
       
    if method[:6] == "format":
@@ -573,14 +575,14 @@ else:
    print("[+] Creating directory " + localDir + "...")
   
 if os.path.exists("RA.db"):
-   command("mv RA.db ./" + localDir + "/RA.db")
-   print("[+] Moving database...")
+   command("cp RA.db ./" + localDir + "/RA.db")
+   print("[+] Copying database...")
 
 if os.path.exists(localDir + "/RA.db"):
    connection = sqlite3.connect(localDir + "/RA.db")
    cursor = connection.cursor()
 else:
-   print(colored("[!] WARNING!!! - RA.db missing, unable to connect to database...", colour0))
+   print(colored("[!] WARNING!!! - " + localDir + "/RA.db missing, unable to connect to database...", colour0))
    exit(1)
                   
 print("[+] Populating system variables...")
@@ -606,7 +608,7 @@ BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
 LIBC = spacePadding("unknown", COL2)
 
-method = spacePadding("stack attack", COL1)
+method = spacePadding("stack", COL1)
 stages = spacePadding("incomplete", COL1)
 
 remAddr = spacePadding("unknown", COL1)
@@ -1687,11 +1689,11 @@ while True:
 
    if selection == '46':
       bak = method
-      method = input("[?] Please enter method (stack attack, heap attack, arithmetic attack, format attack): ")
+      method = input("[?] Please enter attack method (stack, heap, arithmetic or format): ")
       if method == "":
          method = bak
       else:
-         if ((method.lower() != "stack attack") and (method.lower() != "heap attack") and (method.lower() != "arithmetic attack") and (method.lower() != "format attack")):
+         if ((method.lower() != "stack") and (method.lower() != "heap") and (method.lower() != "arithmetic") and (method.lower() != "format")):
             method = bak
          else:
             method = spacePadding(method, COL1)
