@@ -390,7 +390,7 @@ def dispMenu():
    print(colored(GADD[11],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " REWRITE VALUE " + '\u2551', end=' ')     
+   print('\u2551' + " WRITE ADDRESS " + '\u2551', end=' ')     
    if CUS[:18] == "0x0000000000000000":
       print(colored(CUS,colour7), end=' ')
    else:
@@ -419,7 +419,7 @@ def options():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set CUST ADDRESS (23) Read   Section (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set WRITEADDRESS (23) Read   Section (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
