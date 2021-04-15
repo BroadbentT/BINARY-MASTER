@@ -309,7 +309,7 @@ def dispMenu():
    if BITS[:6] == "32-Bit":
       print(colored("        -04 Bytes ",colour2), end=' ')
    if BITS[:7] == "unknown":
-      print(colored("                  ",colour2), end=' ')
+      print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
    if SRT.rstrip(" ") in FUNC[7]:
       print(colored(FUNC[7],colour3), end=' ')
@@ -321,8 +321,8 @@ def dispMenu():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551', end=' ')
    if BITS[:7] != "unknown" and OFF[:1] != "0":
-      print("RIP/EIP    ", end=' ')
-      print(colored("*", colour2,attrs=['blink']), end=' ')
+      print("RIP/EIP", end=' ')
+      print(colored("<====", colour2,attrs=['blink']), end=' ')
    else:
       print("RIP/EIP      ", end=' ')   
    print( '\u2551', end=' ')
@@ -336,7 +336,7 @@ def dispMenu():
    if BITS[:6] == "32-Bit":
       print(colored("        -04 Bytes ",colour2), end=' ')
    if BITS[:7] == "unknown":
-      print(colored("                  ",colour2), end=' ')      
+      print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
    if SRT.rstrip(" ") in FUNC[8]:
       print(colored(FUNC[8],colour3), end=' ')
@@ -351,7 +351,12 @@ def dispMenu():
       print(colored(SRT,colour7), end=' ')
    else:
       print(colored(SRT,colour6), end=' ')      
-   print('\u2551' + " " + "-"*COL1 + " " +  '\u2551', end=' ')   
+   print('\u2551', end=' ')
+   if OFF2[:1] == "0":
+      print(colored("-"*COL1,colour7), end=' ')   
+   else:
+      print(colored("-"*COL1,colour2), end=' ')
+   print('\u2551', end=' ')   
    if SRT.rstrip(" ") in FUNC[9]:
       print(colored(FUNC[9],colour3), end=' ')
    else:
@@ -366,7 +371,15 @@ def dispMenu():
    else:
       print(colored(MAN,colour6), end=' ')
    print('\u2551', end=' ') 
-   print("                   " + '\u2551', end= ' ')
+   if OFF2[:1] == "0":
+      print(colored("ADJUSTED",colour7),end=' ')
+   else:
+      print(colored("ADJUSTED",colour2),end=' ')      
+   if OFF2[:1] == "0":
+      print(colored(OFF2[:9],colour7),end=' ')
+   else:
+      print(colored(OFF2[:9],colour2),end=' ')   
+   print('\u2551', end= ' ')
    if SRT.rstrip(" ") in FUNC[10]:
       print(colored(FUNC[10],colour3), end=' ')
    else:
@@ -447,7 +460,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Intamixed (36) Set Buffer OFFSET (46) SetExplMethod" + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Intamixed (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -459,7 +472,17 @@ def options():
       print(colored(IND[:COL1-5],colour6), end=' ')  
    print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Symbols (37) Dis-Assemble MAIN (47) Set I.P./Port" + '\u2551'  " REMOTE ADDRESS ", end=' ')
+   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2551' + " LIBC VERSION   ", end=' ')
+   if LIBC[:7] == "unknown":
+      print(colored(LIBC[:COL2-5],colour7), end=' ')
+   else:
+      print(colored(LIBC[:COL2-5],colour6), end=' ')
+   print('\u2551') 
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
+   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble ADDR (50) Exit         " + '\u2551'  " REMOTE ADDRESS ", end=' ')
    if remAddr[:7] == "unknown":
       print(colored(remAddr,colour7), end=' ')
    else:
@@ -470,39 +493,6 @@ def options():
    else:
       print(colored(remPort[:13],colour6),end=' ' )   
    print('\u2551')   
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble FUNC (48) Write Exploit" + '\u2551' + " LIBC VERSION   ", end=' ')
-   if LIBC[:7] == "unknown":
-      print(colored(LIBC[:COL2-5],colour7), end=' ')
-   else:
-      print(colored(LIBC[:COL2-5],colour6), end=' ')
-   print('\u2551') 
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED       ", end=' ')
-   print(colored("unknown", colour7), end=' ')
-   print("                                 " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) HexCode Editor (40) RESERVED          (50) Exit         " + '\u2551' + " EXPLOIT METHOD ", end=' ')
-   print(colored(method, colour6), end=' ')
-   print("STAGE  ", end=' ')
-   
-# UNDER CONSTRUCTION   
-   
-   if method[:5] == "stack":
-      if ((OFF.rstrip(" ") != "0") and (MAN.rstrip(" ") != "0x0000000000000000") and (SRT.rstrip(" ") != "0x0000000000000000") and (JMP.rstrip(" ") != "0x0000000000000000")):
-         print(colored("complete     ",colour6), end=' ')
-      else:
-         print(colored("incomplete   ",colour7), end=' ')
-         
-   if method[:4] == "heap":
-      print(colored("unknown      ",colour7), end=' ')
-      
-   if method[:10] == "arithmetic":
-      print(colored("unknown      ",colour7), end=' ')
-      
-   if method[:6] == "format":
-      print(colored("unknown      ",colour7), end=' ')   
-   
-   print('\u2551')
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
 
@@ -611,9 +601,12 @@ NX = spacePadding("NX       unknown", COL1)
 PI = spacePadding("PIE      unknown", COL1)
 RW = spacePadding("RWX      unknown", COL1)
 
+
 BITS = spacePadding("unknown", COL1)
 MODE = spacePadding("unknown", COL1)
+OFF2 = spacePadding("0 Bytes", COL1)
 LIBC = spacePadding("unknown", COL2)
+
 
 method = spacePadding("stack", COL1)
 stages = spacePadding("incomplete", COL1)
@@ -934,7 +927,7 @@ while True:
       
    if selection =='13':
       BAK = CUS
-      CUS = input("[?] Please enter custom address: ")
+      CUS = input("[?] Please enter write address: ")
       if CUS != "":
          CUS = spacePadding(CUS,COL1)
       else:
@@ -1061,8 +1054,8 @@ while True:
                   checksum, null, address = line.split(" ")
                   if checksum[:5] == "start":
                      SRT = spacePadding(address, COL1)
-                     print("[+] Adding START address to registers...")         
          command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
+         parsFile("file.tmp")
          catsFile("file.tmp")                  
          binary = linecache.getline("file.tmp", 1)
          if "ELF" in binary:
@@ -1187,7 +1180,6 @@ while True:
                   address, checksum = line.split("  ")
                   if checksum[:6] == "_start":
                      SRT = spacePadding(address, COL1)                     
-                     print("[+] Adding START address to registers...")               
          if MAN[:18] == "0x0000000000000000":
             command("cat functions.tmp | grep 'main' > main.tmp ")
             with open("main.tmp","r") as main:
@@ -1195,7 +1187,6 @@ while True:
                   address, checksum = line.split("  ")
                   if checksum[:4] == "main":
                      MAN = spacePadding(address, COL1)                     
-                     print("[+] Adding MAIN address to registers...")
          command("mv functions.tmp " + localDir + "/functions.txt")
       prompt()
       
@@ -1542,11 +1533,32 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Disassemble MAN.
+# Details : Menu option selected - Adjust Offset.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '37':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         BAK = OFF2
+         OFF2 = input("[?] Please enter offset value: ")
+         if OFF2 != "":
+            OFF2 = OFF2 + " Bytes"
+            OFF2 = spacePadding(OFF2,COL1)
+         else:
+            OFF2 = BAK
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Disassemble MAN.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '38':
       command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")
       command("echo 'break main' >> command.tmp")
@@ -1564,7 +1576,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '38':
+   if selection == '39':
       function = input("[?] Please enter function name: ")
       command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
       command("echo 'set follow-fork-mode child' >> command.tmp")      
@@ -1583,7 +1595,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '39':
+   if selection == '40':
       address = input("[?] Please enter address value: ")
       if address != "":
          command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
@@ -1593,22 +1605,7 @@ while True:
          command("echo 'quit' >> command.tmp")
          command("echo 'disassemble " + address.rstrip(" ") + "' >> command.tmp")
          command("gdb " + localDir + "/" + FIL.rstrip(" ") +" -x command.tmp")
-      prompt()
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Blank.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '40':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         pass               
-      prompt()  
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1691,22 +1688,13 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '46':
-      bak = method
-      method = input("[?] Please enter attack method (stack, heap, arithmetic or format): ")
-      if method == "":
-         method = bak
-      else:
-         if ((method.lower() != "stack") and (method.lower() != "heap") and (method.lower() != "arithmetic") and (method.lower() != "format")):
-            method = bak
-         else:
-            method = spacePadding(method, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Blank.
+# Details : Menu option selected - Set remote IP and port value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1774,7 +1762,10 @@ while True:
          command("echo 'jump  = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'rewrite  = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
+         if OFF2[:1] == "0":
+            command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
+         else:
+            command("echo 'offset = " + OFF2.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")         
          command("echo 'buffers = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'integer = \"b\" * 4' >> " + localDir + "/exploit.py")
          if BITS[:2] == "64":
