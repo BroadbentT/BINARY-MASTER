@@ -27,7 +27,7 @@ USAGE : python3 BinMaster.py
 | python3   | BinMaster.py | db0fbb49c68f7b7df115ac773e59fb73 | Command Centre | Full Stack |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
-[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/5TXTurQgHXk "Binary Master")
+[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/8-ZtmyBInUM "Binary Master")
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
