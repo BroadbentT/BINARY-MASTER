@@ -415,18 +415,18 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) RESERVED       (31) Pattern   Creater (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read  PrivHead (31) MSF PatternCreate (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read   Objects (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set WRITEADDRESS (23) Read   Section (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set LOOP COUNTER (13) Set WRITEADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
       print(colored(FIL[:COL3-16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) Read   Headers (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
+   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) ReadExecutable (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -438,7 +438,7 @@ def options():
       print(colored(MODE[:COL1-5],colour6), end=' ') 
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read   Execute (35) Find SegmentFault (45) MSFVShellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
+   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
@@ -447,7 +447,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read DeBugInfo (36) Set Buffer OFFSET (46) Set    Method" + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Intamixed (36) Set Buffer OFFSET (46) SetExplMethod" + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -459,7 +459,7 @@ def options():
       print(colored(IND[:COL1-5],colour6), end=' ')  
    print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Intamix (37) Dis-Assemble MAIN (47) Set IP & Port" + '\u2551'  " REMOTE ADDRESS ", end=' ')
+   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Symbols (37) Dis-Assemble MAIN (47) Set I.P./Port" + '\u2551'  " REMOTE ADDRESS ", end=' ')
    if remAddr[:7] == "unknown":
       print(colored(remAddr,colour7), end=' ')
    else:
@@ -471,17 +471,17 @@ def options():
       print(colored(remPort[:13],colour6),end=' ' )   
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read   Symbols (38) Dis-Assemble FUNC (48) Write Exploit" + '\u2551' + " LIBC VERSION   ", end=' ')
+   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble FUNC (48) Write Exploit" + '\u2551' + " LIBC VERSION   ", end=' ')
    if LIBC[:7] == "unknown":
       print(colored(LIBC[:COL2-5],colour7), end=' ')
    else:
       print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read Stab Data (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED       ", end=' ')
+   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble ADDR (49) Run Exploit  " + '\u2551' + " RESERVED       ", end=' ')
    print(colored("unknown", colour7), end=' ')
    print("                                 " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) Read HexFormat (40) HEX Code   Editor (50) Exit         " + '\u2551' + " ATTACK METHOD  ", end=' ')
+   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) HexCode Editor (40) RESERVED          (50) Exit         " + '\u2551' + " EXPLOIT METHOD ", end=' ')
    print(colored(method, colour6), end=' ')
    print("STAGE  ", end=' ')
    
@@ -1250,21 +1250,6 @@ while True:
                GADD[x] = spacePadding(GADD[x], COL3)
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Blank.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '21':
-      if FIL[:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         pass               
-      prompt()   
    
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1274,7 +1259,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '22':
+   if selection == '21':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1291,7 +1276,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '23':
+   if selection == '22':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1309,7 +1294,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '24':
+   if selection == '23':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1327,7 +1312,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '25':
+   if selection == '24':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1345,7 +1330,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '26':
+   if selection == '25':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1363,7 +1348,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '27':
+   if selection == '26':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1381,7 +1366,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '28':
+   if selection == '27':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1399,7 +1384,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '29':
+   if selection == '28':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1417,7 +1402,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '30':
+   if selection == '29':
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -1425,6 +1410,22 @@ while True:
          command("objdump" + " -s " + localDir + "/" + FIL.rstrip(" ") + " > hex.tmp")
          parsFile("hex.tmp")
          catsFile("hex.tmp")
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Hex Editor.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '30':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
+         command("ghex " + localDir + "/" + FIL.rstrip(" "))
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1598,7 +1599,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Hex Editor.
+# Details : Menu option selected - Blank.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1606,9 +1607,8 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Editing filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("ghex " + localDir + "/" + FIL.rstrip(" "))
-      prompt()
+         pass               
+      prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
