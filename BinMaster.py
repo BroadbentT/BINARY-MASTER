@@ -161,7 +161,7 @@ def dispMenu():
       print('\u2551' + " " + colored(RE,colour7) + " " +  '\u2551', end=' ')
    else:
       print('\u2551' + " " + colored(RE,colour6) + " " +  '\u2551', end=' ')
-   if (SRT.rstrip(" ") in FUNC[0]):
+   if (MAN.rstrip(" ") in FUNC[0]):
       print(colored(FUNC[0],colour3), end=' ')
    else:
       print(colored(FUNC[0],colour6), end=' ')   
@@ -183,7 +183,7 @@ def dispMenu():
       else:
          print(colored(ST ,colour6), end=' ')      
    print('\u2551', end=' ')
-   if (SRT.rstrip(" ") in FUNC[1]):
+   if (MAN.rstrip(" ") in FUNC[1]):
       print(colored(FUNC[1],colour3), end=' ')
    else:
       print(colored(FUNC[1],colour6), end=' ')   
@@ -200,7 +200,7 @@ def dispMenu():
       print('\u2551' + " " + colored(FO,colour7) + " " +  '\u2551', end=' ')
    else:
       print('\u2551' + " " + colored(FO,colour6) + " " +  '\u2551', end=' ')   
-   if (SRT.rstrip(" ") in FUNC[2]):
+   if (MAN.rstrip(" ") in FUNC[2]):
       print(colored(FUNC[2],colour3), end=' ')
    else:
       print(colored(FUNC[2],colour6), end=' ')   
@@ -222,7 +222,7 @@ def dispMenu():
       else:
          print(colored(NX,colour6), end=' ')            
    print('\u2551', end=' ')      
-   if (SRT.rstrip(" ") in FUNC[3]):
+   if (MAN.rstrip(" ") in FUNC[3]):
       print(colored(FUNC[3],colour3), end=' ')
    else:
       print(colored(FUNC[3],colour6), end=' ')   
@@ -244,7 +244,7 @@ def dispMenu():
       else:
          print(colored(PI ,colour6), end=' ')         
    print('\u2551', end=' ')
-   if (SRT.rstrip(" ") in FUNC[4]):
+   if (MAN.rstrip(" ") in FUNC[4]):
       print(colored(FUNC[4],colour3), end=' ')
    else:
       print(colored(FUNC[4],colour6), end=' ')   
@@ -266,7 +266,7 @@ def dispMenu():
       else:
          print(colored(RW,colour6), end=' ')            
    print('\u2551', end=' ')   
-   if (SRT.rstrip(" ") in FUNC[5]):
+   if (MAN.rstrip(" ") in FUNC[5]):
       print(colored(FUNC[5],colour3), end=' ')
    else:
       print(colored(FUNC[5],colour6), end=' ')   
@@ -288,7 +288,7 @@ def dispMenu():
    else:
       print(colored("OFFSET   " + OFF[:9],colour2), end=' ')
       print('\u2551', end=' ')            
-   if (SRT.rstrip(" ") in FUNC[6]):
+   if (MAN.rstrip(" ") in FUNC[6]):
       print(colored(FUNC[6],colour3), end=' ')
    else:
       print(colored(FUNC[6],colour6), end=' ')   
@@ -311,7 +311,7 @@ def dispMenu():
    if BITS[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
-   if (SRT.rstrip(" ") in FUNC[7]):
+   if (MAN.rstrip(" ") in FUNC[7]):
       print(colored(FUNC[7],colour3), end=' ')
    else:
       print(colored(FUNC[7],colour6), end=' ')   
@@ -338,7 +338,7 @@ def dispMenu():
    if BITS[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
-   if (SRT.rstrip(" ") in FUNC[8]):
+   if (MAN.rstrip(" ") in FUNC[8]):
       print(colored(FUNC[8],colour3), end=' ')
    else:
       print(colored(FUNC[8],colour6), end=' ')      
@@ -357,7 +357,7 @@ def dispMenu():
    else:
       print(colored("-"*COL1,colour2), end=' ')
    print('\u2551', end=' ')   
-   if (SRT.rstrip(" ") in FUNC[9]): 
+   if (MAN.rstrip(" ") in FUNC[9]): 
       print(colored(FUNC[9],colour3), end=' ')
    else:
       print(colored(FUNC[9],colour6), end=' ')      
@@ -380,7 +380,7 @@ def dispMenu():
    else:
       print(colored(OFF2[:9],colour2),end=' ')   
    print('\u2551', end= ' ')
-   if (SRT.rstrip(" ") in FUNC[10]):
+   if (MAN.rstrip(" ") in FUNC[10]):
       print(colored(FUNC[10],colour3), end=' ')
    else:
       print(colored(FUNC[10],colour6), end=' ')   
@@ -395,7 +395,7 @@ def dispMenu():
       print(colored(JMP,colour6), end=' ')
    print('\u2551', end=' ') 
    print("                   " + '\u2551', end= ' ') 
-   if (SRT.rstrip(" ") in FUNC[11]):
+   if (MAN.rstrip(" ") in FUNC[11]):
       print(colored(FUNC[11],colour3), end=' ')
    else:
       print(colored(FUNC[11],colour6), end=' ')   
@@ -410,7 +410,7 @@ def dispMenu():
       print(colored(CUS,colour6), end=' ')
    print('\u2551', end=' ')  
    print("                   " + '\u2551', end= ' ') 
-   if (SRT.rstrip(" ") in FUNC[12]):
+   if (MAN.rstrip(" ") in FUNC[12]):
       print(colored(FUNC[12],colour3), end=' ')
    else:
       if FUNC[13] != "":
@@ -1169,6 +1169,22 @@ while True:
          command("sed -i '/0x/!d' functions.tmp")         
          funcNum = lineCount("functions.tmp")
          funcNum = spacePadding(str(funcNum),7)
+
+         command("cp functions.tmp " + localDir + "/functions.txt")
+         
+         command("awk '/ _init/' functions.tmp > altered.tmp")
+         cutLine("init","functions.tmp")
+         command("awk '/ _start/' functions.tmp >> altered.tmp")         
+         cutLine("start","functions.tmp")         
+         command("awk '/main/' functions.tmp >> altered.tmp")
+         cutLine("main","functions.tmp")
+         command("awk '/ _fini/' functions.tmp >> altered.tmp")                  
+         cutLine("fini","functions.tmp")
+         command("echo '- - - - - - - - - - - - - - - - - - - - - - - -' >> altered.tmp")
+         command("cat functions.tmp >> altered.tmp")
+         command("rm functions.tmp")
+         command("mv altered.tmp functions.tmp")
+                  
          with open("functions.tmp", "r") as functions:
             for x in range(0, maxDispl):
                FUNC[x] = functions.readline().rstrip(" ")
@@ -1186,8 +1202,7 @@ while True:
                for line in main:
                   address, checksum = line.split("  ")
                   if checksum[:4] == "main":
-                     MAN = spacePadding(address, COL1)                     
-         command("mv functions.tmp " + localDir + "/functions.txt")
+                     MAN = spacePadding(address, COL1)                          
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1240,7 +1255,7 @@ while True:
          counter = lineCount("pop.tmp")
          if counter > 0:
             command("cat pop.tmp > full.tmp")
-            command("echo '--------------------------------------------------------' >> full.tmp")
+            command("echo '- - - - - - - - - - - - - - - - - - - - - - - - - - - - ' >> full.tmp")
             command("cat gadgets.tmp >> full.tmp")    
          
          with open("full.tmp","r") as gadgets:
