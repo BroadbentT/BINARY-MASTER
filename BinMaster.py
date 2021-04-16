@@ -152,11 +152,11 @@ def dispMenu():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RAX/EAX/AX/AH " + '\u2551', end=' ')
-   if RAX[:18] == "0x0000000000000000":
-      print(colored(RAX[:COL1],colour7), end=' ')
+   print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
+   if SRT[:18] == "0x0000000000000000":
+      print(colored(SRT[:COL1],colour7), end=' ')
    else:
-      print(colored(RAX[:COL1],colour6), end=' ')
+      print(colored(SRT[:COL1],colour6), end=' ')
    if "RELRO    unknown" in RE:
       print('\u2551' + " " + colored(RE,colour7) + " " +  '\u2551', end=' ')
    else:
@@ -169,11 +169,11 @@ def dispMenu():
    print(colored(GADD[0],colour3), end=' ')
    print('\u2551')      
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RBX/EBX/BX/BH " + '\u2551', end=' ')
-   if RBX[:18] == "0x0000000000000000":
-      print(colored(RBX[:COL1],colour7), end=' ')
+   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
+   if MAN[:18] == "0x0000000000000000":
+      print(colored(MAN[:COL1],colour7), end=' ')
    else:
-      print(colored(RBX[:COL1],colour6), end=' ')
+      print(colored(MAN[:COL1],colour6), end=' ')
    print('\u2551', end=' ')   
    if "No Canary" in ST:
       print(colored(ST,'blue'), end=' ')
@@ -191,7 +191,7 @@ def dispMenu():
    print(colored(GADD[1],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RCX/ECX/CX/CH " + '\u2551', end=' ')
+   print('\u2551' + " SYSTEMADDRESS " + '\u2551', end=' ')
    if RCX[:18] == "0x0000000000000000":
       print(colored(RCX[:COL1],colour7), end=' ')
    else:
@@ -208,11 +208,11 @@ def dispMenu():
    print(colored(GADD[2],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RDX/EDX/DX/DH " + '\u2551', end=' ')
-   if RDX[:18] == "0x0000000000000000":
-      print(colored(RDX,colour7), end=' ')
+   print('\u2551' + " JUMP  ADDRESS " + '\u2551', end=' ')
+   if JMP[:18] == "0x0000000000000000":
+      print(colored(JMP,colour7), end=' ')
    else:
-      print(colored(RDX,colour6), end=' ')      
+      print(colored(JMP,colour6), end=' ')      
    print('\u2551', end =' ')      
    if "NX      Disabled" in NX:
       print(colored(NX,'blue'), end=' ')
@@ -230,11 +230,11 @@ def dispMenu():
    print(colored(GADD[3],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RSI/ESI/SI/SL " + '\u2551', end=' ')
-   if RSI[:18] == "0x0000000000000000":
-      print(colored(RSI[:COL1],colour7), end=' ')
+   print('\u2551' + " TEST  ADDRESS " + '\u2551', end=' ')
+   if CUS[:18] == "0x0000000000000000":
+      print(colored(CUS[:COL1],colour7), end=' ')
    else:
-      print(colored(RSI[:COL1],colour6), end=' ')      
+      print(colored(CUS[:COL1],colour6), end=' ')      
    print('\u2551', end=' ')
    if "No PIE" in PI:
       print(colored(PI,'blue'), end=' ')
@@ -252,7 +252,7 @@ def dispMenu():
    print(colored(GADD[4],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " RDI/EDI/DI/DL " + '\u2551', end=' ')
+   print('\u2551' + " POP RDI ; RET " + '\u2551', end=' ')
    if RDI[:18] == "0x0000000000000000":
       print(colored(RDI,colour7), end=' ')
    else:
@@ -274,20 +274,12 @@ def dispMenu():
    print(colored(GADD[5],colour6), end=' ')
    print('\u2551')           
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551', end= ' ')
-   print("RSP/ESP/SP/SL",end=' ')
-   print('\u2551', end=' ')   
-   if RSP[:18] == "0x0000000000000000":
-      print(colored(RSP,colour7), end=' ')
+   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
+   if RAX[:18] == "0x0000000000000000":
+      print(colored(RAX,colour7), end=' ')
    else:
-      print(colored(RSP,colour6), end=' ')   
-   print( '\u2551', end=' ')   
-   if OFF[:1] == "0":
-      print(colored("OFFSET   " + OFF[:9],colour7), end=' ')
-      print('\u2551', end=' ')
-   else:
-      print(colored("OFFSET   " + OFF[:9],colour2), end=' ')
-      print('\u2551', end=' ')            
+      print(colored(RAX,colour6), end=' ')         
+   print('\u2560' + ('\u2550')*20 + '\u2563', end= ' ')    
    if (MAN.rstrip(" ") in FUNC[6]):
       print(colored(FUNC[6],colour3), end=' ')
    else:
@@ -296,21 +288,13 @@ def dispMenu():
    print(colored(GADD[6],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551', end=' ')
-   print("RBP/EBP/BP/BL", end=' ')
-   print('\u2551', end=' ')   
-   if RBP[:18] == "0x0000000000000000":
-      print(colored(RBP,colour7), end=' ')
+   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ') 
+   if RBX[:18] == "0x0000000000000000":
+      print(colored(RBX,colour7), end=' ')
    else:
-      print(colored(RBP,colour6), end=' ')      
+      print(colored(RBX,colour6), end=' ')      
    print('\u2551',end=' ')
-   if BITS[:6] == "64-Bit":
-      print(colored("        -08 Bytes ",colour2), end=' ')
-   if BITS[:6] == "32-Bit":
-      print(colored("        -04 Bytes ",colour2), end=' ')
-   if BITS[:7] == "unknown":
-      print(colored("         0 Bytes  ",colour7), end=' ')
-   print('\u2551', end=' ')   
+   print("BUFFER   OVERFLOW  " + '\u2551', end= ' ')     
    if (MAN.rstrip(" ") in FUNC[7]):
       print(colored(FUNC[7],colour3), end=' ')
    else:
@@ -319,25 +303,12 @@ def dispMenu():
    print(colored(GADD[7],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551', end=' ')
-   if BITS[:7] != "unknown" and OFF[:1] != "0":
-      print("RIP/EIP", end=' ')
-      print(colored("<====", colour2,attrs=['blink']), end=' ')
+   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
+   if RDX[:18] == "0x0000000000000000":
+      print(colored(RDX,colour7), end=' ')
    else:
-      print("RIP/EIP      ", end=' ')   
-   print( '\u2551', end=' ')
-   if RIP[:18] == "0x0000000000000000":
-      print(colored(RIP,colour7), end=' ')
-   else:
-      print(colored(RIP,colour6), end=' ')         
-   print('\u2551', end=' ')   
-   if BITS[:6] == "64-Bit":
-      print(colored("        -08 Bytes ",colour2), end=' ')
-   if BITS[:6] == "32-Bit":
-      print(colored("        -04 Bytes ",colour2), end=' ')
-   if BITS[:7] == "unknown":
-      print(colored("         0 Bytes  ",colour7), end=' ')
-   print('\u2551', end=' ')   
+      print(colored(RDX,colour6), end=' ')         
+   print('\u2560' + ('\u2550')*20 + '\u2563', end= ' ')    
    if (MAN.rstrip(" ") in FUNC[8]):
       print(colored(FUNC[8],colour3), end=' ')
    else:
@@ -346,17 +317,18 @@ def dispMenu():
    print(colored(GADD[8],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " START ADDRESS " + '\u2551', end=' ')
-   if SRT[:18] == "0x0000000000000000":
-      print(colored(SRT,colour7), end=' ')
+   print('\u2551' + " RSP/ESP/SP/SL " + '\u2551', end=' ')
+   if RSP[:18] == "0x0000000000000000":
+      print(colored(RSP,colour7), end=' ')
    else:
-      print(colored(SRT,colour6), end=' ')      
-   print('\u2551', end=' ')
-   if OFF2[:1] == "0":
-      print(colored("-"*COL1,colour7), end=' ')   
-   else:
-      print(colored("-"*COL1,colour2), end=' ')
+      print(colored(RSP,colour6), end=' ')            
    print('\u2551', end=' ')   
+   if OFF[:1] == "0":
+      print(colored("OFFSET   " + OFF[:9],colour7), end=' ')
+      print('\u2551', end=' ')
+   else:
+      print(colored("OFFSET   " + OFF[:9],colour2), end=' ')
+      print('\u2551', end=' ')        
    if (MAN.rstrip(" ") in FUNC[9]): 
       print(colored(FUNC[9],colour3), end=' ')
    else:
@@ -365,12 +337,60 @@ def dispMenu():
    print(colored(GADD[9],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
-   if MAN[:18] == "0x0000000000000000":
-      print(colored(MAN,colour7), end=' ')
+   print('\u2551' + " RBP/EBP/BP/BL " + '\u2551', end=' ')
+   if RBP[:18] == "0x0000000000000000":
+      print(colored(RBP,colour7), end=' ')
    else:
-      print(colored(MAN,colour6), end=' ')
+      print(colored(RBP,colour6), end=' ')
    print('\u2551', end=' ') 
+   if BITS[:6] == "64-Bit":
+      print(colored("        -08 Bytes ",colour2), end=' ')
+   if BITS[:6] == "32-Bit":
+      print(colored("        -04 Bytes ",colour2), end=' ')
+   if BITS[:7] == "unknown":
+      print(colored("         0 Bytes  ",colour7), end=' ')
+   print('\u2551', end=' ')   
+   if (MAN.rstrip(" ") in FUNC[10]):
+      print(colored(FUNC[10],colour3), end=' ')
+   else:
+      print(colored(FUNC[10],colour6), end=' ')   
+   print('\u2551', end=' ')   
+   print(colored(GADD[10],colour6), end=' ')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
+   print('\u2551', end=' ')
+   if BITS[:7] != "unknown" and OFF[:1] != "0":
+      print("RIP/EIP", end=' ')
+      print(colored("<====", colour2,attrs=['blink']), end=' ')
+   else:
+      print("RIP/EIP      ", end=' ')   
+   print('\u2551', end=' ')      
+   if RIP[:18] == "0x0000000000000000":
+      print(colored(RIP,colour7), end=' ')
+   else:
+      print(colored(RIP,colour6), end=' ')
+   print('\u2551', end=' ') 
+   if BITS[:6] == "64-Bit":
+      print(colored("        -08 Bytes ",colour2), end=' ')
+   if BITS[:6] == "32-Bit":
+      print(colored("        -04 Bytes ",colour2), end=' ')
+   if BITS[:7] == "unknown":
+      print(colored("         0 Bytes  ",colour7), end=' ')
+   print('\u2551', end=' ')   
+   if (MAN.rstrip(" ") in FUNC[11]):
+      print(colored(FUNC[11],colour3), end=' ')
+   else:
+      print(colored(FUNC[11],colour6), end=' ')   
+   print('\u2551', end=' ')   
+   print(colored(GADD[11],colour6), end=' ')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + " CUST  ADDRESS " + '\u2551', end=' ')     
+   if RSI[:18] == "0x0000000000000000":
+      print(colored(RSI,colour7), end=' ')
+   else:
+      print(colored(RSI,colour6), end=' ')
+   print('\u2551', end=' ')     
    if OFF2[:1] == "0":
       print(colored("ADJUSTED",colour7),end=' ')
    else:
@@ -380,36 +400,6 @@ def dispMenu():
    else:
       print(colored(OFF2[:9],colour2),end=' ')   
    print('\u2551', end= ' ')
-   if (MAN.rstrip(" ") in FUNC[10]):
-      print(colored(FUNC[10],colour3), end=' ')
-   else:
-      print(colored(FUNC[10],colour6), end=' ')   
-   print('\u2551', end=' ')   
-   print(colored(GADD[10],colour6), end=' ')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " JUMP  ADDRESS " + '\u2551', end=' ')   
-   if JMP[:18] == "0x0000000000000000":
-      print(colored(JMP,colour7), end=' ')
-   else:
-      print(colored(JMP,colour6), end=' ')
-   print('\u2551', end=' ') 
-   print("                   " + '\u2551', end= ' ') 
-   if (MAN.rstrip(" ") in FUNC[11]):
-      print(colored(FUNC[11],colour3), end=' ')
-   else:
-      print(colored(FUNC[11],colour6), end=' ')   
-   print('\u2551', end=' ')   
-   print(colored(GADD[11],colour6), end=' ')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " WRITE ADDRESS " + '\u2551', end=' ')     
-   if CUS[:18] == "0x0000000000000000":
-      print(colored(CUS,colour7), end=' ')
-   else:
-      print(colored(CUS,colour6), end=' ')
-   print('\u2551', end=' ')  
-   print("                   " + '\u2551', end= ' ') 
    if (MAN.rstrip(" ") in FUNC[12]):
       print(colored(FUNC[12],colour3), end=' ')
    else:
@@ -428,18 +418,18 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set  ACCUMULATOR (11) Set MAIN ADDRESS (21) Read  PrivHead (31) MSF PatternCreate (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(01) Set STARTADDRESS (11) Set BASE POINTER (21) Read  PrivHead (31) MSF PatternCreate (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) Set BASE POINTER (12) Set JUMP ADDRESS (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
+   print('\u2551' + "(02) Set MAIN ADDRESS (12) Set INST POINTER (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set LOOP COUNTER (13) Set WRITEADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set SYST ADDRESS (13) Set CUST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
       print(colored(FIL[:COL3-16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set DATALOCATION (14) Select  FILENAME (24) ReadExecutable (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
+   print('\u2551' + "(04) Set JUMP ADDRESS (14) Select  FILENAME (24) ReadExecutable (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -451,7 +441,7 @@ def options():
       print(colored(MODE[:COL1-5],colour6), end=' ') 
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) Set SOURCE INDEX (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
+   print('\u2551' + "(05) Set TEST ADDRESS (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
@@ -460,7 +450,7 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set DESTIN INDEX (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
+   print('\u2551' + "(06) Set POP RDI &RET (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
    if BITS[:1] != "u":
       print(colored(BITS,colour6), end=' ')
    else:
@@ -472,17 +462,17 @@ def options():
       print(colored(IND[:COL1-5],colour6), end=' ')  
    print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set STACKPOINTER (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2551' + " LIBC VERSION   ", end=' ')
+   print('\u2551' + "(07) Set  UNALLOCATED (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2551' + " LIBC VERSION   ", end=' ')
    if LIBC[:7] == "unknown":
       print(colored(LIBC[:COL2-5],colour7), end=' ')
    else:
       print(colored(LIBC[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set BASE POINTER (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
+   print('\u2551' + "(08) Set  UNALLOCATED (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set INST POINTER (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
-   print('\u2551' + "(10) Set STARTADDRESS (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble ADDR (50) Exit         " + '\u2551'  " REMOTE ADDRESS ", end=' ')
+   print('\u2551' + "(09) Set  UNALLOCATED (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
+   print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble ADDR (50) Exit         " + '\u2551'  " REMOTE ADDRESS ", end=' ')
    if remAddr[:7] == "unknown":
       print(colored(remAddr,colour7), end=' ')
    else:
@@ -717,35 +707,35 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RAX value.
+# Details : Menu option selected - Set START address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='1':
-      BAK = RAX
-      RAX = input("[?] Please enter accumulator address: ")
-      if RAX != "":
-         RAX = spacePadding(RAX,COL1)
+      BAK = SRT
+      SRT = input("[?] Please enter start address: ")
+      if SRT != "":
+         SRT = spacePadding(SRT,COL1)
       else:
-            RAX = BAK
-      prompt()
+            SRT = BAK
+      prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RBX value.
+# Details : Menu option selected - Set MAN address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='2':
-      BAK = RBX
-      RBX = input("[?] Please enter base address: ")
-      if RBX != "":
-         RBX = spacePadding(RBX,COL1)
+      BAK = MAN
+      MAN = input("[?] Please enter main address: ")
+      if MAN != "":
+         MAN = spacePadding(MAN,COL1)
       else:
-            RBX = BAK
-      prompt()
+            MAN = BAK
+      prompt()   
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -764,39 +754,39 @@ while True:
             RCX = BAK
       prompt()
       
- # ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Set RDX value.
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='4':
-      BAK = RDX
-      RDX = input("[?] Please enter data address: ")
-      if RDX != "":
-         RDX = spacePadding(RDX,COL1)
-      else:
-            RDX = BAK
-      prompt() 
-      
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RSI value.
+# Details : Menu option selected - Set custom address one.
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='4':
+      BAK = JMP
+      JMP = input("[?] Please enter address to jump to: ")
+      if JMP != "":
+         JMP = spacePadding(JMP,COL1)
+      else:
+            JMP = BAK
+      prompt()
+           
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Set custom address two.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='5':
-      BAK = RSI
-      RSI = input("[?] Please enter source address: ")
-      if RSI != "":
-         RSI = spacePadding(RSI,COL1)
+      BAK = CUS
+      CUS = input("[?] Please enter test address: ")
+      if CUS != "":
+         CUS = spacePadding(CUS,COL1)
       else:
-            RSI = BAK
-      prompt()
+            CUS = BAK
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -819,18 +809,69 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RSP value.
+# Details : Menu option selected - Set
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='7':
+      BAK = RAX
+      RAX = input("[?] Please enter UNALLOCATED address: ")
+      if RAX != "":
+         RAX = spacePadding(RAX,COL1)
+      else:
+            RAX = BAK
+      prompt()
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Set
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='8':
+      BAK = RBX
+      RBX = input("[?] Please enter UNALLOCATED address: ")
+      if RBX != "":
+         RBX = spacePadding(RBX,COL1)
+      else:
+            RBX = BAK
+      prompt()     
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Set 
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='9':
+      BAK = RDX
+      RDX = input("[?] Please enter UNALLOCATED address: ")
+      if RDX != "":
+         RDX = spacePadding(RDX,COL1)
+      else:
+            RDX = BAK
+      prompt() 
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Set RSP value.
+# Modified: N/A
+# -------------------------------------------------------------------------------------      
+      
+   if selection =='10':
       BAK = RSP
       RSP = input("[?] Please enter stack pointer address: ")
       if RSP != "":
          RSP = spacePadding(RSP,COL1)
       else:
             RSP = BAK
-      prompt()  
+      prompt()      
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -840,14 +881,14 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='8':
+   if selection =='11':
       BAK = RBP
       RBP = input("[?] Please enter base pointer address: ")
       if RBP != "":
          RBP = spacePadding(RBP,COL1)
       else:
             RBP = BAK
-      prompt()  
+      prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -857,82 +898,31 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
-   if selection =='9':
+   if selection =='12':
       BAK = RIP
       RIP = input("[?] Please enter extended instruction pointer address: ")
       if RIP != "":
          RIP = spacePadding(RIP,COL1)
       else:
             RIP = BAK
-      prompt()  
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Set START address.
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='10':
-      BAK = SRT
-      SRT = input("[?] Please enter start address: ")
-      if SRT != "":
-         SRT = spacePadding(SRT,COL1)
-      else:
-            SRT = BAK
       prompt()   
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set MAN address.
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='11':
-      BAK = MAN
-      MAN = input("[?] Please enter main address: ")
-      if MAN != "":
-         MAN = spacePadding(MAN,COL1)
-      else:
-            MAN = BAK
-      prompt()        
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Set custom address one.
-# Modified: N/A
-# -------------------------------------------------------------------------------------      
-      
-   if selection =='12':
-      BAK = JMP
-      JMP = input("[?] Please enter address to jump to: ")
-      if JMP != "":
-         JMP = spacePadding(JMP,COL1)
-      else:
-            JMP = BAK
-      prompt()   
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Set custom address two.
+# Details : Menu option selected - Set RSI value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
-      BAK = CUS
-      CUS = input("[?] Please enter write address: ")
-      if CUS != "":
-         CUS = spacePadding(CUS,COL1)
+      BAK = RSI
+      RSI = input("[?] Please enter source address: ")
+      if RSI != "":
+         RSI = spacePadding(RSI,COL1)
       else:
-            CUS = BAK
-      prompt()  
+            RSI = BAK
+      prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1000,103 +990,102 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
-         command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
-         parsFile("headers.tmp")
-         catsFile("headers.tmp")         
-         with open("headers.tmp","r") as header:
-            for line in header:
-               data = line
-               if "aarch64" in data:
-                  ARC = spacePadding("aarch64", COL1)
-               if "alpha" in data:
-                  ARC = spacePadding("alpha", COL1)
-               if "amd64" in data:
-                  ARC = spacePadding("amd64", COL1)
-               if "arm" in data:
-                  ARC = spacePadding("arm", COL1)
-               if "avr" in data:
-                  ARC = spacePadding("avr", COL1)
-               if "cris" in data:
-                  ARC = spacePadding("cris", COL1)
-               if "i386" in data:
-                  ARC = spacePadding("i386", COL1)
-               if "ia64" in data:
-                  ARC = spacePadding("ia64", COL1)
-               if "m68k" in data:
-                  ARC = spacePadding("m68k", COL1)
-               if "mips" in data:
-                  ARC = spacePadding("mips", COL1)
-               if "mips64" in data:
-                  ARC = spacePadding("mips64", COL1)
-               if "mips430" in data:
-                  ARC = spacePadding("mips430", COL1)
-               if "powerpc" in data:
-                  ARC = spacePadding("powerpc", COL1)
-               if "powerpc64" in data:
-                  ARC = spacePadding("powerpc64", COL1)
-               if "s390" in data:
-                  ARC = spacePadding("s390", COL1)
-               if "sparc" in data:
-                  ARC = spacePadding("sparc", COL1)
-               if "sparc64" in data:
-                  ARC = spacePadding("sparc64", COL1)
-               if "thumb" in data:
-                  ARC = spacePadding("thumb", COL1)
-               if "vax" in data:
-                  ARC = spacePadding("vax", COL1)
-               if "elf" in data:
-                  COM = spacePadding("ELF", COL1)
-         if SRT[:18] == "0x0000000000000000":          
-            command("cat headers.tmp | grep 'start' > start.tmp ")
-            with open("start.tmp","r") as start :
-               for line in start:
-                  checksum, null, address = line.split(" ")
-                  if checksum[:5] == "start":
-                     SRT = spacePadding(address, COL1)
          command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
-         parsFile("file.tmp")
-         catsFile("file.tmp")                  
-         binary = linecache.getline("file.tmp", 1)
-         if "ELF" in binary:
-            COM = spacePadding("ELF", COL1)
-            print("Linux binary file...")         
-         if "8-bit" in binary:
-            BITS = "08-Bit"
-            print(BITS + " architecture...")           
-            BITS = spacePadding(BITS, COL1)            
-         if "16-bit" in binary:
-            BITS = "16-Bit"
-            print(BITS + " architecture...")           
-            BITS = spacePadding(BITS, COL1)            
-         if "32-bit" in binary:
-            BITS = "32-Bit"
-            print(BITS + " architecture...")           
-            BITS = spacePadding(BITS, COL1)         
-         if "64-bit" in binary:
-            BITS = "64-Bit"
-            print(BITS + " architecture...")  
-            BITS = spacePadding(BITS, COL1)         
-         if "LSB" in binary:
-            IND = "little"
-            print(IND + " indian format...")
-            IND = spacePadding(IND, COL1)
-         if "MSB" in binary:
-            IND = "big"
-            print(IND + " indian...")
-            IND = spacePadding(IND, COL1)            
-         if "dynamically linked" in binary:
-            command("ldd " + localDir + "/" + FIL.rstrip(" ") + " > libc.tmp")
-            command("cat libc.tmp | grep '=>' > address.tmp")
-            with open("address.tmp","r") as address:
-               LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
-               print("Dynamic link to " + LIBC.rstrip(" ") + "...")               
-         if "not stripped" in binary:
-            print("Debugging information built in...")
-         else:
-            print("Debugging information removed...")
-         if "intel" in binary:
-            print("Consider switching the disassembly style to intel - 'set disassembly-flavor intel'...")
+         command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
+         cutLine(localDir, "headers.tmp")
+         command("cat file.tmp > combined.tmp")
+         command("cat headers.tmp >> combined.tmp")         
+         parsFile("combined.tmp")
+         catsFile("combined.tmp")         
+         with open("combined.tmp") as read:
+            for binary in read:
+               if "ELF" in binary:
+                  COM = spacePadding("ELF", COL1)
+                  print("Linux binary file...")         
+               if "8-bit" in binary:
+                  BITS = "08-Bit"
+                  print(BITS + " architecture...")           
+                  BITS = spacePadding(BITS, COL1)            
+               if "16-bit" in binary:
+                  BITS = "16-Bit"
+                  print(BITS + " architecture...")           
+                  BITS = spacePadding(BITS, COL1)            
+               if "32-bit" in binary:
+                  BITS = "32-Bit"
+                  print(BITS + " architecture...")           
+                  BITS = spacePadding(BITS, COL1)         
+               if "64-bit" in binary:
+                  BITS = "64-Bit"
+                  print(BITS + " architecture...")  
+                  BITS = spacePadding(BITS, COL1)         
+               if "LSB" in binary:
+                  IND = "little"
+                  print(IND + " indian format...")
+                  IND = spacePadding(IND, COL1)
+               if "MSB" in binary:
+                  IND = "big"
+                  print(IND + " indian...")
+                  IND = spacePadding(IND, COL1)            
+               if "dynamically linked" in binary:
+                  command("ldd " + localDir + "/" + FIL.rstrip(" ") + " > libc.tmp")
+                  command("cat libc.tmp | grep '=>' > address.tmp")
+                  with open("address.tmp","r") as address:
+                     LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
+                     print("Dynamic link to " + LIBC.rstrip(" ") + "...")               
+               if "not stripped" in binary:
+                  print("Debugging information built in...")
+               else:
+                  if "stripped" in binary:
+                     print("Debugging information removed...")
+               if "intel" in binary:
+                  print("Consider switching the disassembly style to intel - 'set disassembly-flavor intel'...")
+               if "aarch64" in binary:
+                  ARC = spacePadding("aarch64", COL1)
+               if "alpha" in binary:
+                  ARC = spacePadding("alpha", COL1)
+               if "amd64" in binary:
+                  ARC = spacePadding("amd64", COL1)
+               if "arm" in binary:
+                  ARC = spacePadding("arm", COL1)
+               if "avr" in binary:
+                  ARC = spacePadding("avr", COL1)
+               if "cris" in binary:
+                  ARC = spacePadding("cris", COL1)
+               if "i386" in binary:
+                  ARC = spacePadding("i386", COL1)
+               if "ia64" in binary:
+                  ARC = spacePadding("ia64", COL1)
+               if "m68k" in binary:
+                  ARC = spacePadding("m68k", COL1)
+               if "mips" in binary:
+                  ARC = spacePadding("mips", COL1)
+               if "mips64" in binary:
+                  ARC = spacePadding("mips64", COL1)
+               if "mips430" in binary:
+                  ARC = spacePadding("mips430", COL1)
+               if "powerpc" in binary:
+                  ARC = spacePadding("powerpc", COL1)
+               if "powerpc64" in binary:
+                  ARC = spacePadding("powerpc64", COL1)
+               if "s390" in binary:
+                  ARC = spacePadding("s390", COL1)
+               if "sparc" in binary:
+                  ARC = spacePadding("sparc", COL1)
+               if "sparc64" in binary:
+                  ARC = spacePadding("sparc64", COL1)
+               if "thumb" in binary:
+                  ARC = spacePadding("thumb", COL1)
+               if "vax" in binary:
+                  ARC = spacePadding("vax", COL1)
+               if "elf" in binary:
+                  COM = spacePadding("ELF", COL1)
+               if SRT[:18] == "0x0000000000000000":          
+                  command("cat headers.tmp | grep 'start' > start.tmp ")
+                  with open("start.tmp","r") as start :
+                     for line in start:
+                        checksum, null, address = line.split(" ")
+                        if checksum[:5] == "start":
+                           SRT = spacePadding(address, COL1)
       prompt()            
 
 # ------------------------------------------------------------------------------------- 
@@ -1169,9 +1158,7 @@ while True:
          command("sed -i '/0x/!d' functions.tmp")         
          funcNum = lineCount("functions.tmp")
          funcNum = spacePadding(str(funcNum),7)
-
-         command("cp functions.tmp " + localDir + "/functions.txt")
-         
+         command("cp functions.tmp " + localDir + "/functions.txt")         
          command("awk '/ _init/' functions.tmp > altered.tmp")
          cutLine("init","functions.tmp")
          command("awk '/ _start/' functions.tmp >> altered.tmp")         
@@ -1183,8 +1170,10 @@ while True:
          command("echo '- - - - - - - - - - - - - - - - - - - - - - - -' >> altered.tmp")
          command("cat functions.tmp >> altered.tmp")
          command("rm functions.tmp")
-         command("mv altered.tmp functions.tmp")
-                  
+         command("mv altered.tmp functions.tmp")   
+         check = linecache.getline("functions.tmp", 1)
+         if check[:1] == "-":
+            cutLine("- - - - - -", "functions.tmp")
          with open("functions.tmp", "r") as functions:
             for x in range(0, maxDispl):
                FUNC[x] = functions.readline().rstrip(" ")
@@ -1249,15 +1238,16 @@ while True:
          command("sed -i 's/://g' gadgets.tmp")
          cutLine("Unique gadgets","gadgets.tmp")
          gadgNum = lineCount("gadgets.tmp")
-         gadgNum = spacePadding(str(gadgNum),7)
-         
+         gadgNum = spacePadding(str(gadgNum),7)         
          command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")
          counter = lineCount("pop.tmp")
          if counter > 0:
             command("cat pop.tmp > full.tmp")
             command("echo '- - - - - - - - - - - - - - - - - - - - - - - - - - - - ' >> full.tmp")
-            command("cat gadgets.tmp >> full.tmp")    
-         
+            command("cat gadgets.tmp >> full.tmp")             
+         check = linecache.getline("full.tmp", 1)
+         if check[:1] == "-":
+            cutLine("- - - - - -", "full.tmp")         
          with open("full.tmp","r") as gadgets:
             for x in range (0, maxDispl):
                GADD[x] = gadgets.readline().rstrip(" ")
@@ -1795,10 +1785,12 @@ while True:
          command("echo 'padding = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
+         
          if JMP.rstrip(" ") != "0x0000000000000000":
            switch = 1           
-         if CUS.rstrip(" ") != "":
+         if CUS.rstrip(" ") != "0x0000000000000000":
            switch = 2        
+         
          command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")                    
          command("echo 'if switch == 1:' >> " + localDir + "/exploit.py")
