@@ -1029,7 +1029,9 @@ while True:
          system = linecache.getline("system.tmp",1).split(":")[0]
          system = system.strip(" ")
          if (system[:2] != "0x") and (len(system) == 6):
-            system = "0x0000000000" + system            
+            system = "0x0000000000" + system 
+         else:
+            system = "0x0000000000000000"           
          SYS = spacePadding(system, COL1)
          command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
          command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
