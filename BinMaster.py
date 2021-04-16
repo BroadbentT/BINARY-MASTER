@@ -361,17 +361,24 @@ def dispMenu():
    print('\u2551', end=' ')
    if BITS[:7] != "unknown" and OFF[:1] != "0":
       print("RIP/EIP", end=' ')
-      print(colored("<====", colour2,attrs=['blink']), end=' ')
+      print(colored("====>", colour2,attrs=['blink']), end=' ')
    else:
       print("RIP/EIP      ", end=' ')   
    print('\u2551', end=' ')      
    if RIP[:18] == "0x0000000000000000":
-      print(colored(RIP,colour7), end=' ')
+      if BITS[:7] != "unknown" and OFF[:1] != "0":
+         print(colored(RIP,colour2), end=' ')     
+      else:
+         print(colored(RIP,colour7), end=' ')
    else:
       print(colored(RIP,colour6), end=' ')
    print('\u2551', end=' ') 
    if BITS[:6] == "64-Bit":
-      print(colored("        -08 Bytes ",colour2), end=' ')
+      if BITS[:7] != "unknown" and OFF[:1] != "0":
+         print(colored("<=====", colour2,attrs=['blink']), end=' ')
+      else:
+         print("      ", end=' ')   
+      print(colored(" -08 Bytes ",colour2), end=' ')
    if BITS[:6] == "32-Bit":
       print(colored("        -04 Bytes ",colour2), end=' ')
    if BITS[:7] == "unknown":
