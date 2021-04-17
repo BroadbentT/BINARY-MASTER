@@ -294,7 +294,7 @@ def dispMenu():
    print(colored(GRAD[5],colour6), end=' ')
    print('\u2551')           
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
+   print('\u2551' + " UNALLOCATED 1 " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX,colour7), end=' ')
    else:
@@ -308,7 +308,7 @@ def dispMenu():
    print(colored(GRAD[6],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ') 
+   print('\u2551' + " UNALLOCATED 2 " + '\u2551', end=' ') 
    if RBX[:18] == "0x0000000000000000":
       print(colored(RBX,colour7), end=' ')
    else:
@@ -323,7 +323,7 @@ def dispMenu():
    print(colored(GRAD[7],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED   " + '\u2551', end=' ')
+   print('\u2551' + " UNALLOCATED 3 " + '\u2551', end=' ')
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
    else:
@@ -412,7 +412,7 @@ def dispMenu():
    print(colored(GRAD[11],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " TEST  ADDRESS " + '\u2551', end=' ')     
+   print('\u2551' + " CUST  ADDRESS " + '\u2551', end=' ')     
    if CUS[:18] == "0x0000000000000000":
       print(colored(CUS,colour7), end=' ')
    else:
@@ -449,7 +449,7 @@ def options():
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set MAIN ADDRESS (12) Set INST POINTER (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set SYST ADDRESS (13) Set TEST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FORMAT         ", end=' ')
+   print('\u2551' + "(03) Set SYST ADDRESS (13) Set CUST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -489,11 +489,11 @@ def options():
       print(colored(LIB[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set  UNALLOCATED (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
+   print('\u2551' + "(07) Set UNALLOCATED1 (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set  UNALLOCATED (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(08) Set UNALLOCATED2 (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set  UNALLOCATED (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
+   print('\u2551' + "(09) Set UNALLOCATED3 (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
    print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble RADR (50) Exit         " + '\u2551'  " I.P. ADDRESS   ", end=' ')
    if RAD[:7] == "unknown":
       print(colored(RAD,colour7), end=' ')
@@ -1675,7 +1675,11 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      prompt() 
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         pass
+      prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1747,6 +1751,10 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '46':
+      if FIL[:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         pass
       prompt()
       
 # ------------------------------------------------------------------------------------- 
