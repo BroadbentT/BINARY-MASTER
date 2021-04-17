@@ -166,7 +166,9 @@ def saveParams():
 def dispMenu():
    print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*47 + '\u2566' + ('\u2550')*58 + '\u2557')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " PROGRAM REGISTERS " + (" ")*17 + '\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
+   print('\u2551' + " FILENAME", end=' ')
+   print(colored(FIL[:25],colour6),end=' ')
+   print('\u2551' + " CHECKSEC DATA      " + '\u2551' + " " + colored("OFFSET",colour5) + (" ")*14 + colored("FUNCTIONS ",colour5) + colored(funcNum[:7],colour6) + (" ")*9 + '\u2551' + (" ")*1 + colored("OFFSET",colour5) + " "*14 + colored("GADGETS ",colour5) + colored(gadgNum[:7],colour6) + (" ")*22 + '\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2560' + ('\u2550')*15+ '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*24 + '\u2550' + ('\u2550')*22 + '\u256C' + ('\u2550')*58 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
@@ -443,18 +445,11 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) Set STARTADDRESS (11) Set BASE POINTER (21) Read  PrivHead (31) MSF PatternCreate (41) RESERVED     " + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(01) Set STARTADDRESS (11) Set BASE POINTER (21) Read  PrivHead (31) MSF PatternCreate (41) RESERVED     " + '\u2551' + " LOCAL FILE INFORMATION  " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    print('\u2551' + "(02) Set MAIN ADDRESS (12) Set INST POINTER (22) Read  Sections (32) Program Interface (42) RESERVED     " + '\u2560' + ('\u2550')*58 + '\u2563')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) Set SYST ADDRESS (13) Set TEST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FILE NAME      ", end=' ')
-   if FIL[:7] == "unknown":
-      print(colored(FIL[:COL3-16],colour7), end=' ')   
-   else:
-      print(colored(FIL[:COL3-16],colour6), end=' ')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(04) Set JUMP ADDRESS (14) Select  FILENAME (24) ReadExecutable (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' + " FORMAT         ", end=' ')
+   print('\u2551' + "(03) Set SYST ADDRESS (13) Set TEST ADDRESS (23) Read   Headers (33) L-Trace Interface (43) RESERVED     " + '\u2551' + " FORMAT         ", end=' ')
    if COM[:7] != "unknown":
       print(colored(COM,colour6), end=' ')
    else:
@@ -466,7 +461,7 @@ def options():
       print(colored(MOD[:COL1-5],colour6), end=' ') 
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) Set TEST ADDRESS (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " ARCHITECTURE   ", end= ' ')
+   print('\u2551' + "(04) Set JUMP ADDRESS (14) Select  FILENAME (24) ReadExecutable (34) G.D.B.  Interface (44) NASMShellcode" + '\u2551' " ARCHITECTURE   ", end= ' ')
    if ARC[:7] == "unknown":
       print(colored(ARC,colour7), end=' ')
    else:
@@ -475,8 +470,8 @@ def options():
    print(colored(flavour[:5],colour6),end=' ' )
    print((" ")*8 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(06) Set POP RDI &RET (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " BITS           ", end=' ')
-   if BIT[:1] != "u":
+   print('\u2551' + "(05) Set TEST ADDRESS (15) Switch File Mode (25) Read DeBugInfo (35) MSF PatternSearch (45) MSF Shellcode" + '\u2551' + " BITS           ", end=' ')
+   if BIT[:7] != "unknown":
       print(colored(BIT,colour6), end=' ')
    else:
       print(colored(BIT,colour7), end=' ')   
@@ -487,17 +482,19 @@ def options():
       print(colored(IND[:COL1-5],colour6), end=' ')  
    print('\u2551')  
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set  UNALLOCATED (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2551' + " LIBC VERSION   ", end=' ')
+   print('\u2551' + "(06) Set POP RDI &RET (16) Examine  Program (26) Read Assembley (36) Set Buffer OFFSET (46) RESERVED     " + '\u2551' + " LIBC VERSION   ", end=' ')
    if LIB[:7] == "unknown":
       print(colored(LIB[:COL2-5],colour7), end=' ')
    else:
       print(colored(LIB[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set  UNALLOCATED (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
+   print('\u2551' + "(07) Set  UNALLOCATED (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set  UNALLOCATED (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2551' + " "  + (" ")*COL3 + " " + '\u2551')
-   print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble RADR (50) Exit         " + '\u2551'  " REMOTE RADRESS ", end=' ')
+   print('\u2551' + "(08) Set  UNALLOCATED (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(09) Set  UNALLOCATED (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
+   print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble RADR (50) Exit         " + '\u2551'  " I.P. ADDRESS   ", end=' ')
    if RAD[:7] == "unknown":
       print(colored(RAD,colour7), end=' ')
    else:

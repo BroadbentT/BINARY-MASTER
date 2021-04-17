@@ -17,14 +17,14 @@
 
 ## COMMAND CENTRE TO STATICALLY AND DYNAMICALLY INVESTIGATE AND ANALYSE BINARY FILES FOR BUFFER OVERFLOW.
 
-A python script file to statically and dynamically investigate and analyse binary files for buffer overflow exploits.
+A python script file to statically and dynamically investigate and analyse binary files for buffer overflow exploits. 
 
 TESTED: Kali Linux 2019<br>
 USAGE : python3 BinMaster.py
 
 | LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | 783530a8e38591b80664c2d328a52011 | Command Centre | Full Stack |
+| python3   | BinMaster.py | 9871a35376dca33ac78e72d8cc79b05b | Command Centre | Full Stack |
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/8-ZtmyBInUM "Binary Master")
