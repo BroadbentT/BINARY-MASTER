@@ -294,7 +294,7 @@ def dispMenu():
    print(colored(GRAD[5],colour6), end=' ')
    print('\u2551')           
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " PUTS @ PLT    " + '\u2551', end=' ')
+   print('\u2551' + " PUTS     @PLT " + '\u2551', end=' ')
    if RAX[:18] == "0x0000000000000000":
       print(colored(RAX,colour7), end=' ')
    else:
@@ -308,7 +308,7 @@ def dispMenu():
    print(colored(GRAD[6],colour6), end=' ')
    print('\u2551')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED 2 " + '\u2551', end=' ') 
+   print('\u2551' + " PUTS     @GOT " + '\u2551', end=' ') 
    if RBX[:18] == "0x0000000000000000":
       print(colored(RBX,colour7), end=' ')
    else:
@@ -323,7 +323,7 @@ def dispMenu():
    print(colored(GRAD[7],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + " UNALLOCATED 3 " + '\u2551', end=' ')
+   print('\u2551' + " UNALLOCATED 1 " + '\u2551', end=' ')
    if RDX[:18] == "0x0000000000000000":
       print(colored(RDX,colour7), end=' ')
    else:
@@ -489,11 +489,11 @@ def options():
       print(colored(LIB[:COL2-5],colour6), end=' ')
    print('\u2551') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) Set UNALLOCATED1 (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
+   print('\u2551' + "(07) Set PUTS    @PLT (17) CheckSec Program (27) Read   Symbols (37) Adjust the OFFSET (47) Set I.P./Port" + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) Set UNALLOCATED2 (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
+   print('\u2551' + "(08) Set PUTS    @GOT (18) G.D.B. Functions (28) Read Stab Data (38) Dis-Assemble MAIN (48) Write Exploit" + '\u2551' + " REMOTE FILE INFORMATION " + (" ")*33 + '\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) Set UNALLOCATED3 (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
+   print('\u2551' + "(09) Set UNALLOCATED1 (19) Radar2 Functions (29) Read HexFormat (39) Dis-Assemble FUNC (49) Run Exploit  " + '\u2560' + ('\u2550')*COL3 + ('\u2550')*2 + '\u2563') 
    print('\u2551' + "(10) Set STACKPOINTER (20) Find all Gadgets (30) HexCode Editor (40) Dis-Assemble RADR (50) Exit         " + '\u2551'  " I.P. ADDRESS   ", end=' ')
    if RAD[:7] == "unknown":
       print(colored(RAD,colour7), end=' ')
@@ -1231,21 +1231,30 @@ while True:
                for line in start:
                   address, checksum = line.split("  ")
                   if checksum[:6] == "_start":
-                     SRT = spacePadding(address, COL1)         
-         if RAX[:18] == "0x0000000000000000":
-            command("cat functions.tmp | grep 'puts' > puts.tmp ")
-            with open("puts.tmp","r") as main:
-               for line in main:
-                  address, checksum = line.split("  ")
-                  if checksum[:4] == "puts":
-                     RAX = spacePadding(address, COL1)          
+                     SRT = spacePadding(address, COL1)                  
          if MAN[:18] == "0x0000000000000000":
             command("cat functions.tmp | grep 'main' > main.tmp ")
             with open("main.tmp","r") as main:
                for line in main:
                   address, checksum = line.split("  ")
                   if checksum[:4] == "main":
-                     MAN = spacePadding(address, COL1)                          
+                     MAN = spacePadding(address, COL1)                     
+         if RAX[:18] == "0x0000000000000000":
+            command("objdump -D " + localDir + "/" + FIL.rstrip(" ") + " | grep 'puts' > puts.tmp")            
+            counter =lineCount("puts.tmp")
+            if counter > 1:
+               cutLine("<puts@plt>","puts.tmp")
+               with open("puts.tmp","r") as main:
+                  for line in main:
+                     words = line.split()
+                     address1 = words[0].replace(":","")
+                     if (len(address1) == 6) and address1[:2] != "0x":
+                        address1 = "000000000000" + address1
+                     address2 = words[-2]
+                     if (len(address2) == 6) and address2[:2] != "0x":
+                        address2 = "000000000000" + address2                     
+                     RAX = spacePadding(address1, COL1) 
+                     RBX = spacePadding(address2, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1844,9 +1853,6 @@ while True:
          command("echo 'else:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + FIL.rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         command("echo 'RAX = p64(" + RAX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RBX = p64(" + RBX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'SYS = p64(" + SYS.rstrip(" ") + ") # System' >> " + localDir + "/exploit.py")
          command("echo 'RDX = p64(" + RDX.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'CUS = p64(" + CUS.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RDI = p64(" + RDI.rstrip(" ") + ") # pop rdi ; ret' >> " + localDir + "/exploit.py")
@@ -1854,6 +1860,10 @@ while True:
          command("echo 'RBP = p64(" + RBP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'RIP = p64(" + RIP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py")        
+         command("echo 'PUTS = p64(" + RAX.rstrip(" ") + ") # puts@plt' >> " + localDir + "/exploit.py")
+         command("echo 'GOTS = p64(" + RBX.rstrip(" ") + ") # puts@got' >> " + localDir + "/exploit.py")
+         command("echo 'SYS = p64(" + SYS.rstrip(" ") + ") # System' >> " + localDir + "/exploit.py")
+         command("echo '' >> " + localDir + "/exploit.py")                 
          command("echo 'start= p64(" + SRT.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'main = p64(" + MAN.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'jump = p64(" + JMP.rstrip(" ") + ")' >> " + localDir + "/exploit.py")
