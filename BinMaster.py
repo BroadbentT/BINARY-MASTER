@@ -1249,10 +1249,10 @@ while True:
                      words = line.split()
                      address1 = words[0].replace(":","")
                      if (len(address1) == 6) and address1[:2] != "0x":
-                        address1 = "000000000000" + address1
+                        address1 = "0x0000000000" + address1
                      address2 = words[-2]
                      if (len(address2) == 6) and address2[:2] != "0x":
-                        address2 = "000000000000" + address2                     
+                        address2 = "0x0000000000" + address2                     
                      RAX = spacePadding(address1, COL1) 
                      RBX = spacePadding(address2, COL1)
       prompt()
