@@ -164,12 +164,12 @@ def saveParams():
    return     
 
 def dispMenu():
-   print('\u2554' + ('\u2550')*38 + '\u2566' + ('\u2550')*36 + '\u2566' + ('\u2550')*28 + '\u2566' + ('\u2550')*18 + '\u2566' + ('\u2550')*37 + '\u2557')
-   print('\u2551' + " REGISTER SET TWO " + (" ")*20 + '\u2551' + " REGISTER SET ONE " + (" ")*18 + '\u2551' + " FILE INFORMATION " + (" ")*10 + '\u2551' + " CHECKSEC DATA    " + '\u2551' + " OFFSET              FUNCTIONS       " + '\u2551')
-   print('\u2560' + ('\u2550')*17 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*15 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*28 + '\u256C' + ('\u2550')*18 + '\u256C' +  ('\u2550')*37 + '\u2563')   
+   print('\u2554' + ('\u2550')*37 + '\u2566' + ('\u2550')*36 + '\u2566' + ('\u2550')*28 + '\u2566' + ('\u2550')*18 + '\u2566' + ('\u2550')*38 + '\u2557')
+   print('\u2551' + " REGISTER SET TWO " + (" ")*19 + '\u2551' + " REGISTER SET ONE " + (" ")*18 + '\u2551' + " FILE INFORMATION " + (" ")*10 + '\u2551' + " CHECKSEC DATA    " + '\u2551' + " OFFSET              FUNCTIONS        " + '\u2551')
+   print('\u2560' + ('\u2550')*16 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*15 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*28 + '\u256C' + ('\u2550')*18 + '\u256C' +  ('\u2550')*38 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    for x in range(0,12):
-      print('\u2551' + HED1[x][:17] + '\u2551', end=' ')
+      print('\u2551' + HED1[x][:16] + '\u2551', end=' ')
       if REG2[x] == "0x0000000000000000":
          print(colored(REG2[x],colour7), end=' ')
       else:
@@ -215,7 +215,7 @@ def dispMenu():
          print(colored(FUNC[x],colour6), end=' ')
       print('\u2551')	
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2560' + ('\u2550')*17 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*28 + '\u2569' + ('\u2550')*18 + '\u2563', end=' ')
+   print('\u2560' + ('\u2550')*16 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*28 + '\u2569' + ('\u2550')*18 + '\u2563', end=' ')
    if "main" in FUNC[12]:
       print(colored(FUNC[12],colour3), end=' ')
    else:
@@ -224,77 +224,77 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START ADDRESS (21) PUTS@PLT         (31) Find   Gadgets (41) MSF PatternCreate (51) Hex Code Editor " + '\u2551',end=' ')
+   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT         (31) Find   Gadgets (41) MSF PatternCreate (51) HexCode Editor" + '\u2551',end=' ')
    if "main" in FUNC[13]:
       print(colored(FUNC[13],colour3), end=' ')
    else:
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE POINTER (12) MAIN  ADDRESS (22) GOTS@GOT         (32) Read  PrivHead (42) Program Interface (52) RESERVED        " + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT         (32) Read  PrivHead (42) Program Interface (52) RESERVED      " + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) LOOP COUNTER (13) SYSTEMADDRESS (23) UNALLOCATED 2    (33) Read  Sections (43) L-Trace Interface (53) RESERVED        " + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) WRITE@PLT        (33) Read  Sections (43) L-Trace Interface (53) RESERVED      " + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
       print(colored(FUNC[15],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(04) DATALOCATION (14) JUMP  ADDRESS (24) UNALLOCATED 3    (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shell Code " + '\u2551', end=' ')
+   print('\u2551' + "(04) DATA         (14) JUMPTO ADDRESS (24) WRITE@GOT        (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
    if "main" in FUNC[16]:
       print(colored(FUNC[16],colour3), end=' ')
    else:
       print(colored(FUNC[16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) SOURCE INDEX (15) COMP  ADDRESS (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shell Code  " + '\u2551',end=' ')
+   print('\u2551' + "(05) SOURCE INDEX (15) COMPAREADDRESS (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shellcode " + '\u2551',end=' ')
    if "main" in FUNC[17]:
       print(colored(FUNC[17],colour3), end=' ')
    else:
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) WRITE ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED        " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) WRITE  ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) TEST  ADDRESS (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set I.P. & Port " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17) TEST   ADDRESS (27) Examine  Program (37) Read Assembley (47) RESERVED          (57) Set I.P./Port " + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18) CUSTOMADDRESS (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit   " + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18) CUSTOM ADDRESS (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit " + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19) POP RDI ; RET (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit     " + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19) POP RDI ;  RET (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit   " + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
       print(colored(FUNC[21],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20) UNALLOCATED 1 (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program    " + '\u2551',end=' ')
+   print('\u2551' + "(10) PIE  ADDRESS (20) UNALLOCATED  1 (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
    if FUNC[23] != "":
       print(colored(FUNC[22],colour0), end=' ');print('\u2551')    
    elif "main" in FUNC[22]:
       print(colored(FUNC[22],colour3), end=' ');print('\u2551')      
    else:
       print(colored(FUNC[22],colour6), end=' ');print('\u2551')    
-   print('\u255A' + ('\u2550')*123 + '\u2569' +  ('\u2550')*37 + '\u255D')
+   print('\u255A' + ('\u2550')*122 + '\u2569' +  ('\u2550')*38 + '\u255D')
    return
 
 # -------------------------------------------------------------------------------------
@@ -319,7 +319,6 @@ else:
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-maxDispl = 25
 localDir = "BINARY-MASTER"
 flavour = "intel"
 
@@ -385,9 +384,11 @@ else:
                   
 print("[+] Populating system variables...")
 
-COL1 = 18					# 0x0000000000000000
+maxDispl = 25
+
+COL1 = 18
 COL2 = 45
-COL3 = 35
+COL3 = 36
 LEN1 = 0
 
 # NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABSE
@@ -417,18 +418,18 @@ CSEC[8] = spacePadding("0", COL1)
 for x in range(11,12):
    CSEC[x] = spacePadding(" ", COL1)
     
-HED1[0]  = spacePadding(" SYSTEM ADDRESS ", COL1+2)   
-HED1[1]  = spacePadding(" JUMP ADDRESS   ", COL1+2)   
-HED1[2]  = spacePadding(" COMPARE ADDRESS", COL1+2)   
-HED1[3]  = spacePadding(" WRITE ADDRESS  ", COL1+2)   
-HED1[4]  = spacePadding(" TEST ADDRESS   ", COL1+2)   
-HED1[5]  = spacePadding(" CUSTOM ADDRESS ", COL1+2)   
-HED1[6]  = spacePadding(" POP RDI ; RET  ", COL1+2)   
-HED1[7]  = spacePadding(" UNALLOCATED 1  ", COL1+2)   
-HED1[8]  = spacePadding(" PUTS@PLT       ", COL1+2)   
-HED1[9]  = spacePadding(" PUTS@GOT       ", COL1+2)
-HED1[10] = spacePadding(" UNALLOCATED 2  ", COL1+2)
-HED1[11] = spacePadding(" UNALLOCATED 3  ", COL1+2)   
+HED1[0]  = spacePadding(" SYSTEM ADDRESS", COL1+2)   
+HED1[1]  = spacePadding(" JUMPTO ADDRESS", COL1+2)   
+HED1[2]  = spacePadding(" COMPAREADDRESS", COL1+2)   
+HED1[3]  = spacePadding(" WRITE ADDRESS ", COL1+2)   
+HED1[4]  = spacePadding(" TEST ADDRESS  ", COL1+2)   
+HED1[5]  = spacePadding(" CUSTOM ADDRESS", COL1+2)   
+HED1[6]  = spacePadding(" POP RDI ; RET ", COL1+2)   
+HED1[7]  = spacePadding(" UNALLOCATED 1 ", COL1+2)   
+HED1[8]  = spacePadding(" PUTS@PLT      ", COL1+2)   
+HED1[9]  = spacePadding(" PUTS@GOT      ", COL1+2)
+HED1[10] = spacePadding(" WRITE@PLT     ", COL1+2)
+HED1[11] = spacePadding(" WRITE@GOT     ", COL1+2)   
    
 HED2[0]  = spacePadding(" RAX/EAX/AX/AH  ", COL1+2)
 HED2[1]  = spacePadding(" RBX/EBX/BX/BH  ", COL1+2)
@@ -455,7 +456,7 @@ HED3[7]  = "LIBC   "
 HED3[8]  = "<======"
 HED3[9]  = "ADDRESS"
 HED3[10] = "PORT   "
-HED3[11] = "       "
+HED3[11] = "EXPLOIT"
 
 HED4[0]  = "RELRO  "
 HED4[1]  = "STACK  "
@@ -479,7 +480,7 @@ DATA[7] = spacePadding("unknown", COL1)
 DATA[8] = "="*COL1
 DATA[9] = spacePadding("0", COL1)
 DATA[10] = spacePadding("0", COL1)
-#DATA[11] = spacePadding("unknown", COL1)
+DATA[11] = spacePadding("no", COL1)
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1303,6 +1304,23 @@ while True:
                         address2 = "0x0000000000" + address2  
                      REG2[8] = spacePadding(address1, COL1) 
                      REG2[9] = spacePadding(address2, COL1)
+        
+         if REG2[10] == "0x0000000000000000":
+            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep 'write' > write.tmp")
+            counter =lineCount("write.tmp")
+            if counter > 1:
+               cutLine("<write@plt>","write.tmp")
+               with open("write.tmp","r") as main:
+                  for line in main:
+                     words = line.split()
+                     address1 = words[0].replace(":","")
+                     if (len(address1) == 6) and address1[:2] != "0x":
+                        address1 = "0x0000000000" + address1
+                     address2 = words[-2]
+                     if (len(address2) == 6) and address2[:2] != "0x":
+                        address2 = "0x0000000000" + address2  
+                     REG2[10] = spacePadding(address1, COL1) 
+                     REG2[11] = spacePadding(address2, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1649,7 +1667,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Adjust Offset.
+# Details : Menu option selected - Blank.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1657,13 +1675,7 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         BAK = OF2
-         OF2 = input("[?] Please enter offset value: ")
-         if OF2 != "":
-            OF2 = OF2 + " Bytes"
-            OF2 = spacePadding(OF2,COL1)
-         else:
-            OF2 = BAK
+         pass
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1986,6 +1998,7 @@ while True:
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
          print(colored("[*] Python exploit template sucessfully created...", colour3))
+      DATA[11] = spacePadding("yes", COL1)
       prompt()                       
 
 # ------------------------------------------------------------------------------------- 
