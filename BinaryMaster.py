@@ -164,17 +164,17 @@ def saveParams():
    return     
 
 def dispMenu():
-   print('\u2554' + ('\u2550')*41 + '\u2566' + ('\u2550')*41 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u2566' + ('\u2550')*39 + '\u2557')
-   print('\u2551' + " REGISTER SET TWO " + (" ")*23 + '\u2551' + " REGISTER SET ONE " + (" ")*23 + '\u2551' + " FILE INFORMATION   " + '\u2551' + " CHECKSEC DATA  " + (" ")*4 + '\u2551' + " OFFSET              FUNCTIONS " + (" ")*8 + '\u2551')
-   print('\u2560' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' + ('\u2550')*20 + '\u256C' +  ('\u2550')*39 + '\u2563')   
+   print('\u2554' + ('\u2550')*38 + '\u2566' + ('\u2550')*36 + '\u2566' + ('\u2550')*28 + '\u2566' + ('\u2550')*18 + '\u2566' + ('\u2550')*37 + '\u2557')
+   print('\u2551' + " REGISTER SET TWO " + (" ")*20 + '\u2551' + " REGISTER SET ONE " + (" ")*18 + '\u2551' + " FILE INFORMATION " + (" ")*10 + '\u2551' + " CHECKSEC DATA    " + '\u2551' + " OFFSET              FUNCTIONS       " + '\u2551')
+   print('\u2560' + ('\u2550')*17 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*15 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*28 + '\u256C' + ('\u2550')*18 + '\u256C' +  ('\u2550')*37 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    for x in range(0,12):
-      print('\u2551' + HED1[x] + '\u2551', end=' ')
+      print('\u2551' + HED1[x][:17] + '\u2551', end=' ')
       if REG2[x] == "0x0000000000000000":
          print(colored(REG2[x],colour7), end=' ')
       else:
          print(colored(REG2[x],colour6), end=' ')      
-      print('\u2551' + HED2[x] + '\u2551', end=' ')
+      print('\u2551' + HED2[x][:15] + '\u2551', end=' ')
       if (CSEC[6][:1] != "0") and (x == 8):
          print(colored(REG1[x],colour3), end=' ')
       elif REG1[x] == "0x0000000000000000":
@@ -187,26 +187,26 @@ def dispMenu():
       else:
          print(HED3[x], end=' ')                  
       if (x == 8) and (DATA[x][:1] == "=") and (CSEC[6][:1] != "0"):
-         print(colored(DATA[x][:10],colour3), end=' ')
+         print(colored(DATA[x][:18],colour3), end=' ')
       elif x == 8:
-         print(DATA[x][:10], end=' ')         
+         print(DATA[x][:18], end=' ')         
       if (x != 8) and (DATA[x][:7] == "unknown"):
-         print(colored(DATA[x][:10],colour7), end=' ')
+         print(colored(DATA[x][:18],colour7), end=' ')
       elif x != 8:
-         print(colored(DATA[x][:10],colour6), end=' ')
+         print(colored(DATA[x][:18],colour6), end=' ')
       print('\u2551', end=' ')      
       if (HED4[x][:1] == "=") and (CSEC[6][:1] != "0"):
          print(colored(HED4[x],colour3), end=' ')
       else:
          print(HED4[x], end=' ')                           
       if CSEC[x][:7] == "unknown":
-         print(colored(CSEC[x][:10],colour7), end=' ')
+         print(colored(CSEC[x][:8],colour7), end=' ')
       elif (x > 5) and CSEC[6][:1] != "0":
-         print(colored(CSEC[x][:10],colour3), end=' ')     
+         print(colored(CSEC[x][:8],colour3), end=' ')     
       elif CSEC[x][:8] == "Disabled":
-         print(colored(CSEC[x][:10],colour0), end=' ')
+         print(colored(CSEC[x][:8],colour0), end=' ')
       else:
-         print(colored(CSEC[x][:10],colour6), end=' ')      
+         print(colored(CSEC[x][:8],colour6), end=' ')      
       print('\u2551', end=' ')
       if "main" in FUNC[x]:
          exit()
@@ -215,7 +215,7 @@ def dispMenu():
          print(colored(FUNC[x],colour6), end=' ')
       print('\u2551')	
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2560' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*20 + '\u2563', end=' ')
+   print('\u2560' + ('\u2550')*17 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*15 + '\u2569' + ('\u2550')*20 + '\u2569' + ('\u2550')*28 + '\u2569' + ('\u2550')*18 + '\u2563', end=' ')
    if "main" in FUNC[12]:
       print(colored(FUNC[12],colour3), end=' ')
    else:
@@ -224,77 +224,77 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START ADDRESS (21) PUTS@PLT         (31) Find   Gadgets (41) MSF PatternCreate (51) Hex Code Editor   " + '\u2551',end=' ')
+   print('\u2551' + "(01) ACCUMULATOR  (11) START ADDRESS (21) PUTS@PLT         (31) Find   Gadgets (41) MSF PatternCreate (51) Hex Code Editor " + '\u2551',end=' ')
    if "main" in FUNC[13]:
       print(colored(FUNC[13],colour3), end=' ')
    else:
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE POINTER (12) MAIN  ADDRESS (22) GOTS@GOT         (32) Read  PrivHead (42) Program Interface (52) RESERVED          " + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE POINTER (12) MAIN  ADDRESS (22) GOTS@GOT         (32) Read  PrivHead (42) Program Interface (52) RESERVED        " + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) LOOP COUNTER (13) SYSTEMADDRESS (23) UNALLOCATED 2    (33) Read  Sections (43) L-Trace Interface (53) RESERVED          " + '\u2551',end=' ')
+   print('\u2551' + "(03) LOOP COUNTER (13) SYSTEMADDRESS (23) UNALLOCATED 2    (33) Read  Sections (43) L-Trace Interface (53) RESERVED        " + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
       print(colored(FUNC[15],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(04) DATALOCATION (14) JUMP  ADDRESS (24) UNALLOCATED 3    (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shell Code   " + '\u2551', end=' ')
+   print('\u2551' + "(04) DATALOCATION (14) JUMP  ADDRESS (24) UNALLOCATED 3    (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shell Code " + '\u2551', end=' ')
    if "main" in FUNC[16]:
       print(colored(FUNC[16],colour3), end=' ')
    else:
       print(colored(FUNC[16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) SOURCE INDEX (15) COMP  ADDRESS (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shell Code    " + '\u2551',end=' ')
+   print('\u2551' + "(05) SOURCE INDEX (15) COMP  ADDRESS (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shell Code  " + '\u2551',end=' ')
    if "main" in FUNC[17]:
       print(colored(FUNC[17],colour3), end=' ')
    else:
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) WRITE ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED          " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) WRITE ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED        " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) TEST  ADDRESS (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set I.P. & Port   " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17) TEST  ADDRESS (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set I.P. & Port " + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18) CUSTOMADDRESS (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit     " + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18) CUSTOMADDRESS (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit   " + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19) POP RDI ; RET (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit       " + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19) POP RDI ; RET (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit     " + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
       print(colored(FUNC[21],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20) UNALLOCATED 1 (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit              " + '\u2551',end=' ')
+   print('\u2551' + "(10) PIE  ADDRESS (20) UNALLOCATED 1 (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program    " + '\u2551',end=' ')
    if FUNC[23] != "":
       print(colored(FUNC[22],colour0), end=' ');print('\u2551')    
    elif "main" in FUNC[22]:
       print(colored(FUNC[22],colour3), end=' ');print('\u2551')      
    else:
       print(colored(FUNC[22],colour6), end=' ');print('\u2551')    
-   print('\u255A' + ('\u2550')*125 + '\u2569' +  ('\u2550')*39 + '\u255D')
+   print('\u255A' + ('\u2550')*123 + '\u2569' +  ('\u2550')*37 + '\u255D')
    return
 
 # -------------------------------------------------------------------------------------
@@ -387,7 +387,7 @@ print("[+] Populating system variables...")
 
 COL1 = 18					# 0x0000000000000000
 COL2 = 45
-COL3 = 37
+COL3 = 35
 LEN1 = 0
 
 # NEW VARIABLES THAT NEED TO BE ADDED TO THE DATABSE
@@ -1215,7 +1215,7 @@ while True:
             if "No RELRO" in binary:
                CSEC[0] = spacePadding("Disabled", COL1)
             if "Full RELRO" in binary:
-               CSEC[0] = spacePaddint("Full", COL1)
+               CSEC[0] = spacePadding("Full", COL1)
             if "Partial RELRO" in binary:
                CSEC[0] = spacePadding("Partial", COL1)
             if "No canary found" in binary:
