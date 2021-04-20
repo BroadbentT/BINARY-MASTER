@@ -6,7 +6,7 @@
 
 **INSTALLATION INSTRUCTIONS**
 
-        BIN MASTER (BETA)
+        BIN MASTER (BETA Version 2.0)
         -------------------------------------------------------
         git clone https://github.com/BroadbentT/BIN-MASTER.git 
 <br>
@@ -20,11 +20,13 @@
 A python script file to statically and dynamically investigate and analyse binary files for buffer overflow exploits. 
 
 TESTED: Kali Linux 2019<br>
-USAGE : python3 BinMaster.py
+USAGE : python3 BinaryMaster.py
 
-| LANGUAGE  | FILENAME     | MD5 Hash                         | DESCRIPTION    | VERSION    |
-|------     |------        | -------                          | ------         | ----       |
-| python3   | BinMaster.py | 61467d8d21efc44d25d470d94e382c8d | Command Centre | Full Stack |
+| LANGUAGE  | FILENAME        | MD5 Hash                         | DESCRIPTION    | VERSION    |
+|------     |------           | -------                          | ------         | ----       |
+| python3   | BinaryMaster.py | cfccf230c421c13e56153e3ba05550a6 | Command Centre | Full Stack |
+
+	[x] Database not currently linked - expected version 3.0
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/73nA-Yx8IGU "Binary Master")
