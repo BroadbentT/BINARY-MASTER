@@ -224,28 +224,28 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT         (31) Find   Gadgets (41) MSF PatternCreate (51) HexCode Editor" + '\u2551',end=' ')
+   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) Find   Gadgets (41) MSF PatternCreate (51) HexCode Editor" + '\u2551',end=' ')
    if "main" in FUNC[13]:
       print(colored(FUNC[13],colour3), end=' ')
    else:
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT         (32) Read  PrivHead (42) Program Interface (52) RESERVED      " + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52)               " + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) WRITE@PLT        (33) Read  Sections (43) L-Trace Interface (53) RESERVED      " + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23)                  (33) Read  Sections (43) L-Trace Interface (53)               " + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
       print(colored(FUNC[15],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(04) DATA         (14) JUMPTO ADDRESS (24) WRITE@GOT        (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
+   print('\u2551' + "(04) DATA         (14) JUMPTOFUNCTION (24) LIBC     ADDRESS (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
    if "main" in FUNC[16]:
       print(colored(FUNC[16],colour3), end=' ')
    else:
@@ -259,14 +259,14 @@ def options():
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) WRITE  ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) WRITE  ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) TEST   ADDRESS (27) Examine  Program (37) Read Assembley (47) RESERVED          (57) Set I.P./Port " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17) TEST   ADDRESS (27) Examine  Program (37) Read Assembley (47)                   (57) Set I.P./Port " + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
@@ -287,7 +287,7 @@ def options():
       print(colored(FUNC[21],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20) UNALLOCATED  1 (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
+   print('\u2551' + "(10) PIE  ADDRESS (20)                (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
    if FUNC[23] != "":
       print(colored(FUNC[22],colour0), end=' ');print('\u2551')    
    elif "main" in FUNC[22]:
@@ -419,17 +419,17 @@ for x in range(11,12):
    CSEC[x] = spacePadding(" ", COL1)
     
 HED1[0]  = spacePadding(" SYSTEM ADDRESS", COL1+2)   
-HED1[1]  = spacePadding(" JUMPTO ADDRESS", COL1+2)   
+HED1[1]  = spacePadding(" JUMPTOFUNCTION", COL1+2)   
 HED1[2]  = spacePadding(" COMPAREADDRESS", COL1+2)   
-HED1[3]  = spacePadding(" WRITE ADDRESS ", COL1+2)   
-HED1[4]  = spacePadding(" TEST ADDRESS  ", COL1+2)   
+HED1[3]  = spacePadding(" WRITE  ADDRESS", COL1+2)   
+HED1[4]  = spacePadding(" TEST   ADDRESS", COL1+2)   
 HED1[5]  = spacePadding(" CUSTOM ADDRESS", COL1+2)   
-HED1[6]  = spacePadding(" POP RDI ; RET ", COL1+2)   
-HED1[7]  = spacePadding(" UNALLOCATED 1 ", COL1+2)   
-HED1[8]  = spacePadding(" PUTS@PLT      ", COL1+2)   
-HED1[9]  = spacePadding(" PUTS@GOT      ", COL1+2)
-HED1[10] = spacePadding(" WRITE@PLT     ", COL1+2)
-HED1[11] = spacePadding(" WRITE@GOT     ", COL1+2)   
+HED1[6]  = spacePadding(" POP RDI ;  RET", COL1+2)   
+HED1[7]  = spacePadding("               ", COL1+2)   
+HED1[8]  = spacePadding(" PUTS@PLT  ADDR", COL1+2)   
+HED1[9]  = spacePadding(" PUTS@GOT  ADDR", COL1+2)
+HED1[10] = spacePadding("               ", COL1+2)
+HED1[11] = spacePadding(" LIBC   ADDRESS", COL1+2)   
    
 HED2[0]  = spacePadding(" RAX/EAX/AX/AH  ", COL1+2)
 HED2[1]  = spacePadding(" RBX/EBX/BX/BH  ", COL1+2)
@@ -441,7 +441,7 @@ HED2[6]  = spacePadding(" RSP/ESP/SP/SL  ", COL1+2)
 HED2[7]  = spacePadding(" RBP/EBP/BP/BL  ", COL1+2)
 HED2[8]  = spacePadding(" RIP/EIP        ", COL1+2)
 HED2[8]  = spacePadding(" RIP/EIP        ", COL1+2)
-HED2[9]  = spacePadding(" PIE            ", COL1+2)
+HED2[9]  = spacePadding(" PIE  LOCATION  ", COL1+2)
 HED2[10] = spacePadding(" START ADDRESS  ", COL1+2)
 HED2[11] = spacePadding(" MAIN  ADDRESS  ", COL1+2)
 
@@ -454,7 +454,7 @@ HED3[5]  = "BITS   "
 HED3[6]  = "INDIAN "
 HED3[7]  = "LIBC   "
 HED3[8]  = "<======"
-HED3[9]  = "ADDRESS"
+HED3[9]  = "I.P.   "
 HED3[10] = "PORT   "
 HED3[11] = "EXPLOIT"
 
@@ -1071,8 +1071,8 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
-         command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " > systems.tmp")
+         print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))         
+         command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " > systems.tmp")         
          command("cat systems.tmp | grep system > system.tmp")
          count = lineCount("system.tmp")
          if count > 1:
@@ -1084,35 +1084,37 @@ while True:
          else:
             system = "0x0000000000000000"           
          REG2[0] = spacePadding(system, COL1)
+         
          command("file " + localDir + "/" + DATA[0].rstrip(" ") + " > file.tmp")
          command("objdump" + " -f " + localDir + "/" + DATA[0].rstrip(" ") + " > headers.tmp")
          cutLine(localDir, "headers.tmp")       
          command("cat file.tmp > combined.tmp")
          command("cat headers.tmp >> combined.tmp")         
          parsFile("combined.tmp")
-         catsFile("combined.tmp")         
+         catsFile("combined.tmp")			# DISPLAYED TO SCREEN
+                  
          with open("combined.tmp") as read:
             for binary in read:
                if "ELF" in binary:
                   DATA[1] = spacePadding("elf", COL1)
                   print("Linux binary file...")         
                if "8-bit" in binary:
-                  BIT = "08-Bit"
-                  print(BIT + " architecture...")           
+                  BIT = "08"
+                  print(BIT + "-bit architecture...")           
                   DATA[5] = spacePadding(BIT, COL1)  
                if "16-bit" in binary:
-                  BIT = "16-Bit"
-                  print(BIT + " architecture...")           
+                  BIT = "16"
+                  print(BIT + "-bit architecture...")           
                   DATA[5] = spacePadding(BIT, COL1)  
                if "32-bit" in binary:
-                  BIT = "32-Bit"
-                  print(BIT + " architecture...")           
+                  BIT = "32"
+                  print(BIT + "-bit architecture...")           
                   DATA[5] = spacePadding(BIT, COL1)         
                   CSEC[7] = spacePadding("-4", COL1) 
                   CSEC[8] = spacePadding("-4", COL1)                   
                if "64-bit" in binary:
-                  BIT = "64-Bit"
-                  print(BIT + " architecture...")  
+                  BIT = "64"
+                  print(BIT + "-bit architecture...")  
                   DATA[5] = spacePadding(BIT, COL1)      
                   CSEC[7] = spacePadding("-8", COL1)   
                   CSEC[8] = spacePadding("-8", COL1)                    
@@ -1123,15 +1125,19 @@ while True:
                if "MSB" in binary:
                   IND = "big"
                   print(IND + " indian...")
-                  DATA[6] = spacePadding(IND, COL1)            
+                  DATA[6] = spacePadding(IND, COL1)              
                if "dynamically linked" in binary:
                   command("ldd " + localDir + "/" + DATA[0].rstrip(" ") + " > libc.tmp")
                   command("cat libc.tmp | grep '=>' > address.tmp")
                   with open("address.tmp","r") as address:
-                     libc = address.readline().split(" ")[2]
+                     lib = address.readline()
+                     null1,null2,libc,liba = lib.split(" ")
                      libc = libc.split("/")[-1]
-                     DATA[7] = spacePadding(libc, COL1) 
-                     print("Dynamic link to " + LIB.rstrip(" ") + "...")               
+                     DATA[7] = spacePadding(libc, COL1)                   
+                     liba = liba.replace("(","")
+                     liba = liba.replace(")","")
+                     REG2[11] = spacePadding(liba, COL1)
+                     print("Dynamic link to " + DATA[7].rstrip(" ") + " at address " + REG2[11].rstrip(" ") + "...")              
                if "not stripped" in binary:
                   print("Debugging information built in...")
                else:
@@ -1202,6 +1208,7 @@ while True:
       else:
          print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
          command("checksec " + localDir + "/" + DATA[0].rstrip(" ") + " 2> checksec.tmp")
+         cutLine("*", "checksec.tmp")
          parsFile("checksec.tmp")
          catsFile("checksec.tmp")         
          print("If RELRO is set to full, then the entire GOT is read-only which removes the ability to perform a 'GOT overwrite' attack...")
@@ -1232,12 +1239,17 @@ while True:
             if "No PIE" in binary:
                CSEC[4] = spacePadding("Disabled", COL1)
                pie = binary.split()[-1]
-               pie = pie.rstrip(" ")
-               if len(pie) < 15:
-                  pie = pie.replace("(","")
-                  pie = pie.replace(")","")
-                  pie = pie.lstrip("0x")
-                  pie = "0x0000000000" + pie
+               pie = pie.replace("(","")
+               pie = pie.replace(")","")
+               pie = pie.strip(" ")
+               if (DATA[5][:2] == "64"):
+                  if len(pie) == 11:
+                     pie = pie.lstrip("0x")
+                     pie = "0x0000000000" + pie
+               else:
+                  if len(pie) == 11:		#32
+                     pie = pie.lstrip("0x")
+                     pie = "0x0000000000" + pie                                                      
                REG1[9] = spacePadding(pie, COL1)
             if "PIE enabled" in binary:
                CSEC[4] = spacePadding("Enabled", COL1)
@@ -1305,22 +1317,22 @@ while True:
                      REG2[8] = spacePadding(address1, COL1) 
                      REG2[9] = spacePadding(address2, COL1)
         
-         if REG2[10] == "0x0000000000000000":
-            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep 'write' > write.tmp")
-            counter =lineCount("write.tmp")
-            if counter > 1:
-               cutLine("<write@plt>","write.tmp")
-               with open("write.tmp","r") as main:
-                  for line in main:
-                     words = line.split()
-                     address1 = words[0].replace(":","")
-                     if (len(address1) == 6) and address1[:2] != "0x":
-                        address1 = "0x0000000000" + address1
-                     address2 = words[-2]
-                     if (len(address2) == 6) and address2[:2] != "0x":
-                        address2 = "0x0000000000" + address2  
-                     REG2[10] = spacePadding(address1, COL1) 
-                     REG2[11] = spacePadding(address2, COL1)
+#         if REG2[10] == "0x0000000000000000":
+#            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep 'write' > write.tmp")
+#            counter =lineCount("write.tmp")
+#            if counter > 1:
+#               cutLine("<write@plt>","write.tmp")
+#               with open("write.tmp","r") as main:
+#                  for line in main:
+#                     words = line.split()
+#                     address1 = words[0].replace(":","")
+#                     if (len(address1) == 6) and address1[:2] != "0x":
+#                        address1 = "0x0000000000" + address1
+#                     address2 = words[-2]
+#                     if (len(address2) == 6) and address2[:2] != "0x":
+#                        address2 = "0x0000000000" + address2  
+#                     REG2[10] = spacePadding(address1, COL1) 
+#                     REG2[11] = spacePadding(address2, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1361,31 +1373,10 @@ while True:
          print(colored("[*] Examining file " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + DATA[0].rstrip(" ") + " > gadgets.tmp")
          parsFile("gadgets.tmp")
-         catsFile("gadgets.tmp")        
-         for i in range(2):
-            command("sed -i '1d' gadgets.tmp")
-         command("sed -i 's/://g' gadgets.tmp")
-         cutLine("Unique gadgets","gadgets.tmp")
-         gadgNum = lineCount("gadgets.tmp")
-         gadgNum = spacePadding(str(gadgNum),7)         
-         command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")
-
-# OLD CODE FOR WHEN IT WAS DISPLAYED - NEEDS UPDATING 
-         
-         counter = lineCount("pop.tmp")
-         if counter > 0:
-            command("cat pop.tmp > full.tmp")
-            command("echo '- - - - - - - - - - - - - - - - - - - - - - - - - - - - ' >> full.tmp")
-            command("cat gadgets.tmp >> full.tmp")             
-         check = linecache.getline("full.tmp", 1)
-         if check[:1] == "-":
-            cutLine("- - - - - -", "full.tmp")         
-         with open("full.tmp","r") as gadgets:
-            for x in range (0, maxDispl):
-               GRAD[x] = gadgets.readline().rstrip(" ")
-               GRAD[x] = spacePadding(GRAD[x], COL2)
-               if x == 0:
-                  REG2[6] = GRAD[x].split(" ")[0].rstrip(" ")
+         catsFile("gadgets.tmp")                
+         command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")        
+         check = linecache.getline("pop.tmp", 1)
+         REG2[6] = check.split(" ")[0].rstrip(" ")
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
    
@@ -1945,7 +1936,7 @@ while True:
          command("echo 'PUTSPLT_32 = p32(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'PUTSGOT_32 = p32(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          command("echo 'UNALL2_32  = p32(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'UNALL3_32  = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")           
+         command("echo '#UNALL3_32  = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")           
          
          command("echo '' >> " + localDir + "/exploit.py")                 
                  
