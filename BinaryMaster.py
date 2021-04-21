@@ -35,16 +35,25 @@ def bulkAddress(variable):
    if DATA[5][:1] == "u":
       DATA[5] = spacePadding("64", COL1)
       print("[+] Defualting to 64 bits...")
+   bulked = variable
    if DATA[5][:2] == "64":
       if (len(variable) == 8) and (variable[:2] != "0x"):
-         address = "0x00000000" + variable
+         bulked = "0x00000000" + variable
+      if (len(variable) == 7) and (variable[:2] != "0x"):
+         bulked = "0x00000000" + "0" + variable      
       if (len(variable) == 6) and (variable[:2] != "0x"):
-         address = "0x00000000" + "00" + variable
+         bulked = "0x00000000" + "00" + variable
+      if (len(variable) == 5) and (variable[:2] != "0x"):
+         bulked = "0x00000000" + "000" + variable      
       if (len(variable) == 4) and (variable[:2] != "0x"):
-         address = "0x00000000" + "0000" + variable
-      return address
+         bulked = "0x00000000" + "0000" + variable
+      if (len(variable) == 3) and (variable[:2] != "0x"):
+         bulked = "0x00000000" + "00000" + variable
+      if (len(variable) == 2) and (variable[:2] != "0x"):
+         bulked = "0x00000000" + "000000" + variable      
+      return bulked
    else:
-      print("Function bulkAddress need admending...")
+      print("Function bulkAddress needs amending for 32 bit...")
       exit(1)
 
 def cutLine(variable1, variable2):
@@ -275,7 +284,7 @@ def options():
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) Shellcraft    " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
@@ -1337,7 +1346,7 @@ while True:
             if "No canary found" in binary:
                CSEC[1] = spacePadding("Disabled", COL1)
             if "Canary found" in binary:
-               CSEC[1] = spacePaddig("Canary", COL1)
+               CSEC[1] = spacePadding("Canary", COL1)
             if "No Fortify" in binary:
                CSEC[2] = spacePadding("Disabled", COL1)
             if "NX disabled" in binary:
@@ -1899,7 +1908,14 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         pass
+         if DATA[1][:3] == "elf":
+            command("shellcraft -l " + DATA[3] + "." + "linux > shellcraft.tmp")
+            parsFile("shellcraft.tmp")
+            catsFile("shellcraft.tmp")
+            code = input("[?] Enter value (ie. i386.linux.sh) for hex code: ")
+            command("echo '" + Green + "'")
+            command("shellcraft " + code + " --color")
+            command("echo '" + Reset + "'")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
