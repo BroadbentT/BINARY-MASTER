@@ -31,6 +31,19 @@ from termcolor import colored
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
+def bulkAddress(variable):
+   if DATA[5][:2] == "64":
+      if (len(variable) == 8) and (variable[:2] != "0x"):
+         address = "0x00000000" + variable
+      if (len(variable) == 6) and (variable[:2] != "0x"):
+         address = "0x00000000" + "00" + variable
+      if (len(variable) == 4) and (variable[:2] != "0x"):
+         address = "0x00000000" + "0000" + variable
+      return address
+   else:
+      print("Function bulkAddress need admending...")
+      exit(1)
+
 def cutLine(variable1, variable2):
    command("sed -i '/" + variable1 + "/d' ./" + variable2)
    return
@@ -609,6 +622,7 @@ while True:
       BAK = REG1[0]
       REG1[0] = input("[?] Please enter address: ")
       if REG1[0] != "":
+         REG1[0] = bulkAddress(REG1[0])
          REG1[0] = spacePadding(REG1[0],COL1)
       else:
             REG1[0] = BAK
@@ -626,6 +640,7 @@ while True:
       BAK = REG1[1]
       REG1[1] = input("[?] Please enter address: ")
       if REG1[1] != "":
+         REG1[1] = bulkAddress(REG1[1])
          REG1[1] = spacePadding(REG1[1],COL1)
       else:
             REG1[1] = BAK
@@ -643,6 +658,7 @@ while True:
       BAK = REG1[2]
       REG1[2] = input("[?] Please enter address: ")
       if REG1[2] != "":
+         REG1[2] = bulkAddress(REG1[2])
          REG1[2] = spacePadding(REG1[2],COL1)
       else:
          REG1[2] = BAK
@@ -660,6 +676,7 @@ while True:
       BAK = REG1[3]
       REG1[3] = input("[?] Please enter address: ")
       if REG1[3] != "":
+         REG1[3] = bulkAddress(REG1[3])
          REG1[3] = spacePadding(REG1[3],COL1)
       else:
          REG1[3] = BAK
@@ -677,6 +694,7 @@ while True:
       BAK = REG1[4]
       REG1[4] = input("[?] Please enter address: ")
       if REG1[4] != "":
+         REG1[4] = bulkAddress(REG1[4])
          REG1[4] = spacePadding(REG1[4],COL1)
       else:
          REG1[4] = BAK
@@ -694,6 +712,7 @@ while True:
       BAK = REG1[5]
       REG1[5] = input("[?] Please enter address: ")
       if REG1[5] != "":
+         REG1[5] = bulkAddress(REG1[5])
          REG1[5] = spacePadding(REG1[5],COL1)
       else:
          REG1[5] = BAK
@@ -710,7 +729,8 @@ while True:
    if selection =='7':
       BAK = REG1[6]
       REG1[6] = input("[?] Please enter address: ")
-      if REG1[6] != "":
+      if REG1[6] != "":      
+         REG1[6] = bulkAddress(REG1[6])
          REG1[6] = spacePadding(REG1[6],COL1)
       else:
          REG1[6] = BAK
@@ -728,6 +748,7 @@ while True:
       BAK = REG1[7]
       REG1[7] = input("[?] Please enter address: ")
       if REG1[7] != "":
+         REG1[7] = bulkAddress(REG1[7])
          REG1[7] = spacePadding(REG1[7],COL1)
       else:
             REG1[7] = BAK
@@ -745,6 +766,7 @@ while True:
       BAK = REG1[8]
       REG1[8] = input("[?] Please enter address: ")
       if REG1[8] != "":
+         REG1[8] = bulkAddress(REG1[8])
          REG1[8] = spacePadding(REG1[8],COL1)
       else:
          REG1[8] = BAK
@@ -762,6 +784,7 @@ while True:
       BAK = REG1[9]
       REG1[9] = input("[?] Please enter address: ")
       if REG1[9] != "":
+         REG1[9] = bulkAddress(REG1[9])
          REG1[9] = spacePadding(REG1[9], COL1)
       else:
             REG1[9] = BAK
@@ -778,7 +801,8 @@ while True:
    if selection =='11':
       BAK = REG1[10]
       REG1[10] = input("[?] Please enter address: ")
-      if REG1[10] != "":
+      if REG1[10] != "":      
+         REG1[10] = bulkAddress(REG1[10])
          REG1[10] = spacePadding(REG1[10],COL1)
       else:
             REG1[10] = BAK
@@ -796,6 +820,7 @@ while True:
       BAK = REG1[11]
       REG1[11] = input("[?] Please enter address: ")
       if REG1[11] != "":
+         REG1[11] = bulkAddress(REG1[11])
          REG1[11] = spacePadding(REG1[11],COL1)
       else:
             REG1[11] = BAK
@@ -813,6 +838,7 @@ while True:
       BAK = REG2[0]
       REG2[0] = input("[?] Please enter address: ")
       if REG2[0] != "":
+         REG2[0] = bulkAddress(REG2[0])
          REG2[0] = spacePadding(REG2[0],COL1)
       else:
          REG2[0] = BAK
@@ -830,6 +856,7 @@ while True:
       BAK = REG2[1]
       REG2[1] = input("[?] Please enter address: ")
       if REG2[1] != "":
+         REG2[1] = bulkAddress(REG2[1])
          REG2[1] = spacePadding(REG2[1],COL1)
       else:
             REG2[1] = BAK
@@ -847,6 +874,7 @@ while True:
       BAK = REG2[2]
       REG2[2] = input("[?] Please enter address: ")
       if REG2[2] != "":
+         REG2[2] = bulkAddress(REG2[2])
          REG2[2] = spacePadding(REG2[2],COL1)
       else:
             REG2[2] = BAK
@@ -864,6 +892,7 @@ while True:
       BAK = REG2[3]
       REG2[3] = input("[?] Please enter address: ")
       if REG2[3] != "":
+         REG2[3] = bulkAddress(REG2[3])
          REG2[3] = spacePadding(REG2[3],COL1)
       else:
             REG2[3] = BAK
@@ -881,6 +910,7 @@ while True:
       BAK = REG2[4]
       REG2[4] = input("[?] Please enter address: ")
       if REG2[4] != "":
+         REG2[4] = bulkAddress(REG2[4])
          REG2[4] = spacePadding(REG2[4],COL1)
       else:
          REG2[4] = BAK
@@ -898,6 +928,7 @@ while True:
       BAK = REG2[5]
       REG2[5] = input("[?] Please enter address: ")
       if REG2[5] != "":
+         REG2[5] = bulkAddress(REG2[5])
          REG2[5] = spacePadding(REG2[5],COL1)
       else:
             REG2[5] = BAK
@@ -915,6 +946,7 @@ while True:
       BAK = REG2[6]
       REG2[6] = input("[?] Please enter address: ")
       if REG2[6] != "":
+         REG2[6] = bulkAddress(REG2[6])
          REG2[6] = spacePadding(REG2[6],COL1)
       else:
          REG2[6] = BAK
@@ -932,6 +964,7 @@ while True:
       BAK = REG2[7]
       REG2[7] = input("[?] Please enter address: ")
       if REG2[7] != "":
+         REG2[7] = bulkAddress(REG2[7])
          REG2[7] = spacePadding(REG2[7],COL1)
       else:
          REG2[7] = BAK
@@ -948,7 +981,8 @@ while True:
    if selection =='21':
       BAK = REG2[8]
       REG2[8] = input("[?]  Please enter address: ")
-      if REG2[8] != "":
+      if REG2[8] != "":      
+         REG2[8] = bulkAddress(REG2[8])
          REG2[8] = spacePadding(REG2[8],COL1)
       else:
             REG2[8] = BAK
@@ -966,6 +1000,7 @@ while True:
       BAK = REG2[9]
       REG2[9] = input("[?] Please enter address: ")
       if REG2[9] != "":
+         REG2[9] = bulkAddress(REG2[9])
          REG2[9] = spacePadding(REG2[9],COL1)
       else:
             REG2[9] = BAK
@@ -983,6 +1018,7 @@ while True:
       BAK = REG2[10]
       REG2[10] = input("[?] Please enter address: ")
       if REG2[10] != "":
+         REG2[10] = bulkAddress(REG2[10])
          REG2[10] = spacePadding(REG2[10],COL1)
       else:
             REG2[10] = BAK
@@ -999,7 +1035,8 @@ while True:
    if selection =='24':
       BAK = REG2[11]
       REG2[11] = input("[?] Please enter address: ")
-      if REG2[11] != "":
+      if REG2[11] != "":      
+         REG2[11] = bulkAddress(REG2[11])
          REG2[11] = spacePadding(REG2[11],COL1)
       else:
             REG2[11] = BAK
@@ -1170,8 +1207,7 @@ while True:
                if "vax" in binary:
                   DATA[3] = spacePadding("vax", COL1)
                if "elf" in binary:
-                  DATA[1] = spacePadding("elf", COL1)
-         
+                  DATA[1] = spacePadding("elf", COL1)         
          if REG1[10].rstrip(" ") == "0x0000000000000000":          
             command("cat headers.tmp | grep 'start' > start.tmp ")
             with open("start.tmp","r") as start :
@@ -1187,14 +1223,8 @@ while True:
                cutLine(">:","system.tmp")
                system = linecache.getline("system.tmp",1).split(":")[0]
                system = system.strip(" ")
-               if len(system) == 6:
-                  if DATA[5][:2] == "32":
-                     if system[:2] != "0x":
-                        system = "0x" + system
-                  elif DATA[5][:2] == "64":
-                     if system[:2] != "0x":
-                        system = "0x0000000000" + system 
-                  REG2[0] = spacePadding(system, COL1)
+               system = bulkAddress(system)
+               REG2[0] = spacePadding(system, COL1)
       prompt()            
 
 # ------------------------------------------------------------------------------------- 
@@ -1304,38 +1334,18 @@ while True:
                   if checksum[:4] == "main":
                      REG1[11] = spacePadding(address, COL1)                     
          if REG2[8] == "0x0000000000000000":
-            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep 'puts' > puts.tmp")            
+            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep '<puts@plt>' > puts.tmp")            
             counter =lineCount("puts.tmp")
             if counter > 1:
-               cutLine("<puts@plt>","puts.tmp")
-               with open("puts.tmp","r") as main:
-                  for line in main:
-                     words = line.split()
-                     address1 = words[0].replace(":","")
-                     if (len(address1) == 6) and address1[:2] != "0x":
-                        address1 = "0x0000000000" + address1
-                     address2 = words[-2]
-                     if (len(address2) == 6) and address2[:2] != "0x":
-                        address2 = "0x0000000000" + address2  
-                     REG2[8] = spacePadding(address1, COL1) 
-                     REG2[9] = spacePadding(address2, COL1)
-        
-#         if REG2[10] == "0x0000000000000000":
-#            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " | grep 'write' > write.tmp")
-#            counter =lineCount("write.tmp")
-#            if counter > 1:
-#               cutLine("<write@plt>","write.tmp")
-#               with open("write.tmp","r") as main:
-#                  for line in main:
-#                     words = line.split()
-#                     address1 = words[0].replace(":","")
-#                     if (len(address1) == 6) and address1[:2] != "0x":
-#                        address1 = "0x0000000000" + address1
-#                     address2 = words[-2]
-#                     if (len(address2) == 6) and address2[:2] != "0x":
-#                        address2 = "0x0000000000" + address2  
-#                     REG2[10] = spacePadding(address1, COL1) 
-#                     REG2[11] = spacePadding(address2, COL1)
+               cutLine("<puts@plt>:","puts.tmp")
+               address = linecache.getline("puts.tmp", 1)
+               words = address.split()
+               address1 = words[0].replace(":","")
+               address2 = words[-2]   
+               address1 = bulkAddress(address1)
+               address2 = bulkAddress(address2)
+               REG2[8] = spacePadding(address1, COL1) 
+               REG2[9] = spacePadding(address2, COL1)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
