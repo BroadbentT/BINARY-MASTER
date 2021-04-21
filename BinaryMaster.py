@@ -32,6 +32,9 @@ from termcolor import colored
 # -------------------------------------------------------------------------------------
 
 def bulkAddress(variable):
+   if DATA[5][:1] == "u":
+      DATA[5] = spacePadding("64", COL1)
+      print("[+] Defualting to 64 bits...")
    if DATA[5][:2] == "64":
       if (len(variable) == 8) and (variable[:2] != "0x"):
          address = "0x00000000" + variable
@@ -619,12 +622,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='1':
-      BAK = REG1[0]
-      REG1[0] = input("[?] Please enter address: ")
-      if REG1[0] != "":
-         REG1[0] = bulkAddress(REG1[0])
-         REG1[0] = spacePadding(REG1[0],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[0]
+         REG1[0] = input("[?] Please enter address: ")
+         if REG1[0] != "":
+            REG1[0] = bulkAddress(REG1[0])
+            REG1[0] = spacePadding(REG1[0],COL1)
+         else:
             REG1[0] = BAK
       prompt()  
       
@@ -637,12 +643,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='2':
-      BAK = REG1[1]
-      REG1[1] = input("[?] Please enter address: ")
-      if REG1[1] != "":
-         REG1[1] = bulkAddress(REG1[1])
-         REG1[1] = spacePadding(REG1[1],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[1]
+         REG1[1] = input("[?] Please enter address: ")
+         if REG1[1] != "":
+            REG1[1] = bulkAddress(REG1[1])
+            REG1[1] = spacePadding(REG1[1],COL1)
+         else:
             REG1[1] = BAK
       prompt()   
       
@@ -655,13 +664,16 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='3':
-      BAK = REG1[2]
-      REG1[2] = input("[?] Please enter address: ")
-      if REG1[2] != "":
-         REG1[2] = bulkAddress(REG1[2])
-         REG1[2] = spacePadding(REG1[2],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[2] = BAK
+         BAK = REG1[2]
+         REG1[2] = input("[?] Please enter address: ")
+         if REG1[2] != "":
+            REG1[2] = bulkAddress(REG1[2])
+            REG1[2] = spacePadding(REG1[2],COL1)
+         else:
+            REG1[2] = BAK
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -673,13 +685,16 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='4':
-      BAK = REG1[3]
-      REG1[3] = input("[?] Please enter address: ")
-      if REG1[3] != "":
-         REG1[3] = bulkAddress(REG1[3])
-         REG1[3] = spacePadding(REG1[3],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[3] = BAK
+         BAK = REG1[3]
+         REG1[3] = input("[?] Please enter address: ")
+         if REG1[3] != "":
+            REG1[3] = bulkAddress(REG1[3])
+            REG1[3] = spacePadding(REG1[3],COL1)
+         else:
+            REG1[3] = BAK
       prompt()
            
 # ------------------------------------------------------------------------------------- 
@@ -691,13 +706,16 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='5':
-      BAK = REG1[4]
-      REG1[4] = input("[?] Please enter address: ")
-      if REG1[4] != "":
-         REG1[4] = bulkAddress(REG1[4])
-         REG1[4] = spacePadding(REG1[4],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[4] = BAK
+         BAK = REG1[4]
+         REG1[4] = input("[?] Please enter address: ")
+         if REG1[4] != "":
+            REG1[4] = bulkAddress(REG1[4])
+            REG1[4] = spacePadding(REG1[4],COL1)
+         else:
+            REG1[4] = BAK
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -709,14 +727,17 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='6':
-      BAK = REG1[5]
-      REG1[5] = input("[?] Please enter address: ")
-      if REG1[5] != "":
-         REG1[5] = bulkAddress(REG1[5])
-         REG1[5] = spacePadding(REG1[5],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[5] = BAK
-      prompt()
+         BAK = REG1[5]
+         REG1[5] = input("[?] Please enter address: ")
+         if REG1[5] != "":
+            REG1[5] = bulkAddress(REG1[5])
+            REG1[5] = spacePadding(REG1[5],COL1)
+         else:
+            REG1[5] = BAK
+         prompt()
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -727,13 +748,16 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='7':
-      BAK = REG1[6]
-      REG1[6] = input("[?] Please enter address: ")
-      if REG1[6] != "":      
-         REG1[6] = bulkAddress(REG1[6])
-         REG1[6] = spacePadding(REG1[6],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[6] = BAK
+         BAK = REG1[6]
+         REG1[6] = input("[?] Please enter address: ")
+         if REG1[6] != "":      
+            REG1[6] = bulkAddress(REG1[6])
+            REG1[6] = spacePadding(REG1[6],COL1)
+         else:
+            REG1[6] = BAK
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -745,12 +769,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='8':
-      BAK = REG1[7]
-      REG1[7] = input("[?] Please enter address: ")
-      if REG1[7] != "":
-         REG1[7] = bulkAddress(REG1[7])
-         REG1[7] = spacePadding(REG1[7],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[7]
+         REG1[7] = input("[?] Please enter address: ")
+         if REG1[7] != "":
+            REG1[7] = bulkAddress(REG1[7])
+            REG1[7] = spacePadding(REG1[7],COL1)
+         else:
             REG1[7] = BAK
       prompt()     
       
@@ -763,30 +790,36 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='9':
-      BAK = REG1[8]
-      REG1[8] = input("[?] Please enter address: ")
-      if REG1[8] != "":
-         REG1[8] = bulkAddress(REG1[8])
-         REG1[8] = spacePadding(REG1[8],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG1[8] = BAK
+         BAK = REG1[8]
+         REG1[8] = input("[?] Please enter address: ")
+         if REG1[8] != "":
+            REG1[8] = bulkAddress(REG1[8])
+            REG1[8] = spacePadding(REG1[8],COL1)
+         else:
+            REG1[8] = BAK
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set pie address.
+# Details : Menu option selected - pie address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='10':
-      BAK = REG1[9]
-      REG1[9] = input("[?] Please enter address: ")
-      if REG1[9] != "":
-         REG1[9] = bulkAddress(REG1[9])
-         REG1[9] = spacePadding(REG1[9], COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[9]
+         REG1[9] = input("[?] Please enter address: ")
+         if REG1[9] != "":
+            REG1[9] = bulkAddress(REG1[9])
+            REG1[9] = spacePadding(REG1[9], COL1)
+         else:
             REG1[9] = BAK
       prompt()      
       
@@ -794,17 +827,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set start address.
+# Details : Menu option selected - start address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='11':
-      BAK = REG1[10]
-      REG1[10] = input("[?] Please enter address: ")
-      if REG1[10] != "":      
-         REG1[10] = bulkAddress(REG1[10])
-         REG1[10] = spacePadding(REG1[10],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[10]
+         REG1[10] = input("[?] Please enter address: ")
+         if REG1[10] != "":      
+            REG1[10] = bulkAddress(REG1[10])
+            REG1[10] = spacePadding(REG1[10],COL1)
+         else:
             REG1[10] = BAK
       prompt()
       
@@ -812,17 +848,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set main address.
+# Details : Menu option selected - main address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='12':
-      BAK = REG1[11]
-      REG1[11] = input("[?] Please enter address: ")
-      if REG1[11] != "":
-         REG1[11] = bulkAddress(REG1[11])
-         REG1[11] = spacePadding(REG1[11],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG1[11]
+         REG1[11] = input("[?] Please enter address: ")
+         if REG1[11] != "":
+            REG1[11] = bulkAddress(REG1[11])
+            REG1[11] = spacePadding(REG1[11],COL1)
+         else:
             REG1[11] = BAK
       prompt()  
       
@@ -830,35 +869,41 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set system address.
+# Details : Menu option selected - system address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='13':
-      BAK = REG2[0]
-      REG2[0] = input("[?] Please enter address: ")
-      if REG2[0] != "":
-         REG2[0] = bulkAddress(REG2[0])
-         REG2[0] = spacePadding(REG2[0],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG2[0] = BAK
+         BAK = REG2[0]
+         REG2[0] = input("[?] Please enter address: ")
+         if REG2[0] != "":
+            REG2[0] = bulkAddress(REG2[0])
+            REG2[0] = spacePadding(REG2[0],COL1)
+         else:
+            REG2[0] = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set jump address.
+# Details : Menu option selected - jump to a function.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='14':
-      BAK = REG2[1]
-      REG2[1] = input("[?] Please enter address: ")
-      if REG2[1] != "":
-         REG2[1] = bulkAddress(REG2[1])
-         REG2[1] = spacePadding(REG2[1],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[1]
+         REG2[1] = input("[?] Please enter address: ")
+         if REG2[1] != "":
+            REG2[1] = bulkAddress(REG2[1])
+            REG2[1] = spacePadding(REG2[1],COL1)
+         else:
             REG2[1] = BAK
       prompt()  
       
@@ -866,17 +911,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set compare address.
+# Details : Menu option selected - overwrite address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='15':
-      BAK = REG2[2]
-      REG2[2] = input("[?] Please enter address: ")
-      if REG2[2] != "":
-         REG2[2] = bulkAddress(REG2[2])
-         REG2[2] = spacePadding(REG2[2],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[2]
+         REG2[2] = input("[?] Please enter address: ")
+         if REG2[2] != "":
+            REG2[2] = bulkAddress(REG2[2])
+            REG2[2] = spacePadding(REG2[2],COL1)
+         else:
             REG2[2] = BAK
       prompt()  
       
@@ -884,17 +932,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set write address.
+# Details : Menu option selected - memory content address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='16':
-      BAK = REG2[3]
-      REG2[3] = input("[?] Please enter address: ")
-      if REG2[3] != "":
-         REG2[3] = bulkAddress(REG2[3])
-         REG2[3] = spacePadding(REG2[3],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[3]
+         REG2[3] = input("[?] Please enter address: ")
+         if REG2[3] != "":
+            REG2[3] = bulkAddress(REG2[3])
+            REG2[3] = spacePadding(REG2[3],COL1)
+         else:
             REG2[3] = BAK
       prompt()  
       
@@ -902,35 +953,41 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set test address.
+# Details : Menu option selected - unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='17':
-      BAK = REG2[4]
-      REG2[4] = input("[?] Please enter address: ")
-      if REG2[4] != "":
-         REG2[4] = bulkAddress(REG2[4])
-         REG2[4] = spacePadding(REG2[4],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG2[4] = BAK
+         BAK = REG2[4]
+         REG2[4] = input("[?] Please enter address: ")
+         if REG2[4] != "":
+            REG2[4] = bulkAddress(REG2[4])
+            REG2[4] = spacePadding(REG2[4],COL1)
+         else:
+            REG2[4] = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set custom address.
+# Details : Menu option selected - unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='18':
-      BAK = REG2[5]
-      REG2[5] = input("[?] Please enter address: ")
-      if REG2[5] != "":
-         REG2[5] = bulkAddress(REG2[5])
-         REG2[5] = spacePadding(REG2[5],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[5]
+         REG2[5] = input("[?] Please enter address: ")
+         if REG2[5] != "":
+            REG2[5] = bulkAddress(REG2[5])
+            REG2[5] = spacePadding(REG2[5],COL1)
+         else:
             REG2[5] = BAK
       prompt()  
 
@@ -938,36 +995,42 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set POP RDI RET.
+# Details : Menu option selected - unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='19':
-      BAK = REG2[6]
-      REG2[6] = input("[?] Please enter address: ")
-      if REG2[6] != "":
-         REG2[6] = bulkAddress(REG2[6])
-         REG2[6] = spacePadding(REG2[6],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG2[6] = BAK
+         BAK = REG2[6]
+         REG2[6] = input("[?] Please enter address: ")
+         if REG2[6] != "":
+            REG2[6] = bulkAddress(REG2[6])
+            REG2[6] = spacePadding(REG2[6],COL1)
+         else:
+            REG2[6] = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Unallocated 1.
+# Details : Menu option selected - unallocated.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='20':
-      BAK = REG2[7]
-      REG2[7] = input("[?] Please enter address: ")
-      if REG2[7] != "":
-         REG2[7] = bulkAddress(REG2[7])
-         REG2[7] = spacePadding(REG2[7],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
-         REG2[7] = BAK
+         BAK = REG2[7]
+         REG2[7] = input("[?] Please enter address: ")
+         if REG2[7] != "":
+            REG2[7] = bulkAddress(REG2[7])
+            REG2[7] = spacePadding(REG2[7],COL1)
+         else:
+            REG2[7] = BAK
       prompt()  
       
 # ------------------------------------------------------------------------------------- 
@@ -979,12 +1042,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='21':
-      BAK = REG2[8]
-      REG2[8] = input("[?]  Please enter address: ")
-      if REG2[8] != "":      
-         REG2[8] = bulkAddress(REG2[8])
-         REG2[8] = spacePadding(REG2[8],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[8]
+         REG2[8] = input("[?]  Please enter address: ")
+         if REG2[8] != "":      
+            REG2[8] = bulkAddress(REG2[8])
+            REG2[8] = spacePadding(REG2[8],COL1)
+         else:
             REG2[8] = BAK
       prompt()  
       
@@ -997,12 +1063,15 @@ while True:
 # -------------------------------------------------------------------------------------      
       
    if selection =='22':
-      BAK = REG2[9]
-      REG2[9] = input("[?] Please enter address: ")
-      if REG2[9] != "":
-         REG2[9] = bulkAddress(REG2[9])
-         REG2[9] = spacePadding(REG2[9],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[9]
+         REG2[9] = input("[?] Please enter address: ")
+         if REG2[9] != "":
+            REG2[9] = bulkAddress(REG2[9])
+            REG2[9] = spacePadding(REG2[9],COL1)
+         else:
             REG2[9] = BAK
       prompt()  
       
@@ -1010,17 +1079,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set UNALLOCATED 2.
+# Details : Menu option selected - Set pop rdi; ret.
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='23':
-      BAK = REG2[10]
-      REG2[10] = input("[?] Please enter address: ")
-      if REG2[10] != "":
-         REG2[10] = bulkAddress(REG2[10])
-         REG2[10] = spacePadding(REG2[10],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[10]
+         REG2[10] = input("[?] Please enter address: ")
+         if REG2[10] != "":
+            REG2[10] = bulkAddress(REG2[10])
+            REG2[10] = spacePadding(REG2[10],COL1)
+         else:
             REG2[10] = BAK
       prompt()  
       
@@ -1028,17 +1100,20 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Set UNALLOCATED 3.
+# Details : Menu option selected - LibC address
 # Modified: N/A
 # -------------------------------------------------------------------------------------      
       
    if selection =='24':
-      BAK = REG2[11]
-      REG2[11] = input("[?] Please enter address: ")
-      if REG2[11] != "":      
-         REG2[11] = bulkAddress(REG2[11])
-         REG2[11] = spacePadding(REG2[11],COL1)
+      if DATA[0][:7].upper() == "UNKNOWN":
+         print("[-] Filename not specified...")
       else:
+         BAK = REG2[11]
+         REG2[11] = input("[?] Please enter address: ")
+         if REG2[11] != "":      
+            REG2[11] = bulkAddress(REG2[11])
+            REG2[11] = spacePadding(REG2[11],COL1)
+         else:
             REG2[11] = BAK
       prompt()  
       
