@@ -199,8 +199,14 @@ def dispMenu():
       if REG2[x] == "0x0000000000000000":
          print(colored(REG2[x],colour7), end=' ')
       else:
-         print(colored(REG2[x],colour6), end=' ')      
-      print('\u2551' + HED2[x][:15] + '\u2551', end=' ')
+         if (x in range(1,8)) and (CSEC[6][:1] != "0"):
+            print(colored(REG2[x],colour3), end=' ')            
+         else:
+            print(colored(REG2[x],colour6), end=' ')   
+      if "<============" in HED2[x]:
+         print('\u2551' + colored(HED2[x][:15], colour3) + '\u2551', end=' ')
+      else:
+         print('\u2551' + HED2[x][:15] + '\u2551', end=' ')
       if (CSEC[6][:1] != "0") and (x == 8):
          print(colored(REG1[x],colour3), end=' ')
       elif REG1[x] == "0x0000000000000000":
@@ -264,7 +270,7 @@ def options():
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI AND RETN (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
@@ -292,28 +298,28 @@ def options():
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17) CUSTOM-1  ADDR (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18)                (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18) CUSTOM-2  ADDR (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19)                (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19) CUSTOM-3  ADDR (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
       print(colored(FUNC[21],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20)                (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
+   print('\u2551' + "(10) PIE  ADDRESS (20) CUSTOM-4  ADDR (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
    if FUNC[23] != "":
       print(colored(FUNC[22],colour0), end=' ');print('\u2551')    
    elif "main" in FUNC[22]:
@@ -436,13 +442,13 @@ HED1[0]  = spacePadding(" SYSTEM ADDRESS ", COL1+2)
 HED1[1]  = spacePadding(" JUMPTOFUNCTION ", COL1+2)   
 HED1[2]  = spacePadding(" OVERWRITE ADDR ", COL1+2)   
 HED1[3]  = spacePadding(" MEMORY CONTENT ", COL1+2)   
-HED1[4]  = spacePadding("                ", COL1+2)   
-HED1[5]  = spacePadding("                ", COL1+2)   
-HED1[6]  = spacePadding("                ", COL1+2)   
-HED1[7]  = spacePadding("                ", COL1+2)   
+HED1[4]  = spacePadding(" CUSTOM-1  ADDR ", COL1+2)   
+HED1[5]  = spacePadding(" CUSTOM-2  ADDR ", COL1+2)   
+HED1[6]  = spacePadding(" CUSTOM-3  ADDR ", COL1+2)   
+HED1[7]  = spacePadding(" CUSTOM-4  ADDR ", COL1+2)   
 HED1[8]  = spacePadding(" PUTS@PLT  ADDR ", COL1+2)   
 HED1[9]  = spacePadding(" PUTS@GOT  ADDR ", COL1+2)
-HED1[10] = spacePadding(" POP RDI ;  RET ", COL1+2)
+HED1[10] = spacePadding(" POP RDI & RETN ", COL1+2)
 HED1[11] = spacePadding(" LIBC   ADDRESS ", COL1+2)   
    
 HED2[0]  = spacePadding(" RAX/EAX/AX/AH  ", COL1+2)
@@ -1766,6 +1772,11 @@ while True:
             CSEC[6] = spacePadding(CSEC[6],COL1)
          else:
             CSEC[6] = BAK
+         value = int(CSEC[6].rstrip(" "))
+         if value == 0:
+            HED2[8] = spacePadding(" RIP/EIP", COL1)
+         else:
+            HED2[8] = spacePadding(" <============", COL1)
       prompt() 
       
 # ------------------------------------------------------------------------------------- 

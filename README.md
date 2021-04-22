@@ -6,7 +6,7 @@
 
 **INSTALLATION INSTRUCTIONS**
 
-        BIN MASTER (BETA Version 2.0)
+        BIN MASTER (BETA Version 3.0)
         -------------------------------------------------------
         git clone https://github.com/BroadbentT/BIN-MASTER.git 
 <br>
@@ -24,7 +24,7 @@ USAGE : python3 BinaryMaster.py
 
 | LANGUAGE  | FILENAME        | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------           | -------                          | ------         | ----       |
-| python3   | BinaryMaster.py | 8b33c50e8dfa1b7b9b1f9c861ea8525c | Command Centre | Full Stack |
+| python3   | BinaryMaster.py | 2dbe14df4fafb1d357ed752a44e979de | Command Centre | Full Stack |
 
 	[x] Database not currently linked - expected on version alpha.
 
