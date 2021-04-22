@@ -24,9 +24,9 @@ USAGE : python3 BinaryMaster.py
 
 | LANGUAGE  | FILENAME        | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------           | -------                          | ------         | ----       |
-| python3   | BinaryMaster.py | 9aeb65abc61dcb01f62c83d5e2c91b7a | Command Centre | Full Stack |
+| python3   | BinaryMaster.py | f35b74e3de7dcb7c04812885ec73f556 | Command Centre | Full Stack |
 
-	[x] Database not currently linked - expected version 3.0
+	[x] Database not currently linked - expected on version alpha.
 
 ### CONSOLE DISPLAY AND VIDEO LINK
 [![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/73nA-Yx8IGU "Binary Master")
