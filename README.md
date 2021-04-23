@@ -28,8 +28,14 @@ USAGE : python3 BinaryMaster.py
 
 	[x] Database not currently linked - expected on version alpha.
 
-### CONSOLE DISPLAY AND VIDEO LINK
-[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/n0eEueHMAWw "Binary Master")
+### CONSOLE DISPLAY
+[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)]
+
+## TUTORIALS.
+	JEEVES		(https://youtu.be/I9ibbnTuUV8)
+	REG		(https://youtu.be/fU0hyzH6_PA)
+	HTB-CONSOLE	(https://youtu.be/NzXTFUCmObU)
+	BLACKSMITH	(https://youtu.be/O3GgKLSrlVQ)
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
