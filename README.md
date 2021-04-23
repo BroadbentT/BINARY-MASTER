@@ -29,7 +29,7 @@ USAGE : python3 BinaryMaster.py
 	[x] Database not currently linked - expected on version alpha.
 
 ### CONSOLE DISPLAY
-[RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)
+[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)()
 
 ## TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
