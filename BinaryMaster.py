@@ -195,7 +195,7 @@ def dispMenu():
    print('\u2560' + ('\u2550')*16 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*15 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*28 + '\u256C' + ('\u2550')*18 + '\u256C' +  ('\u2550')*38 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    for x in range(0,12):
-      if (x in range(1, 8)):
+      if (x in range(1, 8)) and (REG2[x] == "0x0000000000000000"):
          print('\u2551' + colored(HED1[x][:16],colour2) + '\u2551', end=' ')
       else:
          print('\u2551' + HED1[x][:16] + '\u2551', end=' ')         
@@ -206,7 +206,7 @@ def dispMenu():
             print(colored(REG2[x],colour3), end=' ')            
          else:
             print(colored(REG2[x],colour6), end=' ')      
-      if (x in range(0,9)):
+      if (x in range(0,9)) and (REG1[x] == "0x0000000000000000"):
          if "<============" in HED2[x]:
             print('\u2551' + colored(HED2[x][:15], colour3) + '\u2551', end=' ')
          else:
