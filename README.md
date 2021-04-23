@@ -33,10 +33,10 @@ USAGE : python3 BinaryMaster.py
 
 ## TUTORIALS.
 
-[JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")
-[REG](https://youtu.be/fU0hyzH6_PA "REG")
-[HTB-CONSOLE](https://youtu.be/NzXTFUCmObU "HTB-CONSOLE")
-[BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")
+[JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
+[REG](https://youtu.be/fU0hyzH6_PA "REG")<br>
+[HTB-CONSOLE](https://youtu.be/NzXTFUCmObU "HTB-CONSOLE")<br>
+[BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")<br>
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
