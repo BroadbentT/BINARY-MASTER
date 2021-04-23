@@ -29,7 +29,9 @@ USAGE : python3 BinaryMaster.py
 	[x] Database not currently linked - expected on version alpha.
 
 ### CONSOLE DISPLAY
-[![RamMater](https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png)](https://youtu.be/73nA-Yx8IGU "Binary Master")
+<p align="center">
+  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png">
+</p>
 
 ## TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
