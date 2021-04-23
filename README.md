@@ -24,7 +24,7 @@ USAGE : python3 BinaryMaster.py
 
 | LANGUAGE  | FILENAME        | MD5 Hash                         | DESCRIPTION    | VERSION    |
 |------     |------           | -------                          | ------         | ----       |
-| python3   | BinaryMaster.py | 8a1e8ada1bf8ebf2223c38f0be9a1fed | Command Centre | Full Stack |
+| python3   | BinaryMaster.py | 1294b755c55ed065802290a6aca95c7f | Command Centre | Full Stack |
 
 	[x] Database not currently linked - expected on version alpha.
 
