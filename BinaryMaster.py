@@ -195,18 +195,24 @@ def dispMenu():
    print('\u2560' + ('\u2550')*16 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*15 + '\u2566' + ('\u2550')*20 + '\u256C' + ('\u2550')*28 + '\u256C' + ('\u2550')*18 + '\u256C' +  ('\u2550')*38 + '\u2563')   
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
    for x in range(0,12):
-      print('\u2551' + HED1[x][:16] + '\u2551', end=' ')
+      if (x in range(1, 8)):
+         print('\u2551' + colored(HED1[x][:16],colour2) + '\u2551', end=' ')
+      else:
+         print('\u2551' + HED1[x][:16] + '\u2551', end=' ')         
       if REG2[x] == "0x0000000000000000":
          print(colored(REG2[x],colour7), end=' ')
       else:
          if (x in range(1,8)) and (CSEC[6][:1] != "0"):
             print(colored(REG2[x],colour3), end=' ')            
          else:
-            print(colored(REG2[x],colour6), end=' ')   
-      if "<============" in HED2[x]:
-         print('\u2551' + colored(HED2[x][:15], colour3) + '\u2551', end=' ')
-      else:
-         print('\u2551' + HED2[x][:15] + '\u2551', end=' ')
+            print(colored(REG2[x],colour6), end=' ')      
+      if (x in range(0,9)):
+         if "<============" in HED2[x]:
+            print('\u2551' + colored(HED2[x][:15], colour3) + '\u2551', end=' ')
+         else:
+            print('\u2551' + colored(HED2[x][:15], colour2) + '\u2551', end=' ')
+      else:   
+         print('\u2551' + HED2[x][:15] + '\u2551', end=' ')         
       if (CSEC[6][:1] != "0") and (x == 8):
          print(colored(REG1[x],colour3), end=' ')
       elif REG1[x] == "0x0000000000000000":
@@ -263,21 +269,21 @@ def options():
       print(colored(FUNC[13],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) GOTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp   Dump" + '\u2551',end=' ')
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) PUTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp   Dump" + '\u2551',end=' ')
    if "main" in FUNC[14]:
       print(colored(FUNC[14],colour3), end=' ')
    else:
       print(colored(FUNC[14],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI AND RETN (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI  ADDRESS (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
    if "main" in FUNC[15]:
       print(colored(FUNC[15],colour3), end=' ')
    else:
       print(colored(FUNC[15],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(04) DATA         (14) JUMPTOFUNCTION (24) LIBC     ADDRESS (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
+   print('\u2551' + "(04) DATA         (14) FUNCTION  ADDR (24) LIBC     ADDRESS (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
    if "main" in FUNC[16]:
       print(colored(FUNC[16],colour3), end=' ')
    else:
@@ -291,35 +297,35 @@ def options():
       print(colored(FUNC[17],colour6), end=' ')     
    print('\u2551')
    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY CONTENT (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
+   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY    ADDR (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
    if "main" in FUNC[18]:
       print(colored(FUNC[18],colour3), end=' ')
    else:
       print(colored(FUNC[18],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) CUSTOM-1  ADDR (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
+   print('\u2551' + "(07) STACKPOINTER (17) POINTER   ADDR (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
    if "main" in FUNC[19]:
       print(colored(FUNC[19],colour3), end=' ')
    else:
       print(colored(FUNC[19],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18) CUSTOM-2  ADDR (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
+   print('\u2551' + "(08) BASE POINTER (18) CUSTOM-1  ADDR (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
    if "main" in FUNC[20]:
       print(colored(FUNC[20],colour3), end=' ')
    else:
       print(colored(FUNC[20],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19) CUSTOM-3  ADDR (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
+   print('\u2551' + "(09) INST POINTER (19) CUSTOM-2  ADDR (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
    if "main" in FUNC[21]:
       print(colored(FUNC[21],colour3), end=' ')
    else:
       print(colored(FUNC[21],colour6), end=' ')     
    print('\u2551')
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20) CUSTOM-4  ADDR (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
+   print('\u2551' + "(10) PIE  ADDRESS (20) CUSTOM-3  ADDR (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
    if FUNC[23] != "":
       print(colored(FUNC[22],colour0), end=' ');print('\u2551')    
    elif "main" in FUNC[22]:
@@ -439,16 +445,16 @@ GRAD = [" "*COL2]*maxDispl
 # TEMPORAY DEFUALT VALUES
     
 HED1[0]  = spacePadding(" SYSTEM ADDRESS ", COL1+2)   
-HED1[1]  = spacePadding(" JUMPTOFUNCTION ", COL1+2)   
+HED1[1]  = spacePadding(" FUNCTION  ADDR ", COL1+2)   
 HED1[2]  = spacePadding(" OVERWRITE ADDR ", COL1+2)   
-HED1[3]  = spacePadding(" MEMORY CONTENT ", COL1+2)   
-HED1[4]  = spacePadding(" CUSTOM-1  ADDR ", COL1+2)   
-HED1[5]  = spacePadding(" CUSTOM-2  ADDR ", COL1+2)   
-HED1[6]  = spacePadding(" CUSTOM-3  ADDR ", COL1+2)   
-HED1[7]  = spacePadding(" CUSTOM-4  ADDR ", COL1+2)   
-HED1[8]  = spacePadding(" PUTS@PLT  ADDR ", COL1+2)   
-HED1[9]  = spacePadding(" PUTS@GOT  ADDR ", COL1+2)
-HED1[10] = spacePadding(" POP RDI & RETN ", COL1+2)
+HED1[3]  = spacePadding(" MEMORY    ADDR ", COL1+2)   
+HED1[4]  = spacePadding(" POINTER   ADDR ", COL1+2)   
+HED1[5]  = spacePadding(" CUSTOM-1  ADDR ", COL1+2)   
+HED1[6]  = spacePadding(" CUSTOM-2  ADDR ", COL1+2)   
+HED1[7]  = spacePadding(" CUSTOM-3  ADDR ", COL1+2)   
+HED1[8]  = spacePadding(" PUTPLT ADDRESS ", COL1+2)   
+HED1[9]  = spacePadding(" PUTGOT ADDRESS ", COL1+2)
+HED1[10] = spacePadding(" POPRDI ADDRESS ", COL1+2)
 HED1[11] = spacePadding(" LIBC   ADDRESS ", COL1+2)   
    
 HED2[0]  = spacePadding(" RAX/EAX/AX/AH  ", COL1+2)
@@ -461,7 +467,7 @@ HED2[6]  = spacePadding(" RSP/ESP/SP/SL  ", COL1+2)
 HED2[7]  = spacePadding(" RBP/EBP/BP/BL  ", COL1+2)
 HED2[8]  = spacePadding(" RIP/EIP        ", COL1+2)
 HED2[8]  = spacePadding(" RIP/EIP        ", COL1+2)
-HED2[9]  = spacePadding(" PIE  LOCATION  ", COL1+2)
+HED2[9]  = spacePadding(" PIE   ADDRESS  ", COL1+2)
 HED2[10] = spacePadding(" START ADDRESS  ", COL1+2)
 HED2[11] = spacePadding(" MAIN  ADDRESS  ", COL1+2)
 
@@ -2055,10 +2061,10 @@ while True:
             command("echo 'jumpto    = p64(" + REG2[1].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'overwrite = p64(" + REG2[2].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'memory    = p64(" + REG2[3].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo 'unset_2   = p64(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo 'unset_3   = p64(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
-            command("echo 'unset_4   = p64(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
-            command("echo 'unset_5   = p64(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'pointer   = p64(" + REG2[4].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_1   = p64(" + REG2[5].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
+            command("echo 'unset_2   = p64(" + REG2[6].rstrip(" ") + ")' >> " + localDir + "/exploit.py")         
+            command("echo 'unset_3   = p64(" + REG2[7].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'puts_plt  = p64(" + REG2[8].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'puts_got  = p64(" + REG2[9].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
             command("echo 'pop_rdi   = p64(" + REG2[10].rstrip(" ") + ")' >> " + localDir + "/exploit.py")
