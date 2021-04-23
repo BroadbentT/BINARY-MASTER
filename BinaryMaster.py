@@ -2172,11 +2172,12 @@ while True:
             command("echo 's.interactive()'  >> " + localDir + "/exploit.py")
             command("echo 'exit()'  >> " + localDir + "/exploit.py")
             
-# ADD YOUR BESPOKE PAYLOADS HERE
-         
-         command("echo 's.send(payload)' >> " + localDir + "/exploit.py")
-         command("echo 's.interactive()' >> " + localDir + "/exploit.py")
-         command("echo '# s.close()' >> " + localDir + "/exploit.py")         
+# ADD YOUR BESPOKE PAYLOADS HERE     
+         command("echo 'try:' >> " + localDir + "/exploit.py")
+         command("echo '   s.send(payload)' >> " + localDir + "/exploit.py")
+         command("echo '   s.interactive()' >> " + localDir + "/exploit.py")
+         command("echo 'except:' >> " + localDir + "/exploit.py")
+         command("echo '   s.close()' >> " + localDir + "/exploit.py")         
          print(colored("[*] Python exploit template sucessfully created...", colour3))
          catsFile(localDir + "/exploit.py")
          os.chdir(localDir)
