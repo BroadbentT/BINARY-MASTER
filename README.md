@@ -36,14 +36,15 @@ USAGE : python3 BinaryMaster.py
 
 ## TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
-[BATCOMPUTER]<br>
-[OPTIMISTIC]<br>
+[BATCOMPUTER *]<br>
+[OPTIMISTIC *]<br>
 [REG](https://youtu.be/fU0hyzH6_PA "REG")<br>
 [HTB-CONSOLE](https://youtu.be/NzXTFUCmObU "HTB-CONSOLE")<br>
 [PWNSHOP]<br>
-[LEET TEST]<br>
+[LEET TEST *]<br>
 [NIGHTMARE]<br>
 [BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")<br>
+* Coded but no video at the moment.
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
