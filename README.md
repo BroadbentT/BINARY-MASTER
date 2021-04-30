@@ -36,8 +36,13 @@ USAGE : python3 BinaryMaster.py
 
 ## TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
+[BATCOMPUTER]<br>
+[OPTIMISTIC]<br>
 [REG](https://youtu.be/fU0hyzH6_PA "REG")<br>
 [HTB-CONSOLE](https://youtu.be/NzXTFUCmObU "HTB-CONSOLE")<br>
+[PWNSHOP]<br>
+[LEET TEST]<br>
+[NIGHTMARE]<br>
 [BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")<br>
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
