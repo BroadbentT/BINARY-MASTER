@@ -36,7 +36,7 @@ USAGE : python3 BinaryMaster.py
 
 ## INTRO TO BINARY EXPLOITATION TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
-[BATCOMPUTER *]<br>
+[BATCOMPUTER](https://youtu.be/FslmFgKbCNU "BATCOMPUTER")<br>
 [OPTIMISTIC *]<br>
 [REG](https://youtu.be/fU0hyzH6_PA "REG")<br>
 [HTB-CONSOLE](https://youtu.be/NzXTFUCmObU "HTB-CONSOLE")<br>
