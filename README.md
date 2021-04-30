@@ -34,7 +34,7 @@ USAGE : python3 BinaryMaster.py
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png">
 </p>
 
-## TUTORIALS.
+## INTRO TO BINARY EXPLOITATION TUTORIALS.
 [JEEVES](https://youtu.be/I9ibbnTuUV8 "JEEVES")<br>
 [BATCOMPUTER *]<br>
 [OPTIMISTIC *]<br>
