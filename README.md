@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture1.png">
+  <img src="docs/title.png">
 </p>
 
 ## FULL STACK EDITION
@@ -12,7 +12,7 @@
 <br>
 
 <p align="center">
-  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture2.png"> 
+  <img src="docs/logo.png"> 
 </p>
 
 ## COMMAND CENTRE TO STATICALLY AND DYNAMICALLY INVESTIGATE AND ANALYSE BINARY FILES FOR BUFFER OVERFLOW.
@@ -31,7 +31,7 @@ USAGE : python3 BinaryMaster.py
 
 ### CONSOLE DISPLAY
 <p align="center">
-  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png">
+  <img src="docs/screenshot.png">
 </p>
 
 ## INTRO TO BINARY EXPLOITATION TUTORIALS.
