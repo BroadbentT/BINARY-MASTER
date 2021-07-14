@@ -1488,7 +1488,7 @@ while True:
          print("[-] Filename not specified...")
       else:
          print(colored("[*] Examining filename " + localDir + "/" + DATA[0].rstrip(" ") + "...", colour3))
-         command("checksec --file=\"" + localDir + "/" + DATA[0].rstrip(" ") + "\" > checksec.tmp")
+         command("checksec --file=\"" + localDir + "/" + DATA[0].rstrip(" ") + "\" 2> checksec.tmp")
          cutLine("*", "checksec.tmp")
          parsFile("checksec.tmp")
          catsFile("checksec.tmp")         
