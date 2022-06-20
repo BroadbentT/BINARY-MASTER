@@ -466,7 +466,9 @@ def options():
    print('\u2551')
 
    for z in range(24, maxDispl-3):
-      print('\u2551' + (" "*122) + '\u2551', end=' ')
+      print('\u2551', end='')
+      print(colored("▉"*121, colour1),end=' ')
+      print('\u2551', end=' ')
       if "main" in FUNC[z]:
          print(colored(FUNC[z], colour3), end=' ')
       else:
