@@ -35,7 +35,7 @@ USAGE : python3 BinaryMaster.py
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture4.png"> 
 </p>
 
-### CONSOLE DISPLAY
+## CONSOLE DISPLAY
 <p align="center">
   <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture3.png">
 </p>
