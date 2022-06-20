@@ -22,10 +22,11 @@ A python script file to statically and dynamically investigate and analyse binar
 TESTED: Kali Linux 2019<br>
 USAGE : python3 BinaryMaster.py
 
-| LANGUAGE  | FILENAME        | MD5 Hash                         | DESCRIPTION    | VERSION    |
-|------     |------           | -------                          | ------         | ----       |
-| python3   | BinaryMaster.py | f6ccc622e09d87f0919565258b833e40 | Command Centre | Full Stack |
-| SQL       | RA.db           | 9028b903ebec73df11850d1e91c5244e | Database       | Full Stack | 
+| LANGUAGE  | FILENAME                     | MD5 Hash                         | DESCRIPTION    | VERSION    |
+|------     |------                        | -------                          | ------         | ----       |
+| python3   | BinaryMaster.py              | f6ccc622e09d87f0919565258b833e40 | Command Centre | Full Stack |
+| python3   | BinaryManster-WideScreen.py) | 14daff492edb6c8ed580ed155ba42e32 | Command Centre | Full Stack |
+| SQL       | RA.db                        | 9028b903ebec73df11850d1e91c5244e | Database       | Full Stack | 
 
 	[x] Database currently not linked.
 
@@ -45,6 +46,11 @@ USAGE : python3 BinaryMaster.py
 [NIGHTMARE]<br>
 [BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")<br>
 * Coded but no video at the moment.
+
+## NEW WIDE SCREEN VERSION 2022
+<p align="center">
+  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture4.png"> 
+</p>
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
