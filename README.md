@@ -29,6 +29,11 @@ USAGE : python3 BinaryMaster.py
 | SQL       | RA.db                       | 9028b903ebec73df11850d1e91c5244e | Database       | Full Stack | 
 
 	[x] Database currently not linked.
+	
+## NEW WIDESCREEN VERSION 2022
+<p align="center">
+  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture4.png"> 
+</p>
 
 ### CONSOLE DISPLAY
 <p align="center">
@@ -46,11 +51,6 @@ USAGE : python3 BinaryMaster.py
 [NIGHTMARE]<br>
 [BLACKSMITH](https://youtu.be/O3GgKLSrlVQ "BLACKSMITH")<br>
 * Coded but no video at the moment.
-
-## NEW WIDESCREEN VERSION 2022
-<p align="center">
-  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture4.png"> 
-</p>
 
 ### COMPUTER MISUSE ACT 1990 - SECTION 3A
 This software program has been specifically written for the purpose of legitimate penetration testing and should not be used for any other unauthorised or nefarious reasons.
