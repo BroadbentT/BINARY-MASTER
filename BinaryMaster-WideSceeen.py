@@ -455,7 +455,10 @@ def options():
    print('\u2551')
 
    print('\u2560' + ('\u2550'*122) + '\u2563', end=' ')
-   print(colored(FUNC[23], colour6), end=' ')
+   if "main" in FUNC[23]:
+      print(colored(FUNC[23], colour3), end=' ')
+   else:
+      print(colored(FUNC[23], colour6), end=' ')
    print('\u2551', end =' ')
    print(colored(GADG[23], colour6), end=' ')
    print('\u2551', end=' ')
@@ -464,7 +467,10 @@ def options():
 
    for z in range(24, maxDispl-3):
       print('\u2551' + (" "*122) + '\u2551', end=' ')
-      print(colored(FUNC[z], colour6), end=' ')
+      if "main" in FUNC[z]:
+         print(colored(FUNC[z], colour3), end=' ')
+      else:
+         print(colored(FUNC[z], colour6), end=' ')
       print('\u2551', end =' ')
       print(colored(GADG[z], colour6), end=' ')
       print('\u2551', end=' ')
