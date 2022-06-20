@@ -12,7 +12,7 @@
 <br>
 
 <p align="center">
-  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture2.png"> 
+  <img src="https://github.com/BroadbentT/BIN-MASTER/blob/master/picture2022.png"> 
 </p>
 
 ## COMMAND CENTRE TO STATICALLY AND DYNAMICALLY INVESTIGATE AND ANALYSE BINARY FILES FOR BUFFER OVERFLOW.
