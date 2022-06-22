@@ -1382,6 +1382,7 @@ while True:
       count = lineCount("dir.tmp")        
       if count < 1:
          print("[-] The directory is empty...")
+         prompt()
       else:
          catsFile("dir.tmp")
          BAK = DATA[0]
